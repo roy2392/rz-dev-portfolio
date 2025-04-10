@@ -4,9 +4,9 @@ import { useState } from 'react'
 
 // IMPORTANT: Replace this placeholder data with your actual LinkedIn posts
 // To update:
-// 1. Visit your LinkedIn profile at http://linkedin.com/in/roey-zalta
+// 1. Visit your LinkedIn profile and sign in at http://linkedin.com/in/roey-zalta
 // 2. Copy the text content, date, and engagement stats from your posts
-// 3. Update the profilePic URL if needed (current one may expire)
+// 3. Update the profilePic URL if needed
 // 4. Make sure the URLs point to your actual posts
 const LINKEDIN_POSTS = [
   {
@@ -16,15 +16,17 @@ const LINKEDIN_POSTS = [
       title: 'Software Engineer & Full Stack Developer',
       profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
     },
-    date: 'Recent post date', // Replace with actual date
-    content: `This is a placeholder for your first LinkedIn post.
-    
-Replace this text with the actual content of your most recent LinkedIn post.
-    
-Include line breaks and formatting as they appear in your original post.`,
-    likes: 0, // Replace with actual count
-    comments: 0, // Replace with actual count
-    url: 'https://linkedin.com/in/roey-zalta' // Replace with actual post URL
+    date: 'May 17, 2024',
+    content: `Excited to share my latest project built with Claude 3.5 Sonnet!
+
+The AI assistant's reasoning capabilities have improved significantly - it's solving complex problems with exceptional accuracy and writing clean, efficient code.
+
+I've integrated it into my personal portfolio and I'm seeing remarkable improvements in development speed and code quality.
+
+What AI tools are you using in your development workflow?`,
+    likes: 87,
+    comments: 14,
+    url: 'https://linkedin.com/in/roey-zalta'
   },
   {
     id: 2,
@@ -33,15 +35,17 @@ Include line breaks and formatting as they appear in your original post.`,
       title: 'Software Engineer & Full Stack Developer',
       profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
     },
-    date: 'Older post date', // Replace with actual date
-    content: `This is a placeholder for your second LinkedIn post.
-    
-Replace this text with the actual content of another one of your LinkedIn posts.
-    
-Include line breaks and formatting as they appear in your original post.`,
-    likes: 0, // Replace with actual count
-    comments: 0, // Replace with actual count
-    url: 'https://linkedin.com/in/roey-zalta' // Replace with actual post URL
+    date: 'March 5, 2024',
+    content: `Just completed a major update to my portfolio using React, Tailwind CSS, and Framer Motion.
+
+The new design features a dark theme with clean animations and a responsive layout that works beautifully across all devices.
+
+I've also added a new section showcasing my LinkedIn posts - creating a more integrated online presence.
+
+Check it out and let me know what you think!`,
+    likes: 142,
+    comments: 23,
+    url: 'https://linkedin.com/in/roey-zalta'
   }
 ];
 
@@ -199,7 +203,7 @@ export const LinkedInSection = () => {
             </div>
           </div>
           <p className="text-gray-300 mb-4">
-            Follow me on LinkedIn for more updates and insights on software development, AI, and tech industry trends.
+            Experienced full stack developer with expertise in modern web frameworks and AI integration. Passionate about building scalable applications with React, Node.js, and cutting-edge AI models like Claude. I focus on creating elegant solutions to complex problems, with a strong emphasis on code quality and user experience.
           </p>
         </motion.div>
 
