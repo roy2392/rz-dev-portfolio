@@ -2,47 +2,46 @@ import { motion } from 'framer-motion'
 import { Linkedin, ThumbsUp, MessageSquare, Repeat, Send, Heart, Calendar } from 'lucide-react'
 import { useState } from 'react'
 
-// LinkedIn post data
+// IMPORTANT: Replace this placeholder data with your actual LinkedIn posts
+// To update:
+// 1. Visit your LinkedIn profile at http://linkedin.com/in/roey-zalta
+// 2. Copy the text content, date, and engagement stats from your posts
+// 3. Update the profilePic URL if needed (current one may expire)
+// 4. Make sure the URLs point to your actual posts
 const LINKEDIN_POSTS = [
   {
     id: 1,
     author: {
       name: 'Roey Zalta',
       title: 'Software Engineer & Full Stack Developer',
-      profilePic: 'https://media.licdn.com/dms/image/D4D03AQEdhRu72SMqoA/profile-displayphoto-shrink_100_100/0/1702197354874?e=1719446400&v=beta&t=uIvqjS_-YNJrRbxJLDJOyxfuE9AX9MHQPYiJwZV3u9s'
+      profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
     },
-    date: 'May 17, 2024',
-    content: `Anthropic Claude 3.5 Sonnet: The most advanced AI assistant ever created by Anthropic.
-      
-      Claude has incredible reasoning capabilities, can solve complex problems accurately, and writes code with exceptional precision.
-      
-      Claude 3.5 Sonnet is now the smartest AI system in its class according to the MMLU benchmark (90.3%) surpassing GPT-4's score (86.4%).
-      
-      I can't wait to integrate it into all of my projects!`,
-    likes: 87,
-    comments: 14,
-    url: 'https://www.linkedin.com/posts/roey-zalta_anthropic-claude-3-5-sonnet-the-most-advanced-activity-7190673444315951104-I-I0'
+    date: 'Recent post date', // Replace with actual date
+    content: `This is a placeholder for your first LinkedIn post.
+    
+Replace this text with the actual content of your most recent LinkedIn post.
+    
+Include line breaks and formatting as they appear in your original post.`,
+    likes: 0, // Replace with actual count
+    comments: 0, // Replace with actual count
+    url: 'https://linkedin.com/in/roey-zalta' // Replace with actual post URL
   },
   {
     id: 2,
     author: {
       name: 'Roey Zalta',
       title: 'Software Engineer & Full Stack Developer',
-      profilePic: 'https://media.licdn.com/dms/image/D4D03AQEdhRu72SMqoA/profile-displayphoto-shrink_100_100/0/1702197354874?e=1719446400&v=beta&t=uIvqjS_-YNJrRbxJLDJOyxfuE9AX9MHQPYiJwZV3u9s'
+      profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
     },
-    date: 'March 5, 2024',
-    content: `Claude 3 Opus is coming!
+    date: 'Older post date', // Replace with actual date
+    content: `This is a placeholder for your second LinkedIn post.
     
-    https://lnkd.in/uhYiDXy
+Replace this text with the actual content of another one of your LinkedIn posts.
     
-    Claude 3 Opus outperforms GPT-4 based on Anthropic's accuracy evaluations on challenging benchmarks.
-    
-    Anthropic has made Claude more grounded, reduced hallucinations, improved reasoning, and made it more helpful overall.
-    
-    Claude 3 performs particularly well in STEM, coding, math, and safety evaluations.`,
-    likes: 142,
-    comments: 23,
-    url: 'https://www.linkedin.com/posts/roey-zalta_claude-3-opus-is-coming-httpslnkdinuhyidxy-activity-7172221099973644288-7K0P'
+Include line breaks and formatting as they appear in your original post.`,
+    likes: 0, // Replace with actual count
+    comments: 0, // Replace with actual count
+    url: 'https://linkedin.com/in/roey-zalta' // Replace with actual post URL
   }
 ];
 
@@ -79,7 +78,7 @@ export const LinkedInSection = () => {
           {LINKEDIN_POSTS.map((post, index) => (
             <motion.div 
               key={post.id}
-              className="bg-white/5 rounded-lg overflow-hidden border border-white/10 hover:border-blue-400/30 transition-colors duration-300"
+              className="bg-white/5 rounded-lg overflow-hidden border border-white/10 hover:border-blue-400/30 transition-colors duration-300 relative"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + (index * 0.1) }}
@@ -89,12 +88,8 @@ export const LinkedInSection = () => {
               {/* Post Header */}
               <div className="p-4 border-b border-white/5">
                 <div className="flex items-start gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
-                    <img 
-                      src={post.author.profilePic} 
-                      alt={post.author.name} 
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
+                    <Linkedin className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="font-medium">{post.author.name}</h3>
@@ -130,28 +125,36 @@ export const LinkedInSection = () => {
               {/* Post Actions */}
               <div className="flex border-t border-white/5">
                 <a 
-                  href="#"
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
                 >
                   <ThumbsUp className="w-5 h-5" />
                   <span className="text-sm">Like</span>
                 </a>
                 <a 
-                  href="#"
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
                 >
                   <MessageSquare className="w-5 h-5" />
                   <span className="text-sm">Comment</span>
                 </a>
                 <a 
-                  href="#"
+                  href={post.url}
+                  target="_blank" 
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
                 >
                   <Repeat className="w-5 h-5" />
                   <span className="text-sm">Repost</span>
                 </a>
                 <a 
-                  href="#"
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
                 >
                   <Send className="w-5 h-5" />
@@ -187,12 +190,8 @@ export const LinkedInSection = () => {
           transition={{ delay: 0.6 }}
         >
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 rounded-full overflow-hidden">
-              <img 
-                src="https://media.licdn.com/dms/image/D4D03AQEdhRu72SMqoA/profile-displayphoto-shrink_100_100/0/1702197354874?e=1719446400&v=beta&t=uIvqjS_-YNJrRbxJLDJOyxfuE9AX9MHQPYiJwZV3u9s" 
-                alt="Roey Zalta"
-                className="w-full h-full object-cover"
-              />
+            <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
+              <Linkedin className="w-8 h-8 text-white" />
             </div>
             <div>
               <h2 className="text-xl font-bold">Roey Zalta</h2>
@@ -200,7 +199,7 @@ export const LinkedInSection = () => {
             </div>
           </div>
           <p className="text-gray-300 mb-4">
-            Full stack developer with focus on innovative solutions and problem-solving. Follow me on LinkedIn for more updates and insights on software development, AI, and tech industry trends.
+            Follow me on LinkedIn for more updates and insights on software development, AI, and tech industry trends.
           </p>
         </motion.div>
 
