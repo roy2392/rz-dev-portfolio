@@ -10,7 +10,7 @@ const MEDIUM_ARTICLES = [
     description: "A comprehensive guide to LLM fine-tuning techniques and their applications in various domains",
     date: "May 18, 2023",
     link: "https://medium.com/@roeyzalta/understanding-fine-tuning-in-large-language-models",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*yx3PCRsdY0duz0VkddYYAw.png"
+    image: "https://images.unsplash.com/photo-1677442135100-3545673d05e0?q=80&w=1932&auto=format&fit=crop"
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const MEDIUM_ARTICLES = [
     description: "Learn how to implement Retrieval-Augmented Generation systems with open-source tools",
     date: "June 24, 2023",
     link: "https://medium.com/@roeyzalta/building-rag-applications",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*aOox7J1qvfOuqA_GwyQm5Q.jpeg"
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1470&auto=format&fit=crop"
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const MEDIUM_ARTICLES = [
     description: "From prototype to production: strategies for deploying robust ML systems",
     date: "August 12, 2023",
     link: "https://medium.com/@roeyzalta/machine-learning-in-production",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*36MELEhgZsPFUWGUAe4CeA.jpeg"
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop"
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const MEDIUM_ARTICLES = [
     description: "A hands-on guide to building AI-powered conversational interfaces",
     date: "September 5, 2023",
     link: "https://medium.com/@roeyzalta/creating-intelligent-chatbots",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*-UgQBxIxxbdmLY_ait5xLw.jpeg"
+    image: "https://images.unsplash.com/photo-1531379410502-63bfe8cdaf6f?q=80&w=1974&auto=format&fit=crop"
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const MEDIUM_ARTICLES = [
     description: "Exploring emerging technologies and methodologies in artificial intelligence",
     date: "October 20, 2023",
     link: "https://medium.com/@roeyzalta/future-of-ai-trends",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*w3CrCwXksYNm9MxN67BgNg.jpeg"
+    image: "https://images.unsplash.com/photo-1679435447109-909272b5024b?q=80&w=2070&auto=format&fit=crop"
   },
   {
     id: 6,
@@ -50,7 +50,7 @@ const MEDIUM_ARTICLES = [
     description: "Optimizing ETL workflows for large-scale data applications",
     date: "November 15, 2023",
     link: "https://medium.com/@roeyzalta/efficient-data-processing",
-    image: "https://miro.medium.com/v2/resize:fit:1400/1*E9gQJ_cMWzzqYqjYZ9mZ5A.jpeg"
+    image: "https://images.unsplash.com/photo-1580894897591-ff1e18c89183?q=80&w=1970&auto=format&fit=crop"
   }
 ];
 
@@ -107,6 +107,10 @@ export const BlogSection = () => {
                     src={article.image} 
                     alt={article.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src = `https://placehold.co/600x400/1e293b/e2e8f0?text=${encodeURIComponent(article.title.substring(0, 30) + "...")}`;
+                    }}
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
