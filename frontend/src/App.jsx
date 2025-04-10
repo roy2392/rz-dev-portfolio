@@ -3,6 +3,7 @@ import { MainLayout } from './components/layout/MainLayout'
 import { HomeSection } from './components/sections/Home'
 import { AboutSection } from './components/sections/About'
 import { ProjectsSection } from './components/sections/Projects'
+import { LinkedInSection } from './components/sections/LinkedIn'
 import { BlogSection } from './components/sections/Blog'
 import { ConfigProvider } from './config/ConfigProvider'
 
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/" element={<HomeSection />} />
             <Route path="/about-me" element={<AboutSection />} />
             <Route path="/projects" element={<ProjectsSection />} />
+            <Route path="/linkedin" element={<LinkedInSection />} />
             <Route path="/blog" element={<BlogSection />} />
             <Route path="/blog/:postId" element={<BlogSection />} />
             <Route path="*" element={<Navigate to="/" replace />} />

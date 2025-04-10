@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, BookOpen, Code, BookOpen as Blog } from 'lucide-react'
+import { Github, Linkedin, Mail, BookOpen, Code, BookOpen as Blog, MessageSquare } from 'lucide-react'
 import { getSocialLinks } from '../../../config/configLoader'
 
 // Social links are now loaded from the configuration
@@ -53,6 +53,12 @@ export const sections = {
     title: 'Projects',
     path: '/projects',
     color: 'from-emerald-500 to-green-500'
+  },
+  linkedin: {
+    icon: Linkedin,
+    title: 'LinkedIn Posts',
+    path: '/linkedin',
+    color: 'from-blue-500 to-[#0A66C2]'
   },
   blog: {
     icon: Blog,
