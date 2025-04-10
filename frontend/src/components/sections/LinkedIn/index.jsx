@@ -1,45 +1,74 @@
 import { motion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
-// Direct LinkedIn post embeds - these are official LinkedIn post URLs
-// These will be rendered using LinkedIn's official oEmbed API
+// LinkedIn post embeds directly from user's profile
 const LINKEDIN_POSTS = [
   {
-    id: "7148379335723950080", // This is the post ID from the LinkedIn URL
-    url: "https://www.linkedin.com/posts/roey-zalta_anthropic-claude-3-5-sonnet-the-most-advanced-activity-7190673444315951104-I-I0"
+    id: "7316011592272293889",
+    type: "share",
+    title: "Recent LinkedIn Post",
+    excerpt: "Check out my latest thoughts"
   },
   {
-    id: "7179506835356143616",
-    url: "https://www.linkedin.com/posts/roey-zalta_claude-3-opus-is-coming-httpslnkdinuhyidxy-activity-7172221099973644288-7K0P"
+    id: "7314143555222945795",
+    type: "share",
+    title: "LinkedIn Update",
+    excerpt: "Professional insights and updates"
   },
   {
-    id: "7136006472894332928",
-    url: "https://www.linkedin.com/posts/roey-zalta_personal-branding-ugcPost-7136006472894332928-3TGw"
+    id: "7307271507150344192",
+    type: "share",
+    title: "Tech Thoughts",
+    excerpt: "Sharing my perspective on technology"
+  },
+  {
+    id: "7173482642179309568",
+    type: "share",
+    title: "AI Development",
+    excerpt: "Insights on artificial intelligence"
+  },
+  {
+    id: "7266919151477125122",
+    type: "share",
+    title: "Software Engineering",
+    excerpt: "Best practices and approaches"
+  },
+  {
+    id: "7250029938722967554",
+    type: "ugcPost",
+    title: "Career Development",
+    excerpt: "Professional growth strategies"
   }
 ];
 
 export const LinkedInSection = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [postLoadErrors, setPostLoadErrors] = useState({});
+  const [visiblePosts, setVisiblePosts] = useState(4); // Initially show 4 posts
+  const profileBadgeRef = useRef(null);
+
+  // Handle iframe load errors
+  const handleIframeError = (postId) => {
+    setPostLoadErrors(prev => ({
+      ...prev,
+      [postId]: true
+    }));
+  };
+
+  // Load more posts
+  const handleLoadMore = () => {
+    setVisiblePosts(prev => Math.min(prev + 2, LINKEDIN_POSTS.length));
+  };
 
   useEffect(() => {
-    // Load the LinkedIn SDK for post embedding
-    const linkedinScript = document.createElement('script');
-    linkedinScript.src = 'https://platform.linkedin.com/badges/js/profile.js';
-    linkedinScript.async = true;
-    linkedinScript.defer = true;
-    document.body.appendChild(linkedinScript);
-
-    // Allow some time for the script to load
+    // Set loading to false after some time
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1500);
 
     return () => {
       clearTimeout(timer);
-      if (document.body.contains(linkedinScript)) {
-        document.body.removeChild(linkedinScript);
-      }
     };
   }, []);
 
@@ -75,51 +104,61 @@ export const LinkedInSection = () => {
         >
           {/* LinkedIn Posts */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-10">
-            {LINKEDIN_POSTS.map((post, index) => (
+            {LINKEDIN_POSTS.slice(0, visiblePosts).map((post, index) => (
               <motion.div
                 key={post.id}
-                className="bg-white/5 rounded-lg p-6 border border-white/10 flex flex-col min-h-[500px]"
+                className="bg-white/5 rounded-lg p-4 border border-white/10 flex flex-col min-h-[420px]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + (index * 0.1) }}
               >
-                <div className="linkedin-post-container h-full flex items-center justify-center">
-                  <iframe
-                    src={`https://www.linkedin.com/embed/feed/update/urn:li:share:${post.id}`}
-                    height="450"
-                    width="100%"
-                    frameBorder="0"
-                    allowFullScreen=""
-                    title={`LinkedIn Post ${index + 1}`}
-                    className="rounded"
-                  ></iframe>
-                </div>
+                {postLoadErrors[post.id] ? (
+                  <div className="h-full flex flex-col items-center justify-center text-center p-4">
+                    <Linkedin className="w-12 h-12 text-[#0A66C2] mb-4" />
+                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                    <p className="text-gray-300 mb-4">{post.excerpt}</p>
+                    <a 
+                      href={`https://linkedin.com/in/roey-zalta`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto px-4 py-2 rounded bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors"
+                    >
+                      View on LinkedIn
+                    </a>
+                  </div>
+                ) : (
+                  <div className="linkedin-post-container h-full flex items-center justify-center">
+                    <iframe
+                      src={`https://www.linkedin.com/embed/feed/update/urn:li:${post.type}:${post.id}?collapsed=1`}
+                      height="399"
+                      width="100%"
+                      frameBorder="0"
+                      allowFullScreen=""
+                      title={`LinkedIn Post ${index + 1}`}
+                      className="rounded"
+                      onError={() => handleIframeError(post.id)}
+                      loading="lazy"
+                    ></iframe>
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
 
-          {/* LinkedIn Profile Badge */}
-          <motion.div
-            className="mt-4 mb-12 w-full max-w-lg flex justify-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <div className="badge-base LI-profile-badge" 
-                 data-locale="en_US" 
-                 data-size="medium" 
-                 data-theme="dark" 
-                 data-type="VERTICAL" 
-                 data-vanity="roey-zalta" 
-                 data-version="v1">
-              <a className="badge-base__link LI-simple-link" 
-                 href="https://il.linkedin.com/in/roey-zalta?trk=profile-badge"
-                 target="_blank"
-                 rel="noopener noreferrer">
-                Roey Zalta
-              </a>
-            </div>
-          </motion.div>
+          {/* Load More Button */}
+          {visiblePosts < LINKEDIN_POSTS.length && (
+            <motion.button
+              className="mb-10 px-6 py-3 bg-white/10 hover:bg-white/15 rounded-lg border border-white/10 transition-colors flex items-center gap-2"
+              onClick={handleLoadMore}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>Load More Posts</span>
+            </motion.button>
+          )}
 
           {/* Profile Card */}
           <motion.div
