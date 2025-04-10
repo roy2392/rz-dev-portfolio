@@ -1,56 +1,31 @@
 import { motion } from 'framer-motion'
-import { Linkedin, ThumbsUp, MessageSquare, Repeat, Send, Heart, Calendar } from 'lucide-react'
-import { useState } from 'react'
-
-// IMPORTANT: Replace this placeholder data with your actual LinkedIn posts
-// To update:
-// 1. Visit your LinkedIn profile and sign in at http://linkedin.com/in/roey-zalta
-// 2. Copy the text content, date, and engagement stats from your posts
-// 3. Update the profilePic URL if needed
-// 4. Make sure the URLs point to your actual posts
-const LINKEDIN_POSTS = [
-  {
-    id: 1,
-    author: {
-      name: 'Roey Zalta',
-      title: 'Software Engineer & Full Stack Developer',
-      profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
-    },
-    date: 'May 17, 2024',
-    content: `Excited to share my latest project built with Claude 3.5 Sonnet!
-
-The AI assistant's reasoning capabilities have improved significantly - it's solving complex problems with exceptional accuracy and writing clean, efficient code.
-
-I've integrated it into my personal portfolio and I'm seeing remarkable improvements in development speed and code quality.
-
-What AI tools are you using in your development workflow?`,
-    likes: 87,
-    comments: 14,
-    url: 'https://linkedin.com/in/roey-zalta'
-  },
-  {
-    id: 2,
-    author: {
-      name: 'Roey Zalta',
-      title: 'Software Engineer & Full Stack Developer',
-      profilePic: '/images/profile-pic.jpg' // Replace with your local profile image
-    },
-    date: 'March 5, 2024',
-    content: `Just completed a major update to my portfolio using React, Tailwind CSS, and Framer Motion.
-
-The new design features a dark theme with clean animations and a responsive layout that works beautifully across all devices.
-
-I've also added a new section showcasing my LinkedIn posts - creating a more integrated online presence.
-
-Check it out and let me know what you think!`,
-    likes: 142,
-    comments: 23,
-    url: 'https://linkedin.com/in/roey-zalta'
-  }
-];
+import { Linkedin } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 export const LinkedInSection = () => {
-  const [hoveredPost, setHoveredPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Load the Juicer.io script
+    const juicerScript = document.createElement('script')
+    juicerScript.src = 'https://assets.juicer.io/embed.js'
+    juicerScript.async = true
+    juicerScript.defer = true
+    document.body.appendChild(juicerScript)
+
+    // Set a timeout to hide the loading indicator after script loads
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 2000)
+
+    return () => {
+      clearTimeout(timer)
+      // Clean up script when component unmounts
+      if (document.body.contains(juicerScript)) {
+        document.body.removeChild(juicerScript)
+      }
+    }
+  }, [])
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -63,7 +38,7 @@ export const LinkedInSection = () => {
       </motion.h1>
       
       <motion.p 
-        className="text-center text-gray-400 mb-12"
+        className="text-center text-gray-400 mb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
@@ -71,160 +46,68 @@ export const LinkedInSection = () => {
         Recent updates and thoughts from my LinkedIn
       </motion.p>
 
-      <motion.div
-        className="flex flex-col items-center justify-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        {/* LinkedIn Posts */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-          {LINKEDIN_POSTS.map((post, index) => (
-            <motion.div 
-              key={post.id}
-              className="bg-white/5 rounded-lg overflow-hidden border border-white/10 hover:border-blue-400/30 transition-colors duration-300 relative"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + (index * 0.1) }}
-              onMouseEnter={() => setHoveredPost(post.id)}
-              onMouseLeave={() => setHoveredPost(null)}
-            >
-              {/* Post Header */}
-              <div className="p-4 border-b border-white/5">
-                <div className="flex items-start gap-3">
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                    <Linkedin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium">{post.author.name}</h3>
-                    <p className="text-sm text-gray-400">{post.author.title}</p>
-                    <div className="flex items-center text-gray-500 text-xs mt-1">
-                      <Calendar className="w-3 h-3 mr-1" />
-                      <span>{post.date}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Post Content */}
-              <div className="p-4">
-                <div className="text-gray-200 whitespace-pre-line">
-                  {post.content}
-                </div>
-              </div>
-              
-              {/* Post Engagement */}
-              <div className="px-4 py-3 border-t border-white/5">
-                <div className="flex justify-between text-gray-400 text-sm">
-                  <div className="flex items-center gap-1">
-                    <Heart className="w-4 h-4 text-red-500" fill="#ef4444" />
-                    <span>{post.likes} reactions</span>
-                  </div>
-                  <div>
-                    <span>{post.comments} comments</span>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Post Actions */}
-              <div className="flex border-t border-white/5">
-                <a 
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
-                >
-                  <ThumbsUp className="w-5 h-5" />
-                  <span className="text-sm">Like</span>
-                </a>
-                <a 
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  <span className="text-sm">Comment</span>
-                </a>
-                <a 
-                  href={post.url}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
-                >
-                  <Repeat className="w-5 h-5" />
-                  <span className="text-sm">Repost</span>
-                </a>
-                <a 
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 flex-1 text-gray-400 hover:bg-white/5 transition-colors duration-200"
-                >
-                  <Send className="w-5 h-5" />
-                  <span className="text-sm">Send</span>
-                </a>
-              </div>
-              
-              {/* View on LinkedIn Overlay */}
-              <div 
-                className={`absolute inset-0 bg-black/80 flex items-center justify-center transition-opacity duration-300 ${
-                  hoveredPost === post.id ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                }`}
-              >
-                <a
-                  href={post.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-3 bg-[#0A66C2] hover:bg-[#0a5cb8] text-white rounded-md flex items-center gap-2 transition-transform duration-200 hover:scale-105"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  <span>View on LinkedIn</span>
-                </a>
-              </div>
-            </motion.div>
-          ))}
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
         </div>
-
-        {/* Profile Card */}
+      ) : (
         <motion.div
-          className="mt-12 bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
+          className="flex flex-col items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.3 }}
         >
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-              <Linkedin className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h2 className="text-xl font-bold">Roey Zalta</h2>
-              <p className="text-gray-400">Software Engineer & Full Stack Developer</p>
-            </div>
-          </div>
-          <p className="text-gray-300 mb-4">
-            Experienced full stack developer with expertise in modern web frameworks and AI integration. Passionate about building scalable applications with React, Node.js, and cutting-edge AI models like Claude. I focus on creating elegant solutions to complex problems, with a strong emphasis on code quality and user experience.
-          </p>
-        </motion.div>
+          {/* 
+            IMPORTANT: Replace "YOUR-FEED-NAME" with your actual Juicer feed name after setup 
+            To set up:
+            1. Sign up at Juicer.io (requires paid plan for LinkedIn)
+            2. Add your LinkedIn profile as a source
+            3. Get your feed name and replace it below
+            4. Customize options as needed
+          */}
+          <div className="juicer-feed" data-feed-id="YOUR-FEED-NAME" data-per="4" data-pages="1"
+               data-truncate="200" data-overlay="false" data-style="modern"></div>
 
-        {/* View More Link */}
-        <motion.div 
-          className="mt-8 text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-        >
-          <a
-            href="https://linkedin.com/in/roey-zalta"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 rounded-lg bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors inline-flex items-center gap-2"
+          {/* Profile Card */}
+          <motion.div
+            className="mt-12 bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
           >
-            <Linkedin className="w-5 h-5" />
-            <span>View More on LinkedIn</span>
-          </a>
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
+                <Linkedin className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-bold">Roey Zalta</h2>
+                <p className="text-gray-400">Software Engineer & Full Stack Developer</p>
+              </div>
+            </div>
+            <p className="text-gray-300 mb-4">
+              Experienced full stack developer with expertise in modern web frameworks and AI integration. Passionate about building scalable applications with React, Node.js, and cutting-edge AI models like Claude. I focus on creating elegant solutions to complex problems, with a strong emphasis on code quality and user experience.
+            </p>
+          </motion.div>
+
+          {/* View More Link */}
+          <motion.div 
+            className="mt-8 text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <a
+              href="https://linkedin.com/in/roey-zalta"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-lg bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors inline-flex items-center gap-2"
+            >
+              <Linkedin className="w-5 h-5" />
+              <span>View More on LinkedIn</span>
+            </a>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </div>
   )
 } 
