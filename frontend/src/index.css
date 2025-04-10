@@ -72,3 +72,39 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+/* Medium widget overrides */
+.medium-widget-article__title {
+  color: white !important;
+  font-weight: 700 !important;
+}
+
+.medium-widget-article__description {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.medium-widget-article__info {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.medium-widget-article__clap {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.medium-widget-article {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.5rem !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.medium-widget-article:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.medium-widget-article__row {
+  max-width: 100% !important;
+}
