@@ -18,7 +18,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} />);
     
     // Check that the input is rendered
-    expect(screen.getByPlaceholderText('Ask me anything about Alon...')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Ask me anything about Roey...')).toBeInTheDocument();
     
     // Check that the submit button is rendered
     const submitButton = screen.getByRole('button', { type: 'submit' });
@@ -47,7 +47,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} input="Test message" onSubmit={handleSubmit} />);
     
     // Submit the form
-    const form = screen.getByPlaceholderText('Ask me anything about Alon...').closest('form');
+    const form = screen.getByPlaceholderText('Ask me anything about Roey...').closest('form');
     fireEvent.submit(form);
     
     // Check that onSubmit was called with the correct value
@@ -62,7 +62,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} onSubmit={handleSubmit} />);
     
     // Submit the form without typing anything
-    const form = screen.getByPlaceholderText('Ask me anything about Alon...').closest('form');
+    const form = screen.getByPlaceholderText('Ask me anything about Roey...').closest('form');
     fireEvent.submit(form);
     
     // Check that onSubmit was not called
@@ -74,7 +74,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} input="Test message" isLoading={true} onSubmit={handleSubmit} />);
     
     // Submit the form
-    const form = screen.getByPlaceholderText('Ask me anything about Alon...').closest('form');
+    const form = screen.getByPlaceholderText('Ask me anything about Roey...').closest('form');
     fireEvent.submit(form);
     
     // Check that onSubmit was not called
@@ -98,7 +98,7 @@ describe('ChatInput', () => {
     renderWithConfig(<ChatInput {...defaultProps} setInput={setInput} />);
     
     // Type in the input
-    const input = screen.getByPlaceholderText('Ask me anything about Alon...');
+    const input = screen.getByPlaceholderText('Ask me anything about Roey...');
     fireEvent.change(input, { target: { value: 'New message' } });
     
     // Check that setInput was called with the new value

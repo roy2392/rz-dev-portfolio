@@ -52,13 +52,13 @@ describe('ProjectsSection', () => {
         id: 1,
         name: 'Test Repo 1',
         description: 'Test description 1',
-        html_url: 'https://github.com/alonxt/test-repo-1'
+        html_url: 'https://github.com/roeyxt/test-repo-1'
       },
       {
         id: 2,
         name: 'Test Repo 2',
         description: 'Test description 2',
-        html_url: 'https://github.com/alonxt/test-repo-2'
+        html_url: 'https://github.com/roeyxt/test-repo-2'
       }
     ];
     
@@ -78,8 +78,8 @@ describe('ProjectsSection', () => {
     
     // Check that links are correct
     const links = screen.getAllByText('View Project');
-    expect(links[0].closest('a')).toHaveAttribute('href', 'https://github.com/alonxt/test-repo-1');
-    expect(links[1].closest('a')).toHaveAttribute('href', 'https://github.com/alonxt/test-repo-2');
+    expect(links[0].closest('a')).toHaveAttribute('href', 'https://github.com/roeyxt/test-repo-1');
+    expect(links[1].closest('a')).toHaveAttribute('href', 'https://github.com/roeyxt/test-repo-2');
   });
   
   it('renders repositories with missing descriptions', () => {
@@ -89,7 +89,7 @@ describe('ProjectsSection', () => {
         id: 1,
         name: 'Test Repo 1',
         description: null,
-        html_url: 'https://github.com/alonxt/test-repo-1'
+        html_url: 'https://github.com/roeyxt/test-repo-1'
       }
     ];
     
@@ -116,6 +116,6 @@ describe('ProjectsSection', () => {
     renderWithConfig(<ProjectsSection />);
     
     // Check that useGithubRepos was called with correct parameters
-    expect(useGithubRepos).toHaveBeenCalledWith('alonxt', 6);
+    expect(useGithubRepos).toHaveBeenCalledWith('roeyxt', 6);
   });
 }); 

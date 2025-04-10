@@ -41,7 +41,7 @@
     }
   },
   "chat": {
-    "inputPlaceholder": "Ask me anything about Alon...",
-    "initialMessage": "Hey there! 👋 I'm Alon's AI assistant, I have access to his writings, and life insights. Feel free to ask and explore about his professional path or personal growth!"
+    "inputPlaceholder": "Ask me anything about Roey...",
+    "initialMessage": "Hey there! 👋 I'm Roey's AI assistant, I have access to his writings, and life insights. Feel free to ask and explore about his professional path or personal growth!"
   }
 } 

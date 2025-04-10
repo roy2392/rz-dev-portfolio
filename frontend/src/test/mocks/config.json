@@ -9,10 +9,10 @@
       "url": "https://github.com/testuser"
     },
     "linkedin": {
-      "url": "https://linkedin.com/in/alon-trugman"
+      "url": "https://linkedin.com/in/roey-trugman"
     },
     "email": {
-      "url": "mailto:alon.xt@gmail.com"
+      "url": "mailto:roey.xt@gmail.com"
     }
   },
 
@@ -43,7 +43,7 @@
   },
   
   "chat": {
-    "inputPlaceholder": "Ask me anything about Alon...",
+    "inputPlaceholder": "Ask me anything about Roey...",
     "initialMessage": "Hello!"
   }
 } 

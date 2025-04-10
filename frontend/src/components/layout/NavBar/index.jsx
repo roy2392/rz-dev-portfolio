@@ -18,7 +18,7 @@ export const NavBar = () => {
           >
             <Link to="/" className="flex items-center space-x-2">
               <Terminal className="w-6 h-6 text-purple-500" />
-              <span className="text-xl font-mono font-bold hover:text-[#00C8DC] transition-colors">Alon.dev</span>
+              <span className="text-xl font-mono font-bold hover:text-[#00C8DC] transition-colors">Roey.dev</span>
             </Link>
           </motion.div>
 

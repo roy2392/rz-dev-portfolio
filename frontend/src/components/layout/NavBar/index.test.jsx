@@ -50,7 +50,7 @@ describe('NavBar', () => {
     renderWithRouterAndConfig(<NavBar />);
     
     expect(screen.getByTestId('terminal-icon')).toBeInTheDocument();
-    expect(screen.getByText('Alon.dev')).toBeInTheDocument();
+    expect(screen.getByText('Roey.dev')).toBeInTheDocument();
   });
   
   it('renders the desktop navigation', () => {
