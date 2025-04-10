@@ -1,18 +1,35 @@
 import { motion } from 'framer-motion'
-import { Linkedin, ExternalLink } from 'lucide-react'
+import { Linkedin } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 export const LinkedInSection = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    // Load the LinkedIn embed script
+    const script = document.createElement('script');
+    script.src = "https://platform.linkedin.com/in.js";
+    script.type = "text/javascript";
+    script.innerHTML = "lang: en_US";
+    document.body.appendChild(script);
+
     // Simulate loading for a better UX
     const timer = setTimeout(() => {
       setIsLoading(false)
-    }, 1000)
+    }, 1200)
     
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer);
+      // Clean up the script when component unmounts
+      document.body.removeChild(script);
+    }
   }, [])
+
+  // These are your actual LinkedIn post URLs
+  const linkedInPosts = [
+    "https://www.linkedin.com/posts/roey-zalta_anthropic-claude-3-5-sonnet-the-most-advanced-activity-7190673444315951104-I-I0?utm_source=share&utm_medium=member_desktop",
+    "https://www.linkedin.com/posts/roey-zalta_claude-3-opus-is-coming-httpslnkdinuhyidxy-activity-7172221099973644288-7K0P?utm_source=share&utm_medium=member_desktop"
+  ]
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -44,8 +61,38 @@ export const LinkedInSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          {/* LinkedIn Profile Summary */}
-          <div className="bg-white/5 rounded-lg p-6 border border-white/10 max-w-2xl mb-12 w-full">
+          {/* LinkedIn Posts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
+            {linkedInPosts.map((postUrl, index) => (
+              <motion.div 
+                key={index}
+                className="bg-white/5 rounded-lg p-6 border border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + (index * 0.1) }}
+              >
+                <div className="linkedin-post">
+                  <iframe
+                    src={`https://www.linkedin.com/embed/feed/update/${postUrl.split('activity-')[1].split('?')[0]}`}
+                    height="570"
+                    width="100%"
+                    frameBorder="0"
+                    allowFullScreen=""
+                    title={`LinkedIn Post ${index + 1}`}
+                    className="rounded"
+                  ></iframe>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Profile Card */}
+          <motion.div
+            className="mt-12 bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
             <div className="flex items-center gap-4 mb-4">
               <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
                 <Linkedin className="w-8 h-8 text-white" />
@@ -56,166 +103,16 @@ export const LinkedInSection = () => {
               </div>
             </div>
             <p className="text-gray-300 mb-4">
-              Passionate about building innovative web applications and sharing knowledge with the tech community. 
-              Follow me on LinkedIn for the latest updates on my projects and insights into modern web development.
+              Follow me on LinkedIn for more updates and insights on software development, AI, and tech industry trends.
             </p>
-            <a 
-              href="https://linkedin.com/in/roey-zalta"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#0A66C2] hover:underline flex items-center gap-1 font-medium"
-            >
-              <span>View LinkedIn Profile</span>
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </div>
-          
-          {/* Featured LinkedIn Posts */}
-          <h2 className="text-2xl font-bold mb-6 text-center">Featured Posts</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-            {/* Post 1 */}
-            <motion.div 
-              className="bg-white/5 rounded-lg p-6 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold">Building Scalable Web Applications</h3>
-                  <p className="text-sm text-gray-400">Posted 2 weeks ago</p>
-                </div>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Excited to share my latest insights on building scalable web applications using modern architecture patterns.
-                The key to success is a combination of well-structured code, efficient state management, and robust API design.
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-400">
-                <span>42 likes • 8 comments</span>
-                <a 
-                  href="https://linkedin.com/in/roey-zalta/recent-activity/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#0A66C2] hover:underline flex items-center gap-1"
-                >
-                  <span>Read more</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </motion.div>
-            
-            {/* Post 2 */}
-            <motion.div 
-              className="bg-white/5 rounded-lg p-6 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold">The Future of Frontend Development</h3>
-                  <p className="text-sm text-gray-400">Posted 1 month ago</p>
-                </div>
-              </div>
-              <p className="text-gray-300 mb-4">
-                As we move further into 2024, the frontend landscape continues to evolve rapidly. From AI-assisted coding
-                to the rise of WebAssembly and the evolution of React server components, there's a lot to be excited about.
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-400">
-                <span>78 likes • 15 comments</span>
-                <a 
-                  href="https://linkedin.com/in/roey-zalta/recent-activity/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#0A66C2] hover:underline flex items-center gap-1"
-                >
-                  <span>Read more</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </motion.div>
-            
-            {/* Post 3 */}
-            <motion.div 
-              className="bg-white/5 rounded-lg p-6 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-            >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold">My Journey as a Software Engineer</h3>
-                  <p className="text-sm text-gray-400">Posted 2 months ago</p>
-                </div>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Reflecting on my journey in the software industry, I've learned that continuous learning,
-                collaboration, and adaptability are the cornerstones of a successful career in tech.
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-400">
-                <span>95 likes • 23 comments</span>
-                <a 
-                  href="https://linkedin.com/in/roey-zalta/recent-activity/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#0A66C2] hover:underline flex items-center gap-1"
-                >
-                  <span>Read more</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </motion.div>
-            
-            {/* Post 4 */}
-            <motion.div 
-              className="bg-white/5 rounded-lg p-6 border border-white/10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-            >
-              <div className="flex items-start gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                  <Linkedin className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-bold">Open Source Contributions That Matter</h3>
-                  <p className="text-sm text-gray-400">Posted 3 months ago</p>
-                </div>
-              </div>
-              <p className="text-gray-300 mb-4">
-                Contributing to open source projects isn't just about coding. It's about documentation,
-                testing, design, and community building. Even small contributions can have a big impact.
-              </p>
-              <div className="flex justify-between items-center text-sm text-gray-400">
-                <span>64 likes • 12 comments</span>
-                <a 
-                  href="https://linkedin.com/in/roey-zalta/recent-activity/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#0A66C2] hover:underline flex items-center gap-1"
-                >
-                  <span>Read more</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-            </motion.div>
-          </div>
+          </motion.div>
 
           {/* View More Link */}
           <motion.div 
-            className="mt-12 text-center"
+            className="mt-8 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 0.7 }}
           >
             <a
               href="https://linkedin.com/in/roey-zalta"
