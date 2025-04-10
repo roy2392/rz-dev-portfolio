@@ -42,10 +42,13 @@ const LINKEDIN_POSTS = [
   }
 ];
 
+// LinkedIn profile URL
+const LINKEDIN_PROFILE_URL = "http://linkedin.com/in/roey-zalta";
+
 export const LinkedInSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [postLoadErrors, setPostLoadErrors] = useState({});
-  const [visiblePosts, setVisiblePosts] = useState(4); // Initially show 4 posts
+  const [visiblePosts, setVisiblePosts] = useState(6); // Show all posts initially
   const profileBadgeRef = useRef(null);
 
   // Handle iframe load errors
@@ -118,7 +121,7 @@ export const LinkedInSection = () => {
                     <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
                     <p className="text-gray-300 mb-4">{post.excerpt}</p>
                     <a 
-                      href={`https://linkedin.com/in/roey-zalta`}
+                      href={LINKEDIN_PROFILE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-auto px-4 py-2 rounded bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors"
@@ -189,7 +192,7 @@ export const LinkedInSection = () => {
             transition={{ delay: 0.8 }}
           >
             <a
-              href="https://linkedin.com/in/roey-zalta"
+              href={LINKEDIN_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-lg bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors inline-flex items-center gap-2"
