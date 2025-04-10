@@ -2,6 +2,18 @@ import { motion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
+// LinkedIn's oEmbed setup requires direct content URNs
+const LINKEDIN_POSTS = [
+  {
+    urn: 'urn:li:share:7190673444315951104',
+    title: 'Claude 3.5 Sonnet Post'
+  },
+  {
+    urn: 'urn:li:share:7172221099973644288',
+    title: 'Claude 3 Opus Post'
+  }
+]
+
 export const LinkedInSection = () => {
   const [isLoading, setIsLoading] = useState(true)
 
@@ -10,7 +22,6 @@ export const LinkedInSection = () => {
     const script = document.createElement('script');
     script.src = "https://platform.linkedin.com/in.js";
     script.type = "text/javascript";
-    script.innerHTML = "lang: en_US";
     document.body.appendChild(script);
 
     // Simulate loading for a better UX
@@ -21,15 +32,11 @@ export const LinkedInSection = () => {
     return () => {
       clearTimeout(timer);
       // Clean up the script when component unmounts
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     }
   }, [])
-
-  // These are your actual LinkedIn post URLs
-  const linkedInPosts = [
-    "https://www.linkedin.com/posts/roey-zalta_anthropic-claude-3-5-sonnet-the-most-advanced-activity-7190673444315951104-I-I0?utm_source=share&utm_medium=member_desktop",
-    "https://www.linkedin.com/posts/roey-zalta_claude-3-opus-is-coming-httpslnkdinuhyidxy-activity-7172221099973644288-7K0P?utm_source=share&utm_medium=member_desktop"
-  ]
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -63,7 +70,7 @@ export const LinkedInSection = () => {
         >
           {/* LinkedIn Posts */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl">
-            {linkedInPosts.map((postUrl, index) => (
+            {LINKEDIN_POSTS.map((post, index) => (
               <motion.div 
                 key={index}
                 className="bg-white/5 rounded-lg p-6 border border-white/10"
@@ -71,14 +78,14 @@ export const LinkedInSection = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + (index * 0.1) }}
               >
-                <div className="linkedin-post">
+                <div className="linkedin-post min-h-[400px]">
                   <iframe
-                    src={`https://www.linkedin.com/embed/feed/update/${postUrl.split('activity-')[1].split('?')[0]}`}
+                    src={`https://www.linkedin.com/embed/feed/update/${post.urn}`}
                     height="570"
                     width="100%"
                     frameBorder="0"
                     allowFullScreen=""
-                    title={`LinkedIn Post ${index + 1}`}
+                    title={post.title}
                     className="rounded"
                   ></iframe>
                 </div>
