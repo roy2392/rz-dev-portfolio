@@ -2,30 +2,46 @@ import { motion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
+// Direct LinkedIn post embeds - these are official LinkedIn post URLs
+// These will be rendered using LinkedIn's official oEmbed API
+const LINKEDIN_POSTS = [
+  {
+    id: "7148379335723950080", // This is the post ID from the LinkedIn URL
+    url: "https://www.linkedin.com/posts/roey-zalta_anthropic-claude-3-5-sonnet-the-most-advanced-activity-7190673444315951104-I-I0"
+  },
+  {
+    id: "7179506835356143616",
+    url: "https://www.linkedin.com/posts/roey-zalta_claude-3-opus-is-coming-httpslnkdinuhyidxy-activity-7172221099973644288-7K0P"
+  },
+  {
+    id: "7136006472894332928",
+    url: "https://www.linkedin.com/posts/roey-zalta_personal-branding-ugcPost-7136006472894332928-3TGw"
+  }
+];
+
 export const LinkedInSection = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load the Juicer.io script
-    const juicerScript = document.createElement('script')
-    juicerScript.src = 'https://assets.juicer.io/embed.js'
-    juicerScript.async = true
-    juicerScript.defer = true
-    document.body.appendChild(juicerScript)
+    // Load the LinkedIn SDK for post embedding
+    const linkedinScript = document.createElement('script');
+    linkedinScript.src = 'https://platform.linkedin.com/badges/js/profile.js';
+    linkedinScript.async = true;
+    linkedinScript.defer = true;
+    document.body.appendChild(linkedinScript);
 
-    // Set a timeout to hide the loading indicator after script loads
+    // Allow some time for the script to load
     const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+      setIsLoading(false);
+    }, 2000);
 
     return () => {
-      clearTimeout(timer)
-      // Clean up script when component unmounts
-      if (document.body.contains(juicerScript)) {
-        document.body.removeChild(juicerScript)
+      clearTimeout(timer);
+      if (document.body.contains(linkedinScript)) {
+        document.body.removeChild(linkedinScript);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -57,23 +73,60 @@ export const LinkedInSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          {/* 
-            IMPORTANT: Replace "YOUR-FEED-NAME" with your actual Juicer feed name after setup 
-            To set up:
-            1. Sign up at Juicer.io (requires paid plan for LinkedIn)
-            2. Add your LinkedIn profile as a source
-            3. Get your feed name and replace it below
-            4. Customize options as needed
-          */}
-          <div className="juicer-feed" data-feed-id="YOUR-FEED-NAME" data-per="4" data-pages="1"
-               data-truncate="200" data-overlay="false" data-style="modern"></div>
+          {/* LinkedIn Posts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-10">
+            {LINKEDIN_POSTS.map((post, index) => (
+              <motion.div
+                key={post.id}
+                className="bg-white/5 rounded-lg p-6 border border-white/10 flex flex-col min-h-[500px]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + (index * 0.1) }}
+              >
+                <div className="linkedin-post-container h-full flex items-center justify-center">
+                  <iframe
+                    src={`https://www.linkedin.com/embed/feed/update/urn:li:share:${post.id}`}
+                    height="450"
+                    width="100%"
+                    frameBorder="0"
+                    allowFullScreen=""
+                    title={`LinkedIn Post ${index + 1}`}
+                    className="rounded"
+                  ></iframe>
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
-          {/* Profile Card */}
+          {/* LinkedIn Profile Badge */}
           <motion.div
-            className="mt-12 bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
+            className="mt-4 mb-12 w-full max-w-lg flex justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
+          >
+            <div className="badge-base LI-profile-badge" 
+                 data-locale="en_US" 
+                 data-size="medium" 
+                 data-theme="dark" 
+                 data-type="VERTICAL" 
+                 data-vanity="roey-zalta" 
+                 data-version="v1">
+              <a className="badge-base__link LI-simple-link" 
+                 href="https://il.linkedin.com/in/roey-zalta?trk=profile-badge"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                Roey Zalta
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Profile Card */}
+          <motion.div
+            className="bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
           >
             <div className="flex items-center gap-4 mb-4">
               <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
@@ -94,7 +147,7 @@ export const LinkedInSection = () => {
             className="mt-8 text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.7 }}
+            transition={{ delay: 0.8 }}
           >
             <a
               href="https://linkedin.com/in/roey-zalta"
