@@ -5,6 +5,12 @@ import { useState, useEffect, useRef } from 'react'
 // LinkedIn post embeds directly from user's profile
 const LINKEDIN_POSTS = [
   {
+    id: "7317411297799618560",
+    type: "activity",
+    title: "Vibe Coding Productivity",
+    excerpt: "How to improve your productivity 10x with 'Vibe Coding'"
+  },
+  {
     id: "7316011592272293889",
     type: "share",
     title: "Recent LinkedIn Post",
