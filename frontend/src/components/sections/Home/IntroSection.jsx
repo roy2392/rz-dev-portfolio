@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { BookOpen, Brain, MessageSquareText } from 'lucide-react';
 import { getContentConfig } from '../../../config/configLoader';
+import { GlassCard } from '../../ui/GlassCard';
 
 export const IntroSection = () => {
   const contentConfig = getContentConfig();
@@ -9,19 +10,13 @@ export const IntroSection = () => {
     paragraphs: []
   };
   
-  // Map of icon components by name
   const iconMap = {
     Brain,
     BookOpen,
     MessageSquareText
   };
   
-  // Gradient classes for cards
-  const gradientClasses = [
-    "before:from-rose-500/10 before:via-purple-500/15 before:to-purple-500/10",
-    "before:from-blue-500/10 before:via-cyan-500/15 before:to-blue-500/10",
-    "before:from-emerald-500/10 before:via-teal-500/15 before:to-emerald-500/10"
-  ];
+  const glowColors = ['purple', 'blue', 'emerald'];
 
   return (
     <div className="w-full max-w-4xl mx-auto mt-4 md:mt-8 mb-4 md:mb-8">
@@ -30,32 +25,27 @@ export const IntroSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
           {content.cards.map((card, index) => {
             const Icon = iconMap[card.icon] || Brain;
-            const gradientClass = gradientClasses[index % gradientClasses.length];
             
             return (
-              <motion.div
+              <GlassCard
                 key={index}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.2 }}
-                className={`relative rounded-xl bg-black/10 overflow-hidden backdrop-blur-sm
-                  before:absolute before:inset-0 before:bg-gradient-to-br ${gradientClass}
-                  before:opacity-0 before:transition-opacity before:duration-500 before:ease-out before:blur-xl
-                  hover:before:opacity-100 group`}
+                glowColor={glowColors[index % glowColors.length]}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.15 }}
               >
-                {/* Card content */}
-                <div className="relative p-4 md:p-5 h-full flex flex-col items-center text-center">
-                  <div className="mb-2 md:mb-4">
-                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-white/70 transition-colors duration-500 group-hover:text-white/90" />
+                <div className="p-4 md:p-5 h-full flex flex-col items-center text-center">
+                  <div className="mb-2 md:mb-4 p-3 rounded-xl bg-white/[0.05]">
+                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white/80 mb-1 md:mb-2 transition-colors duration-500 group-hover:text-white/90">
+                  <h3 className="text-lg font-semibold text-white/90 mb-1 md:mb-2">
                     {card.title}
                   </h3>
-                  <p className="text-sm text-white/60 transition-colors duration-500 group-hover:text-white/80">
+                  <p className="text-sm text-white/60">
                     {card.description}
                   </p>
                 </div>
-              </motion.div>
+              </GlassCard>
             );
           })}
         </div>
@@ -63,14 +53,17 @@ export const IntroSection = () => {
         {/* Content section */}
         <div className="text-center max-w-3xl mx-auto space-y-2 md:space-y-4">
           {content.paragraphs.map((paragraph, index) => (
-            <p 
+            <motion.p
               key={index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + index * 0.15 }}
               className={index === 0 
                 ? "text-base md:text-lg text-gray-300 leading-relaxed"
                 : "text-sm md:text-base text-gray-400"}
             >
               {paragraph}
-            </p>
+            </motion.p>
           ))}
         </div>
       </div>

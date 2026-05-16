@@ -51,7 +51,7 @@ export const ChatBox = () => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gray-900 rounded-2xl p-4 min-h-[400px] flex flex-col border border-purple-500/20 shadow-lg relative"
+        className="bg-gray-900/60 backdrop-blur-xl rounded-2xl p-4 min-h-[400px] flex flex-col border border-purple-500/20 shadow-lg shadow-purple-500/5 relative"
       >
         {/* Chat Header */}
         <motion.div 

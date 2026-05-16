@@ -1,10 +1,9 @@
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-
 export class ChatService {
   static async handleStreamingResponse(response, callbacks) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder();
     let fullMessage = '';
+    let buffer = '';
 
     try {
       while (true) {
@@ -17,12 +16,25 @@ export class ChatService {
         const { done, value } = await reader.read();
         
         if (done) {
+          // Flush remaining buffer
+          if (buffer.trim()) {
+            const match = buffer.match(/^0:(.+)$/);
+            if (match) {
+              try {
+                const content = JSON.parse(match[1]);
+                fullMessage += content;
+                callbacks.onChunk(fullMessage);
+              } catch (e) {}
+            }
+          }
           callbacks.onComplete(fullMessage);
           break;
         }
 
-        const chunk = decoder.decode(value);
-        const lines = chunk.split('\n');
+        const chunk = decoder.decode(value, { stream: true });
+        buffer += chunk;
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
 
         for (const line of lines) {
           if (line.trim() === '') continue;
@@ -59,7 +71,7 @@ export class ChatService {
   }
 
   static async sendMessage(chatRequest) {
-    const response = await fetch(`${BACKEND_URL}/chat`, {
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
