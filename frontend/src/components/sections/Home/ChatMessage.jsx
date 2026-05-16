@@ -5,7 +5,6 @@ import { RateLimitCountdown } from './RateLimitCountdown';
 import { TypingIndicator } from './TypingIndicator';
 
 export const ChatMessage = ({ message }) => {
-  // If this is a typing message from the assistant with no content, render the standalone TypingIndicator
   if (message.role === 'assistant' && message.isTyping && !message.content) {
     return <TypingIndicator />;
   }
@@ -19,33 +18,37 @@ export const ChatMessage = ({ message }) => {
       className="w-full"
     >
       <div className={`flex items-start gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-        {message.role === 'assistant' && <MessageAvatar icon={Bot} />}
+        {message.role === 'assistant' && <MessageAvatar icon={Bot} color="purple" />}
         <div className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'} max-w-[80%]`}>
           <MessageContent message={message} />
           {message.isError && message.retryAfter > 0 && (
             <RateLimitCountdown seconds={message.retryAfter} />
           )}
         </div>
-        {message.role === 'user' && <MessageAvatar icon={User} />}
+        {message.role === 'user' && <MessageAvatar icon={User} color="pink" />}
       </div>
     </motion.div>
   );
 };
 
-const MessageAvatar = ({ icon: Icon }) => (
-  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
-    <Icon className="w-4 h-4 text-purple-400" />
+const MessageAvatar = ({ icon: Icon, color }) => (
+  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border border-white/[0.08] ${
+    color === 'pink' 
+      ? 'bg-gradient-to-br from-pink-500/20 to-purple-500/20' 
+      : 'bg-gradient-to-br from-purple-500/20 to-blue-500/20'
+  }`}>
+    <Icon className={`w-4 h-4 ${color === 'pink' ? 'text-pink-400' : 'text-purple-400'}`} />
   </div>
 );
 
 const MessageContent = ({ message }) => (
   <div
-    className={`rounded-2xl p-4 ${
+    className={`rounded-2xl p-4 backdrop-blur-sm ${
       message.role === 'user'
-        ? 'bg-purple-500 text-white'
+        ? 'bg-gradient-to-br from-purple-500/90 to-pink-500/80 text-white shadow-lg shadow-purple-500/10 border border-purple-400/20'
         : message.isError
         ? 'bg-red-500/10 text-red-200 border border-red-500/20'
-        : 'bg-gray-800/80 text-gray-200'
+        : 'bg-white/[0.04] text-gray-200 border border-white/[0.06] shadow-lg shadow-black/20'
     } w-full`}
   >
     {message.role === 'user' ? (

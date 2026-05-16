@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import { Github, Star, Code, GitBranch, Eye, ExternalLink, Clock, Search } from 'lucide-react'
 import { useGithubRepos } from '../../../hooks/useGithubRepos'
 import { useState, useMemo } from 'react'
+import { MagneticCard } from '../../ui/MagneticCard'
+import { CountUp } from '../../ui/CountUp'
 
 // Language color mapping
 const LANGUAGE_COLORS = {
@@ -34,7 +36,6 @@ const categories = [
 export const ProjectsSection = () => {
   const { repos, loading, error, totalStars, primaryLanguages } = useGithubRepos('roy2392')
   const [activeCategory, setActiveCategory] = useState('all')
-  const [hoveredRepo, setHoveredRepo] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedLanguage, setSelectedLanguage] = useState('all')
   const [visibleCount, setVisibleCount] = useState(12)
@@ -122,41 +123,53 @@ export const ProjectsSection = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >
-        <div className="bg-white/5 rounded-lg p-6 border border-white/10">
-          <div className="flex items-center gap-3 mb-3">
-            <Github className="w-5 h-5 text-purple-400" />
-            <h3 className="font-semibold">Repositories</h3>
+        <MagneticCard glowColor="purple">
+          <div className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-purple-500/10">
+                <Github className="w-5 h-5 text-purple-400" />
+              </div>
+              <h3 className="font-semibold">Repositories</h3>
+            </div>
+            <p className="text-3xl font-bold"><CountUp end={repos.length} /></p>
+            <p className="text-sm text-gray-500 mt-1">Public projects</p>
           </div>
-          <p className="text-3xl font-bold">{repos.length}</p>
-          <p className="text-sm text-gray-400 mt-1">Public projects</p>
-        </div>
+        </MagneticCard>
         
-        <div className="bg-white/5 rounded-lg p-6 border border-white/10">
-          <div className="flex items-center gap-3 mb-3">
-            <Star className="w-5 h-5 text-purple-400" />
-            <h3 className="font-semibold">Total Stars</h3>
+        <MagneticCard glowColor="pink">
+          <div className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-pink-500/10">
+                <Star className="w-5 h-5 text-pink-400" />
+              </div>
+              <h3 className="font-semibold">Total Stars</h3>
+            </div>
+            <p className="text-3xl font-bold"><CountUp end={totalStars} /></p>
+            <p className="text-sm text-gray-500 mt-1">From all repositories</p>
           </div>
-          <p className="text-3xl font-bold">{totalStars}</p>
-          <p className="text-sm text-gray-400 mt-1">From all repositories</p>
-        </div>
+        </MagneticCard>
         
-        <div className="bg-white/5 rounded-lg p-6 border border-white/10">
-          <div className="flex items-center gap-3 mb-3">
-            <Code className="w-5 h-5 text-purple-400" />
-            <h3 className="font-semibold">Top Languages</h3>
+        <MagneticCard glowColor="blue">
+          <div className="p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-lg bg-blue-500/10">
+                <Code className="w-5 h-5 text-blue-400" />
+              </div>
+              <h3 className="font-semibold">Top Languages</h3>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {topLanguages.map(([lang, count]) => (
+                <span 
+                  key={lang} 
+                  className="flex items-center gap-1 text-sm rounded-full px-2.5 py-1 bg-white/[0.04] border border-white/[0.08]"
+                  style={{ borderLeft: `3px solid ${LANGUAGE_COLORS[lang] || '#ccc'}` }}
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {topLanguages.map(([lang, count]) => (
-              <span 
-                key={lang} 
-                className="flex items-center gap-1 text-sm rounded-full px-2 py-1 bg-white/10"
-                style={{ borderLeft: `3px solid ${LANGUAGE_COLORS[lang] || '#ccc'}` }}
-              >
-                {lang}
-              </span>
-            ))}
-          </div>
-        </div>
+        </MagneticCard>
       </motion.div>
 
       {/* Category Filter */}
@@ -242,80 +255,72 @@ export const ProjectsSection = () => {
               hidden: { opacity: 0, y: 20 },
               show: { opacity: 1, y: 0 }
             }}
-            onMouseEnter={() => setHoveredRepo(repo.id)}
-            onMouseLeave={() => setHoveredRepo(null)}
-            className="group h-full"
+            className="h-full"
           >
-            <div className="relative h-full flex flex-col bg-white/5 border border-white/10 rounded-lg overflow-hidden transition-all duration-300 hover:bg-white/10 hover:border-purple-500/30 hover:shadow-lg hover:shadow-purple-500/5">
-              {/* Header with Language */}
-              <div className="flex items-center justify-between px-5 pt-5">
-                <div className="flex items-center">
-                  <Github className="w-5 h-5 text-gray-400 mr-2" />
-                  <h3 className="text-lg font-bold truncate group-hover:text-purple-400 transition-colors">
-                    {repo.name}
-                  </h3>
-                </div>
-                {repo.language && (
-                  <div className="flex items-center gap-1">
-                    <span 
-                      className="w-3 h-3 rounded-full" 
-                      style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || '#ccc' }}
-                    />
-                    <span className="text-xs text-gray-400">{repo.language}</span>
+            <MagneticCard className="h-full" glowColor={index % 3 === 0 ? 'purple' : index % 3 === 1 ? 'pink' : 'blue'}>
+              <div className="relative h-full flex flex-col">
+                {/* Header with Language */}
+                <div className="flex items-center justify-between px-5 pt-5">
+                  <div className="flex items-center">
+                    <Github className="w-5 h-5 text-gray-500 mr-2" />
+                    <h3 className="text-lg font-bold truncate hover:text-purple-400 transition-colors">
+                      {repo.name}
+                    </h3>
                   </div>
-                )}
-              </div>
-              
-              {/* Description */}
-              <div className="p-5 flex-grow">
-                <p className="text-gray-400 text-sm line-clamp-3">
-                  {repo.description || 'No description available'}
-                </p>
-              </div>
-              
-              {/* Footer with Stats */}
-              <div className="px-5 pb-5 pt-2 border-t border-white/5 mt-auto">
-                <div className="flex items-center justify-between text-xs text-gray-400">
-                  <div className="flex items-center gap-4">
+                  {repo.language && (
                     <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4" />
-                      <span>{repo.stargazers_count}</span>
+                      <span 
+                        className="w-3 h-3 rounded-full" 
+                        style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || '#ccc' }}
+                      />
+                      <span className="text-xs text-gray-500">{repo.language}</span>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <GitBranch className="w-4 h-4" />
-                      <span>{repo.forks_count}</span>
-                    </div>
-                    {repo.watchers_count > 0 && (
+                  )}
+                </div>
+                
+                {/* Description */}
+                <div className="p-5 flex-grow">
+                  <p className="text-gray-400 text-sm line-clamp-3">
+                    {repo.description || 'No description available'}
+                  </p>
+                </div>
+                
+                {/* Footer with Stats */}
+                <div className="px-5 pb-5 pt-2 border-t border-white/[0.04] mt-auto">
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center gap-4">
                       <div className="flex items-center gap-1">
-                        <Eye className="w-4 h-4" />
-                        <span>{repo.watchers_count}</span>
+                        <Star className="w-4 h-4" />
+                        <span>{repo.stargazers_count}</span>
                       </div>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    <span>{new Date(repo.updated_at).toLocaleDateString()}</span>
+                      <div className="flex items-center gap-1">
+                        <GitBranch className="w-4 h-4" />
+                        <span>{repo.forks_count}</span>
+                      </div>
+                      {repo.watchers_count > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Eye className="w-4 h-4" />
+                          <span>{repo.watchers_count}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-4 h-4" />
+                      <span>{new Date(repo.updated_at).toLocaleDateString()}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              {/* Overlay button on hover */}
-              <div 
-                className={`absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 transition-opacity duration-300 ${
-                  hoveredRepo === repo.id ? 'opacity-100' : ''
-                }`}
-              >
+                
+                {/* View link */}
                 <a
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-purple-500 hover:bg-purple-600 rounded-md transition-colors flex items-center gap-2"
-                >
-                  <span>View Repository</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+                  className="absolute inset-0 z-10"
+                  aria-label={`View ${repo.name} on GitHub`}
+                />
               </div>
-            </div>
+            </MagneticCard>
           </motion.div>
         ))}
       </motion.div>

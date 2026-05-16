@@ -4,7 +4,7 @@ import { ChatBox } from './ChatBox'
 import { IntroSection } from './IntroSection'
 import { getPersonalInfo } from '../../../config/configLoader'
 import { SparklesEffect } from '../../ui/SparklesEffect'
-import { AnimatedGradientText } from '../../ui/AnimatedGradientText'
+import { TextReveal, TypewriterText } from '../../ui/TextReveal'
 
 export const HomeSection = () => {
   const personalInfo = getPersonalInfo();
@@ -24,7 +24,7 @@ export const HomeSection = () => {
         transition={{ type: "spring", bounce: 0.5 }}
       >
         <SparklesEffect count={4} color="text-purple-300/60" />
-        <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-purple-500 relative ring-4 ring-purple-500/20 ring-offset-4 ring-offset-black">
+        <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-purple-500/60 relative ring-4 ring-purple-500/20 ring-offset-4 ring-offset-black shadow-lg shadow-purple-500/20">
           <img 
             src="/profile.jpg" 
             alt={personalInfo.name}
@@ -41,17 +41,23 @@ export const HomeSection = () => {
         </motion.div>
       </motion.div>
 
-      <motion.h1
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-4xl md:text-6xl font-bold mb-2 leading-relaxed px-4 py-1"
+      <h1 className="text-4xl md:text-6xl font-bold mb-2 leading-relaxed px-4 py-1 bg-clip-text text-transparent bg-[length:300%_100%]"
+        style={{ backgroundImage: 'linear-gradient(90deg, #a78bfa, #ec4899, #818cf8, #c084fc, #a78bfa)' }}
       >
-        <AnimatedGradientText>
+        <TextReveal delay={0.3} stagger={0.05}>
           {personalInfo.name}
-        </AnimatedGradientText>
-      </motion.h1>
+        </TextReveal>
+      </h1>
       
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="text-lg md:text-xl text-gray-400 mb-2"
+      >
+        <TypewriterText text="Machine Learning Engineer & AI Developer" speed={35} delay={1.0} />
+      </motion.p>
+
       <IntroSection />
 
       <ChatBox />

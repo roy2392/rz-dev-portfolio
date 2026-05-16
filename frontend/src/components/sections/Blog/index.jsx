@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { ExternalLink, Clock, Tag } from 'lucide-react'
+import { MagneticCard } from '../../ui/MagneticCard'
 
 // Real Medium articles from RSS feed
 const MEDIUM_ARTICLES = [
@@ -138,13 +139,14 @@ export const BlogSection = () => {
               href={article.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group block"
+              className="group block h-full"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: article.id * 0.1 }}
+              transition={{ delay: article.id * 0.08 }}
             >
-              <article className="h-full flex flex-col bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-500/50 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10 hover:-translate-y-1">
-                <div className="aspect-video w-full overflow-hidden bg-gray-900">
+              <MagneticCard className="h-full" glowColor={article.id % 3 === 0 ? 'purple' : article.id % 3 === 1 ? 'pink' : 'blue'}>
+                <article className="h-full flex flex-col">
+                <div className="aspect-video w-full overflow-hidden bg-gray-900 rounded-t-2xl">
                   <img 
                     src={article.image} 
                     alt={article.title}
@@ -156,7 +158,7 @@ export const BlogSection = () => {
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-2 text-sm text-gray-400 mb-3">
+                  <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
                     <Clock className="w-4 h-4 text-purple-400" />
                     <span>{article.date}</span>
                   </div>
@@ -179,7 +181,8 @@ export const BlogSection = () => {
                     </span>
                   </div>
                 </div>
-              </article>
+                </article>
+              </MagneticCard>
             </motion.a>
           ))}
         </div>

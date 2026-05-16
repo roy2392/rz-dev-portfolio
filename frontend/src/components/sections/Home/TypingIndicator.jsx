@@ -1,24 +1,23 @@
 import { Bot } from 'lucide-react';
 import { motion } from 'framer-motion';
-
+import { OrbitingDots } from '../../ui/OrbitingDots';
 
 export const TypingIndicator = ({ inline = false }) => {
-  // If inline, render just the dots
   if (inline) {
     return (
       <span className="inline-flex gap-1 ml-1" data-testid="typing-indicator-inline">
         {[0, 0.15, 0.3].map((delay, i) => (
-          <span
+          <motion.span
             key={i}
-            className="w-1 h-1 bg-white rounded-full animate-bounce"
-            style={{ animationDelay: `${delay}s` }}
+            className="w-1.5 h-1.5 bg-purple-400 rounded-full"
+            animate={{ scale: [0.5, 1, 0.5], opacity: [0.3, 1, 0.3] }}
+            transition={{ duration: 1, repeat: Infinity, delay, ease: 'easeInOut' }}
           />
         ))}
       </span>
     );
   }
 
-  // Otherwise render the full message bubble with avatar
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -28,22 +27,12 @@ export const TypingIndicator = ({ inline = false }) => {
       className="flex items-start gap-3 justify-start mb-4"
       data-testid="ai-typing-indicator"
     >
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center">
+      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center border border-white/[0.08]">
         <Bot className="w-4 h-4 text-purple-400" />
       </div>
       <div className="flex flex-col items-start max-w-[80%]">
-        <div className="rounded-2xl p-4 bg-gray-800/80 text-gray-200 w-full">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex gap-1">
-              {[0, 0.15, 0.3].map((delay, i) => (
-                <span
-                  key={i}
-                  className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce"
-                  style={{ animationDelay: `${delay}s` }}
-                />
-              ))}
-            </span>
-          </div>
+        <div className="rounded-2xl p-4 bg-white/[0.04] border border-white/[0.06] w-full flex items-center justify-center">
+          <OrbitingDots size={28} dotSize={4} />
         </div>
       </div>
     </motion.div>

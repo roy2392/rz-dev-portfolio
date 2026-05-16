@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { sections } from '../config/navigationConfig'
 import { SocialLinks } from '../shared/SocialLinks'
 
@@ -12,14 +13,33 @@ export const DesktopNav = () => {
             key={key}
             to={path}
             className={({ isActive }) => `
-              px-4 py-2 rounded-lg flex items-center space-x-2 transition-colors
+              relative px-4 py-2 rounded-lg flex items-center space-x-2 transition-all duration-300
               ${isActive 
-                ? 'bg-white/10 text-white' 
-                : 'text-gray-400 hover:text-[#00C8DC] hover:bg-white/5'}
+                ? 'text-white' 
+                : 'text-gray-400 hover:text-purple-300 hover:bg-white/[0.04]'}
             `}
           >
-            <Icon className="w-4 h-4" />
-            <span>{title}</span>
+            {({ isActive }) => (
+              <>
+                <Icon className="w-4 h-4" />
+                <span>{title}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-active"
+                    className="absolute inset-0 bg-white/[0.08] rounded-lg border border-purple-500/20"
+                    style={{ zIndex: -1 }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-underline"
+                    className="absolute -bottom-[1px] left-2 right-2 h-[2px] bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </>
+            )}
           </NavLink>
         ))}
       </div>
