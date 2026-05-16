@@ -182,11 +182,11 @@ export const LinkedInSection = () => {
               </div>
               <div>
                 <h2 className="text-xl font-bold">Roey Zalta</h2>
-                <p className="text-gray-400">Software Engineer & Full Stack Developer</p>
+                <p className="text-gray-400">Machine Learning Engineer & AI Developer</p>
               </div>
             </div>
             <p className="text-gray-300 mb-4">
-              Experienced full stack developer with expertise in modern web frameworks and AI integration. Passionate about building scalable applications with React, Node.js, and cutting-edge AI models like Claude. I focus on creating elegant solutions to complex problems, with a strong emphasis on code quality and user experience.
+              Machine Learning Engineer & AI Developer specializing in production multi-agent systems, LLMOps, and generative AI applications. Building and deploying AI solutions on AWS Bedrock and Azure, with deep expertise in RAG architectures, prompt engineering, and agentic AI frameworks. Passionate about taking ML systems from prototype to production at scale.
             </p>
           </motion.div>
 
