@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useStreamingChat } from '../../../hooks/useStreamingChat';
-import { Bot, Sparkles, Zap, Code, Brain } from 'lucide-react';
+import { Bot, Code, Brain, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
@@ -41,14 +41,12 @@ export const ChatBox = () => {
 
   const handleSubmit = async (message) => {
     setUserEngaged(true);
-    
     const chatRequest = {
       message,
       messages: messages.filter(msg => !msg.isTyping),
       session_id: localStorage.getItem('chatSessionId') || 'default-session',
       timestamp: Date.now() / 1000
     };
-
     await sendMessage(chatRequest);
   };
 
@@ -57,104 +55,37 @@ export const ChatBox = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-8 mb-16">
-      {/* Holographic border wrapper */}
-      <div className="relative rounded-2xl p-[1px] overflow-hidden">
-        {/* Animated conic gradient border */}
-        <div
-          className="absolute inset-0 rounded-2xl animate-border-spin"
-          style={{
-            background: 'conic-gradient(from var(--border-angle, 0deg), #8b5cf6, #ec4899, #6366f1, #a855f7, #8b5cf6)',
-            opacity: 0.6,
-          }}
-        />
-        {/* Inner glow */}
-        <div className="absolute inset-[1px] rounded-2xl bg-gray-950/95 backdrop-blur-xl" />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative rounded-2xl p-4 min-h-[420px] flex flex-col"
-        >
-          {/* Chat Header */}
-          <motion.div 
-            className="relative flex items-center justify-between p-3 mb-4 overflow-hidden rounded-xl"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Shimmer background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/10 to-purple-500/5 animate-shimmer bg-[length:200%_100%]" />
-
-            {/* Main content */}
-            <div className="relative flex items-center gap-2 flex-shrink-0">
-              <motion.div
-                className="relative flex-shrink-0"
-                whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-lg opacity-40" />
-                <div className="relative bg-gradient-to-br from-purple-500 to-pink-600 p-2.5 rounded-xl shadow-lg shadow-purple-500/20 border border-white/10">
-                  <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                </div>
-              </motion.div>
-
-              <div className="flex items-center gap-1 sm:gap-2">
-                <motion.h2 
-                  className="text-sm sm:text-xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  {firstName}'s AI
-                </motion.h2>
-                <motion.div
-                  animate={{
-                    rotate: [0, 20, -20, 0],
-                    scale: [1, 1.2, 0.8, 1],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex-shrink-0"
-                >
-                  <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 text-purple-400" />
-                </motion.div>
+    <div className="w-full max-w-3xl mb-16">
+      {/* Double-bezel card */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.3, ease: [0.32, 0.72, 0, 1] }}
+        className="rounded-2xl bg-zinc-900/40 border border-white/[0.06] p-1"
+      >
+        <div className="rounded-[14px] bg-zinc-950/80 backdrop-blur-sm border border-white/[0.04] p-5 min-h-[400px] flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/[0.04]">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/15 flex items-center justify-center">
+                <Bot className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <h2 className="text-sm font-semibold text-zinc-100">{firstName}&apos;s assistant</h2>
+                <p className="text-[11px] text-zinc-500">Ask me anything about my work</p>
               </div>
             </div>
-
-            {/* Status + Sound bars */}
-            <div className="relative flex items-center gap-3 flex-shrink-0">
-              {/* Sound wave bars when loading */}
-              {isLoading && (
-                <div className="flex items-end gap-[2px] h-4">
-                  {[0, 0.15, 0.3, 0.15, 0].map((delay, i) => (
-                    <motion.div
-                      key={i}
-                      className="w-[3px] bg-gradient-to-t from-purple-500 to-pink-400 rounded-full"
-                      animate={{ height: ['4px', '16px', '4px'] }}
-                      transition={{ duration: 0.8, repeat: Infinity, delay, ease: 'easeInOut' }}
-                    />
-                  ))}
-                </div>
-              )}
-              <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08]"
-              >
-                <motion.div
-                  className="w-1.5 h-1.5 rounded-full bg-green-400"
-                  animate={{ scale: [1, 1.3, 1], opacity: [1, 0.6, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                />
-                <span className="text-[10px] sm:text-xs text-gray-500 whitespace-nowrap">Online</span>
-              </motion.div>
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[11px] text-zinc-500">Online</span>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Messages container */}
+          {/* Messages */}
           <div
             ref={chatContainerRef}
-            className="flex-1 overflow-y-auto space-y-4 mb-4 max-h-[300px] scroll-smooth scrollbar-thin scrollbar-thumb-purple-500/30 scrollbar-track-transparent pr-2"
+            className="flex-1 overflow-y-auto space-y-3 mb-4 max-h-[300px] scroll-smooth pr-1"
+            style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}
           >
             <AnimatePresence>
               {messages.map((message, index) => (
@@ -167,58 +98,51 @@ export const ChatBox = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Suggestion chips (show when no messages from user) */}
+          {/* Suggestion chips */}
           {!userEngaged && (
             <motion.div
-              className="flex flex-wrap gap-2 mb-4 justify-center"
-              initial={{ opacity: 0, y: 10 }}
+              className="flex flex-wrap gap-2 mb-4"
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.6, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
             >
               {SUGGESTION_CHIPS.map((chip, i) => (
-                <motion.button
+                <button
                   key={i}
                   onClick={() => handleChipClick(chip.text)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs text-gray-400 hover:text-purple-300 hover:border-purple-500/30 hover:bg-purple-500/[0.06] transition-all duration-300"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 + i * 0.1, type: 'spring', stiffness: 300 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-xs text-zinc-400 hover:text-emerald-300 hover:border-emerald-500/20 hover:bg-emerald-500/[0.04] transition-all duration-300"
                 >
                   <chip.icon className="w-3 h-3" />
                   {chip.text}
-                </motion.button>
+                </button>
               ))}
             </motion.div>
           )}
 
-          {/* Error message */}
+          {/* Error */}
           <AnimatePresence>
             {error && (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-red-400 mb-4 text-center bg-red-500/10 p-3 rounded-lg border border-red-500/20"
+                exit={{ opacity: 0 }}
+                className="text-red-400 mb-3 text-sm bg-red-500/[0.06] p-3 rounded-lg border border-red-500/10"
               >
                 {error}
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Input form */}
-          <div className="relative z-10">
-            <ChatInput
-              input={input}
-              setInput={setInput}
-              isLoading={isLoading}
-              onSubmit={handleSubmit}
-              onStop={stopAnswering}
-            />
-          </div>
-        </motion.div>
-      </div>
+          {/* Input */}
+          <ChatInput
+            input={input}
+            setInput={setInput}
+            isLoading={isLoading}
+            onSubmit={handleSubmit}
+            onStop={stopAnswering}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }; 

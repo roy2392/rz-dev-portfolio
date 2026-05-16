@@ -1,72 +1,63 @@
 import { motion } from 'framer-motion';
-import { BookOpen, Brain, MessageSquareText } from 'lucide-react';
+import { Brain, BookOpen, MessageSquareText } from 'lucide-react';
 import { getContentConfig } from '../../../config/configLoader';
-import { GlassCard } from '../../ui/GlassCard';
+
+const iconMap = { Brain, BookOpen, MessageSquareText };
 
 export const IntroSection = () => {
   const contentConfig = getContentConfig();
-  const content = contentConfig?.intro || {
-    cards: [],
-    paragraphs: []
-  };
-  
-  const iconMap = {
-    Brain,
-    BookOpen,
-    MessageSquareText
-  };
-  
-  const glowColors = ['purple', 'blue', 'emerald'];
+  const content = contentConfig?.intro || { cards: [], paragraphs: [] };
 
   return (
-    <div className="w-full max-w-4xl mx-auto mt-4 md:mt-8 mb-4 md:mb-8">
-      <div className="space-y-4 md:space-y-6">
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8">
-          {content.cards.map((card, index) => {
-            const Icon = iconMap[card.icon] || Brain;
-            
-            return (
-              <GlassCard
-                key={index}
-                glowColor={glowColors[index % glowColors.length]}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.15 }}
-              >
-                <div className="p-4 md:p-5 h-full flex flex-col items-center text-center">
-                  <div className="mb-2 md:mb-4 p-3 rounded-xl bg-white/[0.05]">
-                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-purple-400" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-white/90 mb-1 md:mb-2">
+    <div className="w-full max-w-4xl mt-4 mb-12">
+      {/* Feature cards — asymmetric grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {content.cards.map((card, index) => {
+          const Icon = iconMap[card.icon] || Brain;
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 + index * 0.1, duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+              className="group relative rounded-2xl bg-zinc-900/50 border border-white/[0.06] p-5 hover:border-white/[0.1] transition-colors duration-300"
+            >
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/10 flex-shrink-0">
+                  <Icon className="w-4 h-4 text-emerald-400" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-zinc-100 mb-1">
                     {card.title}
                   </h3>
-                  <p className="text-sm text-white/60">
+                  <p className="text-xs text-zinc-500 leading-relaxed">
                     {card.description}
                   </p>
                 </div>
-              </GlassCard>
-            );
-          })}
-        </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
 
-        {/* Content section */}
-        <div className="text-center max-w-3xl mx-auto space-y-2 md:space-y-4">
+      {/* Bio paragraphs */}
+      {content.paragraphs.length > 0 && (
+        <div className="mt-8 space-y-3 max-w-2xl">
           {content.paragraphs.map((paragraph, index) => (
             <motion.p
               key={index}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 + index * 0.15 }}
+              transition={{ delay: 0.6 + index * 0.1, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
               className={index === 0 
-                ? "text-base md:text-lg text-gray-300 leading-relaxed"
-                : "text-sm md:text-base text-gray-400"}
+                ? "text-base text-zinc-300 leading-relaxed"
+                : "text-sm text-zinc-500 leading-relaxed"}
             >
               {paragraph}
             </motion.p>
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 }; 

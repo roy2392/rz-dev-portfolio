@@ -11,78 +11,49 @@ export const ChatMessage = ({ message }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.2 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
       className="w-full"
     >
-      <div className={`flex items-start gap-3 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-        {message.role === 'assistant' && <MessageAvatar icon={Bot} color="purple" />}
+      <div className={`flex items-start gap-2.5 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+        {message.role === 'assistant' && (
+          <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-zinc-800 border border-white/[0.06] flex items-center justify-center">
+            <Bot className="w-3.5 h-3.5 text-zinc-400" />
+          </div>
+        )}
         <div className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'} max-w-[80%]`}>
-          <MessageContent message={message} />
+          <div className={`rounded-2xl px-4 py-3 ${
+            message.role === 'user'
+              ? 'bg-emerald-600/90 text-white'
+              : message.isError
+              ? 'bg-red-500/[0.06] text-red-300 border border-red-500/10'
+              : 'bg-white/[0.03] text-zinc-300 border border-white/[0.06]'
+          } w-full`}>
+            {message.role === 'user' ? (
+              <p className="leading-relaxed text-left text-sm whitespace-pre-wrap break-words">{message.content}</p>
+            ) : (
+              <div className="markdown-content w-full text-sm">
+                <ReactMarkdown
+                  components={{ p: 'p', h1: 'h1', h2: 'h2', h3: 'h3', ul: 'ul', ol: 'ol', li: 'li', code: 'code', pre: 'pre', blockquote: 'blockquote' }}
+                >
+                  {message.content}
+                </ReactMarkdown>
+                {message.isTyping && <TypingIndicator inline />}
+              </div>
+            )}
+          </div>
           {message.isError && message.retryAfter > 0 && (
             <RateLimitCountdown seconds={message.retryAfter} />
           )}
         </div>
-        {message.role === 'user' && <MessageAvatar icon={User} color="pink" />}
+        {message.role === 'user' && (
+          <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/15 flex items-center justify-center">
+            <User className="w-3.5 h-3.5 text-emerald-400" />
+          </div>
+        )}
       </div>
     </motion.div>
   );
-};
-
-const MessageAvatar = ({ icon: Icon, color }) => (
-  <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border border-white/[0.08] ${
-    color === 'pink' 
-      ? 'bg-gradient-to-br from-pink-500/20 to-purple-500/20' 
-      : 'bg-gradient-to-br from-purple-500/20 to-blue-500/20'
-  }`}>
-    <Icon className={`w-4 h-4 ${color === 'pink' ? 'text-pink-400' : 'text-purple-400'}`} />
-  </div>
-);
-
-const MessageContent = ({ message }) => (
-  <div
-    className={`rounded-2xl p-4 backdrop-blur-sm ${
-      message.role === 'user'
-        ? 'bg-gradient-to-br from-purple-500/90 to-pink-500/80 text-white shadow-lg shadow-purple-500/10 border border-purple-400/20'
-        : message.isError
-        ? 'bg-red-500/10 text-red-200 border border-red-500/20'
-        : 'bg-white/[0.04] text-gray-200 border border-white/[0.06] shadow-lg shadow-black/20'
-    } w-full`}
-  >
-    {message.role === 'user' ? (
-      <UserMessage content={message.content} />
-    ) : (
-      <AssistantMessage message={message} />
-    )}
-  </div>
-);
-
-const UserMessage = ({ content }) => (
-  <p className="leading-relaxed text-left whitespace-pre-wrap break-words">
-    {content}
-  </p>
-);
-
-const AssistantMessage = ({ message }) => (
-  <div className="markdown-content w-full">
-    <ReactMarkdown
-      components={{
-        p: 'p',
-        h1: 'h1',
-        h2: 'h2',
-        h3: 'h3',
-        ul: 'ul',
-        ol: 'ol',
-        li: 'li',
-        code: 'code',
-        pre: 'pre',
-        blockquote: 'blockquote',
-      }}
-    >
-      {message.content}
-    </ReactMarkdown>
-    {message.isTyping && <TypingIndicator inline />}
-  </div>
-); 
+}; 

@@ -1,44 +1,42 @@
 import PropTypes from 'prop-types'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
-import { sections } from '../config/navigationConfig'
-import { navConfig } from '../config/navigationConfig'
-import { SocialLinks } from '../shared/SocialLinks'
+
+const LINKS = [
+  { to: '/', label: 'Home' },
+  { to: '/projects', label: 'Projects' },
+  { to: '/blog', label: 'Blog' },
+  { to: '/linkedin', label: 'LinkedIn' },
+]
 
 export const MobileNav = ({ isMenuOpen, setIsMenuOpen }) => {
   return (
     <AnimatePresence>
       {isMenuOpen && (
         <motion.div
-          {...navConfig.mobileMenuTransition}
-          className="md:hidden mt-4"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+          className="md:hidden mt-3 overflow-hidden"
         >
-          {/* Navigation Links */}
-          <div className="flex flex-col space-y-2 mb-4">
-            {Object.entries(sections).map(([key, { icon: Icon, title, path }]) => (
+          <div className="flex flex-col gap-1 pb-2">
+            {LINKS.map(({ to, label }) => (
               <NavLink
-                key={key}
-                to={path}
+                key={to}
+                to={to}
                 onClick={() => setIsMenuOpen(false)}
-                className={({ isActive }) => `
-                  px-4 py-3 rounded-lg flex items-center space-x-2 transition-colors w-full
-                  ${isActive 
-                    ? 'bg-white/10 text-white' 
-                    : 'text-gray-400 hover:text-[#00C8DC] hover:bg-white/5'}
-                `}
+                className={({ isActive }) =>
+                  `px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? 'bg-white/[0.06] text-white'
+                      : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.03]'
+                  }`
+                }
               >
-                <Icon className="w-4 h-4" />
-                <span>{title}</span>
+                {label}
               </NavLink>
             ))}
-          </div>
-
-          {/* Social Links */}
-          <div className="border-t border-white/10 pt-4">
-            <div className="px-4 py-2 text-sm text-gray-500">Connect with me</div>
-            <div className="px-4 py-2">
-              <SocialLinks isMobile />
-            </div>
           </div>
         </motion.div>
       )}

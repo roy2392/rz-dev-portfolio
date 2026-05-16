@@ -1,213 +1,121 @@
 import { motion } from 'framer-motion'
 import { Linkedin } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
-// LinkedIn post embeds directly from user's profile
 const LINKEDIN_POSTS = [
-  {
-    id: "7317411297799618560",
-    type: "activity",
-    title: "Vibe Coding Productivity",
-    excerpt: "How to improve your productivity 10x with 'Vibe Coding'"
-  },
-  {
-    id: "7316011592272293889",
-    type: "share",
-    title: "Recent LinkedIn Post",
-    excerpt: "Check out my latest thoughts"
-  },
-  {
-    id: "7314143555222945795",
-    type: "share",
-    title: "LinkedIn Update",
-    excerpt: "Professional insights and updates"
-  },
-  {
-    id: "7307271507150344192",
-    type: "share",
-    title: "Tech Thoughts",
-    excerpt: "Sharing my perspective on technology"
-  },
-  {
-    id: "7173482642179309568",
-    type: "share",
-    title: "AI Development",
-    excerpt: "Insights on artificial intelligence"
-  },
-  {
-    id: "7266919151477125122",
-    type: "share",
-    title: "Software Engineering",
-    excerpt: "Best practices and approaches"
-  },
-  {
-    id: "7250029938722967554",
-    type: "ugcPost",
-    title: "Career Development",
-    excerpt: "Professional growth strategies"
-  }
+  { id: "7317411297799618560", type: "activity", title: "Vibe Coding Productivity", excerpt: "How to improve your productivity 10x with 'Vibe Coding'" },
+  { id: "7316011592272293889", type: "share", title: "Recent LinkedIn Post", excerpt: "Check out my latest thoughts" },
+  { id: "7314143555222945795", type: "share", title: "LinkedIn Update", excerpt: "Professional insights and updates" },
+  { id: "7307271507150344192", type: "share", title: "Tech Thoughts", excerpt: "Sharing my perspective on technology" },
+  { id: "7173482642179309568", type: "share", title: "AI Development", excerpt: "Insights on artificial intelligence" },
+  { id: "7266919151477125122", type: "share", title: "Software Engineering", excerpt: "Best practices and approaches" },
+  { id: "7250029938722967554", type: "ugcPost", title: "Career Development", excerpt: "Professional growth strategies" }
 ];
 
-// LinkedIn profile URL
 const LINKEDIN_PROFILE_URL = "http://linkedin.com/in/roey-zalta";
 
 export const LinkedInSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [postLoadErrors, setPostLoadErrors] = useState({});
-  const [visiblePosts, setVisiblePosts] = useState(6); // Show all posts initially
-  const profileBadgeRef = useRef(null);
+  const [visiblePosts, setVisiblePosts] = useState(6);
 
-  // Handle iframe load errors
   const handleIframeError = (postId) => {
-    setPostLoadErrors(prev => ({
-      ...prev,
-      [postId]: true
-    }));
-  };
-
-  // Load more posts
-  const handleLoadMore = () => {
-    setVisiblePosts(prev => Math.min(prev + 2, LINKEDIN_POSTS.length));
+    setPostLoadErrors(prev => ({ ...prev, [postId]: true }));
   };
 
   useEffect(() => {
-    // Set loading to false after some time
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    const t = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <motion.h1 
-        className="text-4xl font-bold mb-2 text-center"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        LinkedIn Posts
-      </motion.h1>
-      
-      <motion.p 
-        className="text-center text-gray-400 mb-8"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        Recent updates and thoughts from my LinkedIn
-      </motion.p>
+    <div className="py-12">
+      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tightest mb-2">LinkedIn</h1>
+        <p className="text-zinc-500 mb-8">Recent posts and updates</p>
+      </motion.div>
 
       {isLoading ? (
-        <div className="flex justify-center items-center h-64">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500"></div>
+        <div className="flex justify-center items-center h-48">
+          <div className="w-6 h-6 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
         </div>
       ) : (
-        <motion.div
-          className="flex flex-col items-center justify-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
-          {/* LinkedIn Posts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-10">
+        <div className="flex flex-col">
+          {/* Posts grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             {LINKEDIN_POSTS.slice(0, visiblePosts).map((post, index) => (
               <motion.div
                 key={post.id}
-                className="bg-white/5 rounded-lg p-4 border border-white/10 flex flex-col min-h-[420px]"
-                initial={{ opacity: 0, y: 20 }}
+                className="rounded-2xl bg-zinc-900/40 border border-white/[0.06] p-[1px]"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + (index * 0.1) }}
+                transition={{ delay: 0.1 + index * 0.05, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
               >
-                {postLoadErrors[post.id] ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center p-4">
-                    <Linkedin className="w-12 h-12 text-[#0A66C2] mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                    <p className="text-gray-300 mb-4">{post.excerpt}</p>
-                    <a 
-                      href={LINKEDIN_PROFILE_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-auto px-4 py-2 rounded bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors"
-                    >
-                      View on LinkedIn
-                    </a>
-                  </div>
-                ) : (
-                  <div className="linkedin-post-container h-full flex items-center justify-center">
+                <div className="rounded-[15px] bg-zinc-950/60 border border-white/[0.03] p-4 min-h-[400px] flex flex-col">
+                  {postLoadErrors[post.id] ? (
+                    <div className="h-full flex flex-col items-center justify-center text-center p-4">
+                      <Linkedin className="w-10 h-10 text-[#0A66C2] mb-3" />
+                      <h3 className="text-sm font-semibold mb-1 text-zinc-200">{post.title}</h3>
+                      <p className="text-xs text-zinc-500 mb-4">{post.excerpt}</p>
+                      <a href={LINKEDIN_PROFILE_URL} target="_blank" rel="noopener noreferrer"
+                        className="px-4 py-2 rounded-full bg-[#0A66C2] hover:bg-[#0a5cb8] text-sm text-white transition-colors">
+                        View on LinkedIn
+                      </a>
+                    </div>
+                  ) : (
                     <iframe
                       src={`https://www.linkedin.com/embed/feed/update/urn:li:${post.type}:${post.id}?collapsed=1`}
-                      height="399"
+                      height="380"
                       width="100%"
                       frameBorder="0"
                       allowFullScreen=""
                       title={`LinkedIn Post ${index + 1}`}
-                      className="rounded"
+                      className="rounded-lg"
                       onError={() => handleIframeError(post.id)}
                       loading="lazy"
-                    ></iframe>
-                  </div>
-                )}
+                    />
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Load More Button */}
           {visiblePosts < LINKEDIN_POSTS.length && (
-            <motion.button
-              className="mb-10 px-6 py-3 bg-white/10 hover:bg-white/15 rounded-lg border border-white/10 transition-colors flex items-center gap-2"
-              onClick={handleLoadMore}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>Load More Posts</span>
-            </motion.button>
+            <div className="text-center mb-8">
+              <button onClick={() => setVisiblePosts(prev => Math.min(prev + 2, LINKEDIN_POSTS.length))}
+                className="px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-sm text-zinc-400 hover:text-white hover:border-white/[0.12] transition-all duration-300">
+                Load more
+              </button>
+            </div>
           )}
 
-          {/* Profile Card */}
+          {/* Profile card */}
           <motion.div
-            className="bg-white/5 rounded-lg p-6 border border-white/10 max-w-xl w-full"
-            initial={{ opacity: 0, y: 20 }}
+            className="rounded-2xl bg-zinc-900/40 border border-white/[0.06] p-[1px] max-w-xl"
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
+            transition={{ delay: 0.5, duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-r from-blue-400 to-[#0A66C2] flex items-center justify-center">
-                <Linkedin className="w-8 h-8 text-white" />
+            <div className="rounded-[15px] bg-zinc-950/60 border border-white/[0.03] p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-[#0A66C2]/10 border border-[#0A66C2]/20 flex items-center justify-center">
+                  <Linkedin className="w-5 h-5 text-[#0A66C2]" />
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold text-zinc-100">Roey Zalta</h2>
+                  <p className="text-xs text-zinc-500">Machine Learning Engineer & AI Developer</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-xl font-bold">Roey Zalta</h2>
-                <p className="text-gray-400">Machine Learning Engineer & AI Developer</p>
-              </div>
+              <p className="text-sm text-zinc-400 leading-relaxed mb-4">
+                Building production multi-agent systems, LLMOps pipelines, and generative AI applications on AWS Bedrock and Azure. Deep expertise in RAG architectures, prompt engineering, and agentic AI frameworks.
+              </p>
+              <a href={LINKEDIN_PROFILE_URL} target="_blank" rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A66C2] hover:bg-[#0a5cb8] text-sm text-white transition-colors">
+                <Linkedin className="w-4 h-4" /> Connect on LinkedIn
+              </a>
             </div>
-            <p className="text-gray-300 mb-4">
-              Machine Learning Engineer & AI Developer specializing in production multi-agent systems, LLMOps, and generative AI applications. Building and deploying AI solutions on AWS Bedrock and Azure, with deep expertise in RAG architectures, prompt engineering, and agentic AI frameworks. Passionate about taking ML systems from prototype to production at scale.
-            </p>
           </motion.div>
-
-          {/* View More Link */}
-          <motion.div 
-            className="mt-8 text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            <a
-              href={LINKEDIN_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 rounded-lg bg-[#0A66C2] hover:bg-[#0a5cb8] transition-colors inline-flex items-center gap-2"
-            >
-              <Linkedin className="w-5 h-5" />
-              <span>View More on LinkedIn</span>
-            </a>
-          </motion.div>
-        </motion.div>
+        </div>
       )}
     </div>
   )
