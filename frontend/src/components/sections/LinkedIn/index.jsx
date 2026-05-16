@@ -29,29 +29,29 @@ export const LinkedInSection = () => {
   }, []);
 
   return (
-    <div className="py-12">
+    <div className="py-24 md:py-32">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tightest mb-2">LinkedIn</h1>
-        <p className="text-zinc-500 mb-8">Recent posts and updates</p>
+        <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tightest mb-2">LinkedIn</h1>
+        <p className="text-zinc-500 mb-10">Recent posts and updates</p>
       </motion.div>
 
       {isLoading ? (
         <div className="flex justify-center items-center h-48">
-          <div className="w-6 h-6 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
         </div>
       ) : (
         <div className="flex flex-col">
           {/* Posts grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
             {LINKEDIN_POSTS.slice(0, visiblePosts).map((post, index) => (
               <motion.div
                 key={post.id}
-                className="rounded-2xl bg-zinc-900/40 border border-white/[0.06] p-[1px]"
+                className="rounded-2xl bg-zinc-900/50 border border-white/[0.06] overflow-hidden"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 + index * 0.05, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
               >
-                <div className="rounded-[15px] bg-zinc-950/60 border border-white/[0.03] p-4 min-h-[400px] flex flex-col">
+                <div className="p-4 min-h-[400px] flex flex-col">
                   {postLoadErrors[post.id] ? (
                     <div className="h-full flex flex-col items-center justify-center text-center p-4">
                       <Linkedin className="w-10 h-10 text-[#0A66C2] mb-3" />
@@ -81,9 +81,9 @@ export const LinkedInSection = () => {
           </div>
 
           {visiblePosts < LINKEDIN_POSTS.length && (
-            <div className="text-center mb-8">
+            <div className="text-center mb-10">
               <button onClick={() => setVisiblePosts(prev => Math.min(prev + 2, LINKEDIN_POSTS.length))}
-                className="px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-sm text-zinc-400 hover:text-white hover:border-white/[0.12] transition-all duration-300">
+                className="px-6 py-3 rounded-full bg-white/[0.04] border border-white/[0.06] text-sm text-zinc-400 hover:text-white hover:border-white/[0.12] transition-all duration-300">
                 Load more
               </button>
             </div>
@@ -91,23 +91,23 @@ export const LinkedInSection = () => {
 
           {/* Profile card */}
           <motion.div
-            className="rounded-2xl bg-zinc-900/40 border border-white/[0.06] p-[1px] max-w-xl"
+            className="rounded-2xl bg-zinc-900/50 border border-white/[0.06] max-w-xl"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
           >
-            <div className="rounded-[15px] bg-zinc-950/60 border border-white/[0.03] p-6">
+            <div className="p-6">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 rounded-xl bg-[#0A66C2]/10 border border-[#0A66C2]/20 flex items-center justify-center">
                   <Linkedin className="w-5 h-5 text-[#0A66C2]" />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-zinc-100">Roey Zalta</h2>
+                  <h2 className="text-base font-display font-semibold text-zinc-100">Roey Zalta</h2>
                   <p className="text-xs text-zinc-500">Machine Learning Engineer & AI Developer</p>
                 </div>
               </div>
               <p className="text-sm text-zinc-400 leading-relaxed mb-4">
-                Building production multi-agent systems, LLMOps pipelines, and generative AI applications on AWS Bedrock and Azure. Deep expertise in RAG architectures, prompt engineering, and agentic AI frameworks.
+                Building production multi-agent systems, LLMOps pipelines, and generative AI applications on AWS Bedrock and Azure.
               </p>
               <a href={LINKEDIN_PROFILE_URL} target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A66C2] hover:bg-[#0a5cb8] text-sm text-white transition-colors">

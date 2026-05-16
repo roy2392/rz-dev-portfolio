@@ -9,6 +9,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
         sans: ['Outfit', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Menlo', 'monospace'],
       },

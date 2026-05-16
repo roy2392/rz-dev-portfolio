@@ -8,7 +8,7 @@ export const TypingIndicator = ({ inline = false }) => {
         {[0, 0.2, 0.4].map((delay, i) => (
           <motion.span
             key={i}
-            className="w-1 h-1 bg-emerald-400 rounded-full"
+            className="w-1 h-1 bg-blue-400 rounded-full"
             animate={{ opacity: [0.3, 1, 0.3] }}
             transition={{ duration: 1.2, repeat: Infinity, delay, ease: 'easeInOut' }}
           />

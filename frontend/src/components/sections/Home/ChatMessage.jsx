@@ -26,7 +26,7 @@ export const ChatMessage = ({ message }) => {
         <div className={`flex flex-col ${message.role === 'user' ? 'items-end' : 'items-start'} max-w-[80%]`}>
           <div className={`rounded-2xl px-4 py-3 ${
             message.role === 'user'
-              ? 'bg-emerald-600/90 text-white'
+              ? 'bg-blue-600/90 text-white'
               : message.isError
               ? 'bg-red-500/[0.06] text-red-300 border border-red-500/10'
               : 'bg-white/[0.03] text-zinc-300 border border-white/[0.06]'
@@ -49,8 +49,8 @@ export const ChatMessage = ({ message }) => {
           )}
         </div>
         {message.role === 'user' && (
-          <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/15 flex items-center justify-center">
-            <User className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="flex-shrink-0 w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/15 flex items-center justify-center">
+            <User className="w-3.5 h-3.5 text-blue-400" />
           </div>
         )}
       </div>

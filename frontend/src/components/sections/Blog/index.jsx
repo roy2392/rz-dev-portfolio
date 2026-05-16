@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
 import { ArrowUpRight, Clock } from 'lucide-react'
+import { GlowCard } from '../../ui/GlowCard'
 
 const MEDIUM_ARTICLES = [
   { id: 1, title: "Sub-Agents vs Agent Teams: The Architecture Decision That Changes Everything", description: "A deep dive into multi-agent system architectures — when to use sub-agents vs coordinated agent teams in production.", date: "Apr 25, 2026", link: "https://medium.com/@roeyzalta/sub-agents-vs-agent-teams-the-architecture-decision-that-changes-everything-2abf440704ec", tags: ["multi-agent", "architecture"] },
@@ -16,55 +16,79 @@ const MEDIUM_ARTICLES = [
 ];
 
 export const BlogSection = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => { const t = setTimeout(() => setIsLoading(false), 400); return () => clearTimeout(t); }, []);
+  const featured = MEDIUM_ARTICLES[0]
+  const rest = MEDIUM_ARTICLES.slice(1)
 
   return (
-    <div className="py-12">
+    <div className="py-24 md:py-32">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tightest mb-2">Blog</h1>
-        <p className="text-zinc-500 mb-8">Writing about AI systems, LLMOps, and engineering</p>
+        <h1 className="font-display text-3xl md:text-4xl font-bold tracking-tightest mb-2">Blog</h1>
+        <p className="text-zinc-500 mb-10">Writing about AI systems, LLMOps, and engineering</p>
       </motion.div>
 
-      {isLoading ? (
-        <div className="flex justify-center items-center h-48">
-          <div className="w-6 h-6 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+      {/* Featured article — large card */}
+      <motion.a
+        href={featured.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+        className="group block rounded-2xl bg-zinc-900/50 border border-white/[0.06] p-8 md:p-10 mb-8 hover:border-white/[0.12] hover:bg-zinc-900/60 transition-all duration-300"
+      >
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-xs font-mono text-blue-400">Latest</span>
+          <span className="text-zinc-700">-</span>
+          <Clock className="w-3 h-3 text-zinc-600" />
+          <span className="text-xs text-zinc-600">{featured.date}</span>
         </div>
-      ) : (
-        <div className="space-y-3">
-          {MEDIUM_ARTICLES.map((article, i) => (
-            <motion.a
-              key={article.id}
-              href={article.link}
-              target="_blank"
-              rel="noopener noreferrer"
+        <h2 className="font-display text-2xl md:text-3xl font-bold text-zinc-100 group-hover:text-blue-400 transition-colors duration-300 mb-3 max-w-3xl">
+          {featured.title}
+        </h2>
+        <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed mb-5">{featured.description}</p>
+        <div className="flex items-center gap-2">
+          {featured.tags.map(tag => (
+            <span key={tag} className="text-xs px-2 py-1 rounded-lg bg-white/[0.04] text-zinc-500 border border-white/[0.04]">{tag}</span>
+          ))}
+          <ArrowUpRight className="w-4 h-4 text-zinc-600 group-hover:text-blue-400 transition-colors ml-auto" />
+        </div>
+      </motion.a>
+
+      {/* Article grid — 2 columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {rest.map((article, i) => (
+          <GlowCard
+            key={article.id}
+            as="a"
+            href={article.link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.05, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="group flex items-start gap-4 p-4 rounded-xl bg-zinc-900/30 border border-white/[0.04] hover:border-white/[0.08] hover:bg-zinc-900/50 transition-all duration-300"
+              transition={{ delay: 0.1 + i * 0.04, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+              className="p-5"
             >
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <Clock className="w-3 h-3 text-zinc-600 flex-shrink-0" />
-                  <span className="text-[11px] text-zinc-600">{article.date}</span>
-                  {article.tags.map(tag => (
-                    <span key={tag} className="text-[11px] px-1.5 py-0.5 rounded-md bg-white/[0.03] text-zinc-500 border border-white/[0.04]">{tag}</span>
-                  ))}
-                </div>
-                <h2 className="text-sm font-semibold text-zinc-200 group-hover:text-emerald-400 transition-colors duration-300 mb-1 line-clamp-1">
-                  {article.title}
-                </h2>
-                <p className="text-xs text-zinc-500 line-clamp-1">{article.description}</p>
+              <div className="flex items-center gap-2 mb-3">
+                <Clock className="w-3 h-3 text-zinc-600" />
+                <span className="text-[11px] text-zinc-600">{article.date}</span>
+                {article.tags.map(tag => (
+                  <span key={tag} className="text-[11px] px-1.5 py-0.5 rounded-md bg-white/[0.03] text-zinc-500 border border-white/[0.04]">{tag}</span>
+                ))}
               </div>
-              <ArrowUpRight className="w-4 h-4 text-zinc-700 group-hover:text-emerald-400 transition-colors flex-shrink-0 mt-1" />
-            </motion.a>
-          ))}
-        </div>
-      )}
+              <h2 className="text-sm font-semibold text-zinc-200 group-hover/card:text-blue-400 transition-colors duration-300 mb-1.5 line-clamp-2">
+                {article.title}
+              </h2>
+              <p className="text-xs text-zinc-500 line-clamp-2">{article.description}</p>
+            </motion.div>
+          </GlowCard>
+        ))}
+      </div>
 
-      <motion.div className="mt-10" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+      <motion.div className="mt-12" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
         <a href="https://medium.com/@roeyzalta" target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.06] text-sm text-zinc-400 hover:text-white hover:border-white/[0.12] transition-all duration-300">
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.04] border border-white/[0.06] text-sm text-zinc-400 hover:text-white hover:border-white/[0.12] transition-all duration-300">
           All articles on Medium <ArrowUpRight className="w-3.5 h-3.5" />
         </a>
       </motion.div>

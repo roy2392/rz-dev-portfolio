@@ -12,7 +12,7 @@
   }
 
   ::selection {
-    background-color: rgba(16, 185, 129, 0.25);
+    background-color: rgba(37, 99, 235, 0.25);
   }
 }
 
@@ -72,10 +72,10 @@
   }
 
   .markdown-content blockquote {
-    @apply border-l-2 border-emerald-500/40 pl-4 mb-3 text-zinc-400 italic;
+    @apply border-l-2 border-blue-500/40 pl-4 mb-3 text-zinc-400 italic;
   }
 
   .markdown-content a {
-    @apply text-emerald-400 underline underline-offset-2 decoration-emerald-500/30 hover:decoration-emerald-400;
+    @apply text-blue-400 underline underline-offset-2 decoration-blue-500/30 hover:decoration-blue-400;
   }
 }

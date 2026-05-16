@@ -18,8 +18,8 @@ export const NavBar = () => {
       >
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-              <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+            <div className="w-7 h-7 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+              <Terminal className="w-3.5 h-3.5 text-blue-400" />
             </div>
             <span className="text-sm font-semibold tracking-tight text-zinc-100 group-hover:text-white transition-colors duration-300">roey.dev</span>
           </Link>

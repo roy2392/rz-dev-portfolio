@@ -18,7 +18,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
   return (
     <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
       <div className={`flex-1 flex items-center rounded-xl border transition-colors duration-300 ${
-        isFocused ? 'border-emerald-500/30 bg-white/[0.03]' : 'border-white/[0.06] bg-white/[0.02]'
+        isFocused ? 'border-blue-500/30 bg-white/[0.03]' : 'border-white/[0.06] bg-white/[0.02]'
       }`}>
         <input
           type="text"
@@ -53,7 +53,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="flex-shrink-0 bg-emerald-600 hover:bg-emerald-500 text-white p-2.5 rounded-xl transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-emerald-600"
+            className="flex-shrink-0 bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-xl transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
           >
             <Send className="w-4 h-4" />
           </motion.button>
