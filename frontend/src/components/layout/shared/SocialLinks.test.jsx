@@ -99,41 +99,22 @@ describe('SocialLinks', () => {
     expect(links[2]).toHaveAttribute('title', 'Email');
   });
   
-  it('does not show labels by default (desktop mode)', () => {
+  it('does not show labels (always desktop mode)', () => {
     renderWithConfig(<SocialLinks />);
     
-    // Labels should not be visible in desktop mode
+    // Labels should not be visible
     expect(screen.queryByText('GitHub')).not.toBeInTheDocument();
     expect(screen.queryByText('LinkedIn')).not.toBeInTheDocument();
     expect(screen.queryByText('Email')).not.toBeInTheDocument();
   });
   
-  it('shows labels in mobile mode', () => {
-    renderWithConfig(<SocialLinks isMobile={true} />);
-    
-    // Labels should be visible in mobile mode
-    expect(screen.getByText('GitHub')).toBeInTheDocument();
-    expect(screen.getByText('LinkedIn')).toBeInTheDocument();
-    expect(screen.getByText('Email')).toBeInTheDocument();
-  });
-  
-  it('applies different styling in mobile mode', () => {
+  it('applies desktop styling with gap-2', () => {
     const { container: desktopContainer } = renderWithConfig(<SocialLinks />);
     
-    // In desktop mode, the container should have gap-2 class and not have justify-around class
     const desktopDiv = desktopContainer.firstChild;
     expect(desktopDiv).toHaveClass('gap-2');
     expect(desktopDiv).not.toHaveClass('justify-around');
     expect(desktopDiv).not.toHaveClass('w-full');
-    
-    // Cleanup and rerender in mobile mode
-    const { container: mobileContainer } = renderWithConfig(<SocialLinks isMobile={true} />);
-    
-    // In mobile mode, the container should have justify-around and w-full classes
-    const mobileDiv = mobileContainer.firstChild;
-    expect(mobileDiv).toHaveClass('justify-around');
-    expect(mobileDiv).toHaveClass('w-full');
-    expect(mobileDiv).not.toHaveClass('gap-2');
   });
   
   it('has click handlers that stop event propagation', () => {
