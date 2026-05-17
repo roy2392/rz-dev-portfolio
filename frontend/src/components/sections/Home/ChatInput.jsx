@@ -17,8 +17,8 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
 
   return (
     <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
-      <div className={`flex-1 flex items-center rounded-lg border-2 transition-colors ${
-        isFocused ? 'border-accent bg-white' : 'border-ink/20 bg-parchment-light'
+      <div className={`flex-1 flex items-center rounded-xl border transition-colors ${
+        isFocused ? 'border-purple-500/40 bg-white/5' : 'border-white/10 bg-white/[0.03]'
       }`}>
         <input
           type="text"
@@ -27,7 +27,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className="flex-1 min-w-0 bg-transparent text-sm text-ink px-4 py-2.5 focus:outline-none placeholder-ink-faint"
+          className="flex-1 min-w-0 bg-transparent text-sm text-white/90 px-4 py-2.5 focus:outline-none placeholder-white/30"
           disabled={isLoading}
         />
       </div>
@@ -41,7 +41,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="flex-shrink-0 bg-red-500 hover:bg-red-600 text-white p-2.5 rounded-lg border-2 border-red-700 transition-colors"
+            className="flex-shrink-0 bg-red-500/80 hover:bg-red-500 text-white p-2.5 rounded-xl transition-colors"
           >
             <Square className="w-4 h-4" />
           </motion.button>
@@ -53,7 +53,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="retro-btn retro-btn-primary !p-2.5 !rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
+            className="flex-shrink-0 bg-purple-600 hover:bg-purple-500 text-white p-2.5 rounded-xl transition-colors disabled:opacity-20 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
           </motion.button>

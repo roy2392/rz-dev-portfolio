@@ -46,70 +46,67 @@ export const ChatBox = () => {
   };
 
   return (
-    <div className="w-full max-w-3xl">
-      <div className="retro-card overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-ink/10">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg border-2 border-accent flex items-center justify-center bg-accent/10">
-              <Bot className="w-4 h-4 text-accent" />
-            </div>
-            <div>
-              <h3 className="text-sm font-sans font-semibold text-ink">{firstName}&apos;s assistant</h3>
-              <p className="text-[11px] text-ink-faint">Powered by GPT-4o mini</p>
-            </div>
+    <div className="w-full h-full flex flex-col">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-purple-500/20 flex items-center justify-center">
+            <Bot className="w-4 h-4 text-purple-400" />
           </div>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-ink/15 bg-parchment">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-            <span className="text-[11px] text-ink-faint">Online</span>
+          <div>
+            <h3 className="text-sm font-medium text-white/90">{firstName}&apos;s AI</h3>
+            <p className="text-[10px] text-white/40">GPT-4o mini</p>
           </div>
         </div>
+        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/5">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-[10px] text-white/40">Online</span>
+        </div>
+      </div>
 
-        <div className="p-5 flex flex-col min-h-[350px] bg-parchment">
-          {/* Messages */}
-          <div
-            ref={chatContainerRef}
-            className="flex-1 overflow-y-auto space-y-3 mb-4 max-h-[280px] scroll-smooth pr-1"
-            style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(0,0,0,0.1) transparent' }}
-          >
-            <AnimatePresence>
-              {messages.map((message, index) => (
-                <ChatMessage key={index} message={message} />
-              ))}
-              {isLoading && !messages.some(msg => msg.isTyping) && (
-                <TypingIndicator key="loading-indicator" />
-              )}
-            </AnimatePresence>
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Suggestion chips */}
-          {!userEngaged && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {SUGGESTION_CHIPS.map((chip, i) => (
-                <button
-                  key={i}
-                  onClick={() => handleSubmit(chip.text)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-ink/15 text-xs text-ink-muted hover:text-accent hover:border-accent/30 hover:bg-accent/5 transition-all"
-                >
-                  <chip.icon className="w-3 h-3" />
-                  {chip.text}
-                </button>
-              ))}
-            </div>
+      {/* Messages */}
+      <div
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto space-y-3 p-4 scroll-smooth"
+        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.06) transparent' }}
+      >
+        <AnimatePresence>
+          {messages.map((message, index) => (
+            <ChatMessage key={index} message={message} />
+          ))}
+          {isLoading && !messages.some(msg => msg.isTyping) && (
+            <TypingIndicator key="loading-indicator" />
           )}
+        </AnimatePresence>
+        <div ref={messagesEndRef} />
+      </div>
 
-          {/* Error */}
-          <AnimatePresence>
-            {error && (
-              <div className="text-red-600 mb-3 text-sm bg-red-50 p-3 rounded-lg border border-red-200">
-                {error}
-              </div>
-            )}
-          </AnimatePresence>
-
-          <ChatInput input={input} setInput={setInput} isLoading={isLoading} onSubmit={handleSubmit} onStop={stopAnswering} />
+      {/* Suggestion chips */}
+      {!userEngaged && (
+        <div className="flex flex-wrap gap-2 px-4 pb-2">
+          {SUGGESTION_CHIPS.map((chip, i) => (
+            <button
+              key={i}
+              onClick={() => handleSubmit(chip.text)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs text-white/50 hover:text-purple-300 hover:border-purple-500/20 hover:bg-purple-500/5 transition-all"
+            >
+              <chip.icon className="w-3 h-3" />
+              {chip.text}
+            </button>
+          ))}
         </div>
+      )}
+
+      {/* Error */}
+      {error && (
+        <div className="text-red-400 mx-4 mb-2 text-sm bg-red-500/10 p-3 rounded-lg border border-red-500/10">
+          {error}
+        </div>
+      )}
+
+      {/* Input */}
+      <div className="px-4 pb-4 flex-shrink-0">
+        <ChatInput input={input} setInput={setInput} isLoading={isLoading} onSubmit={handleSubmit} onStop={stopAnswering} />
       </div>
     </div>
   );
