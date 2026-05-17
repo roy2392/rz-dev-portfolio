@@ -17,8 +17,8 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
 
   return (
     <form onSubmit={handleSubmit} className="relative flex items-center gap-2">
-      <div className={`flex-1 flex items-center rounded-xl border transition-colors duration-300 ${
-        isFocused ? 'border-blue-500/30 bg-white/[0.03]' : 'border-white/[0.06] bg-white/[0.02]'
+      <div className={`flex-1 flex items-center rounded-lg border-2 transition-colors ${
+        isFocused ? 'border-accent bg-white' : 'border-ink/20 bg-parchment-light'
       }`}>
         <input
           type="text"
@@ -27,7 +27,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className="flex-1 min-w-0 bg-transparent text-sm text-zinc-100 px-4 py-2.5 focus:outline-none placeholder-zinc-600"
+          className="flex-1 min-w-0 bg-transparent text-sm text-ink px-4 py-2.5 focus:outline-none placeholder-ink-faint"
           disabled={isLoading}
         />
       </div>
@@ -41,7 +41,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="flex-shrink-0 bg-red-500/80 hover:bg-red-500 text-white p-2.5 rounded-xl transition-colors duration-200"
+            className="flex-shrink-0 bg-red-500 hover:bg-red-600 text-white p-2.5 rounded-lg border-2 border-red-700 transition-colors"
           >
             <Square className="w-4 h-4" />
           </motion.button>
@@ -53,7 +53,7 @@ export const ChatInput = ({ input, setInput, isLoading, onSubmit, onStop }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="flex-shrink-0 bg-blue-600 hover:bg-blue-500 text-white p-2.5 rounded-xl transition-colors duration-200 disabled:opacity-20 disabled:cursor-not-allowed disabled:hover:bg-blue-600"
+            className="retro-btn retro-btn-primary !p-2.5 !rounded-lg disabled:opacity-20 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
           </motion.button>

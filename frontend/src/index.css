@@ -4,78 +4,107 @@
 
 @layer base {
   body {
-    background-color: #09090b;
-    color: #fafafa;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #e5e1d7;
+    color: #1a1a1a;
+    font-family: 'PT Sans', Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: rgba(37, 99, 235, 0.25);
+    background-color: rgba(0, 153, 229, 0.2);
   }
 }
 
 @layer components {
-  .markdown-content {
-    @apply text-left w-full text-zinc-300;
+  /* Retro card style matching reference */
+  .retro-card {
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.02) 0 2px, transparent 2px 4px),
+      linear-gradient(#f5f2ea, #e5e1d7);
+    border: 2px solid #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 4px 0 0 #bcb8ae, 0 4px 0 2px #1a1a1a;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .retro-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 #bcb8ae, 0 6px 0 2px #1a1a1a;
   }
 
+  /* Retro button */
+  .retro-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 2px solid #1a1a1a;
+    background:
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 4px),
+      linear-gradient(#f5f2ea, #e5e1d7);
+    color: #1a1a1a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    box-shadow: 0 4px 0 0 #bcb8ae, 0 4px 0 1px #1a1a1a;
+    transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+  }
+  .retro-btn:hover {
+    background: linear-gradient(#0099e5, #0077b3);
+    color: #f5f2ea;
+    border-color: #0077b3;
+    box-shadow: 0 4px 0 0 #005c8a, 0 4px 0 1px #0077b3;
+  }
+  .retro-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+
+  .retro-btn-primary {
+    background: linear-gradient(#0099e5, #0077b3);
+    color: #fff;
+    border-color: #005c8a;
+    box-shadow: 0 3px 0 0 #004a6e, 0 3px 0 2px #005c8a;
+  }
+  .retro-btn-primary:hover {
+    background: linear-gradient(#0077b3, #005c8a);
+    color: #fff;
+  }
+
+  .markdown-content {
+    @apply text-left w-full;
+    color: #333;
+  }
   .markdown-content p {
     @apply mb-3 last:mb-0 leading-relaxed;
   }
-
-  .markdown-content h1,
-  .markdown-content h2,
-  .markdown-content h3 {
-    @apply font-semibold mb-2 mt-5 first:mt-0 text-zinc-100;
-  }
-
-  .markdown-content h1 {
-    @apply text-xl;
-  }
-
-  .markdown-content h2 {
-    @apply text-lg;
-  }
-
-  .markdown-content h3 {
-    @apply text-base;
-  }
-
   .markdown-content pre {
-    @apply bg-zinc-900/80 rounded-lg p-3 my-3 overflow-x-auto border border-white/[0.06];
+    @apply rounded-lg p-3 my-3 overflow-x-auto;
+    background: #f5f2ea;
+    border: 1px solid #d5d1c7;
   }
-
   .markdown-content code {
-    @apply bg-white/[0.06] rounded px-1.5 py-0.5 font-mono text-sm text-zinc-200;
+    @apply rounded px-1.5 py-0.5 font-mono text-sm;
+    background: rgba(0,0,0,0.05);
   }
-
   .markdown-content pre code {
     @apply bg-transparent p-0 border-0;
   }
-
-  .markdown-content ul {
-    @apply list-disc pl-5 mb-3 space-y-1.5;
-  }
-
-  .markdown-content ol {
-    @apply list-decimal pl-5 mb-3 space-y-1.5;
-  }
-
-  .markdown-content li {
-    @apply pl-1;
-  }
-
-  .markdown-content li > p {
-    @apply inline;
-  }
-
+  .markdown-content ul { @apply list-disc pl-5 mb-3 space-y-1.5; }
+  .markdown-content ol { @apply list-decimal pl-5 mb-3 space-y-1.5; }
   .markdown-content blockquote {
-    @apply border-l-2 border-blue-500/40 pl-4 mb-3 text-zinc-400 italic;
+    @apply pl-4 mb-3 italic;
+    border-left: 3px solid #0099e5;
+    color: #555;
   }
-
   .markdown-content a {
-    @apply text-blue-400 underline underline-offset-2 decoration-blue-500/30 hover:decoration-blue-400;
+    color: #0099e5;
+    text-decoration: underline;
+  }
+  .markdown-content a:hover {
+    color: #0077b3;
   }
 }

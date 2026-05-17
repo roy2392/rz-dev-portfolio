@@ -8,39 +8,37 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        sans: ['Outfit', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Menlo', 'monospace'],
-      },
-      letterSpacing: {
-        tightest: '-0.04em',
-      },
-      transitionTimingFunction: {
-        'premium': 'cubic-bezier(0.32, 0.72, 0, 1)',
-      },
-      keyframes: {
-        'fade-up': {
-          '0%': { opacity: '0', transform: 'translateY(16px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
+      colors: {
+        parchment: {
+          DEFAULT: '#e5e1d7',
+          light: '#f5f2ea',
+          dark: '#d5d1c7',
+          shadow: '#bcb8ae',
+        },
+        ink: {
+          DEFAULT: '#1a1a1a',
+          light: '#333333',
+          muted: '#555555',
+          faint: '#888888',
+        },
+        accent: {
+          DEFAULT: '#0099e5',
+          dark: '#0077b3',
+          darker: '#005c8a',
         },
       },
-      animation: {
-        'fade-up': 'fade-up 0.7s cubic-bezier(0.32, 0.72, 0, 1) forwards',
+      fontFamily: {
+        sans: ['Poppins', 'Helvetica', 'sans-serif'],
+        serif: ['Playfair Display', 'Georgia', 'serif'],
+        body: ['PT Sans', 'Helvetica', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+      boxShadow: {
+        'retro': '0 4px 0 0 #bcb8ae, 0 4px 0 2px #1a1a1a',
+        'retro-hover': '0 6px 0 0 #bcb8ae, 0 6px 0 2px #1a1a1a',
+        'retro-accent': '0 4px 0 0 rgba(0,153,229,0.35), 0 4px 0 2px #0099e5',
       },
     },
   },
-  plugins: [
-    plugin(function({ addUtilities }) {
-      addUtilities({
-        '.bg-grid-pattern': {
-          'background-image': 'radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
-          'background-size': '24px 24px',
-        },
-        '.font-tabular': {
-          'font-variant-numeric': 'tabular-nums',
-        },
-      })
-    }),
-  ],
+  plugins: [],
 }
