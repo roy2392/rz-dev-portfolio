@@ -1,56 +1,64 @@
-import { describe, it, expect, vi } from 'vitest';
-import { screen } from '@testing-library/react';
-import { HomeSection } from './index';
-import React from 'react';
-import '../../../test/mocks';
-import { renderWithConfig } from '../../../test/testUtils';
+import React from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { fireEvent, screen } from '@testing-library/react'
+import '../../../test/mocks'
+import { renderWithConfig } from '../../../test/testUtils'
+import { HomeSection } from './index'
 
-// Mock the child components
 vi.mock('./ChatBox', () => ({
-  ChatBox: () => React.createElement('div', { 'data-testid': 'chat-box' })
-}));
+  ChatBox: () => <div data-testid="chat-box">Chat Box</div>,
+}))
 
-vi.mock('./IntroSection', () => ({
-  IntroSection: () => React.createElement('div', { 'data-testid': 'intro-section' })
-}));
+vi.mock('../../../hooks/useGithubRepos', () => ({
+  useGithubRepos: () => ({
+    repos: [
+      {
+        id: 1,
+        name: 'portfolio-app',
+        html_url: 'https://github.com/roy2392/portfolio-app',
+        description: 'Portfolio project',
+        language: 'JavaScript',
+        stargazers_count: 10,
+        forks_count: 2,
+      },
+    ],
+    totalStars: 42,
+  }),
+}))
 
-// Mock the Lucide React icon
-vi.mock('lucide-react', () => ({
-  Terminal: () => React.createElement('div', { 'data-testid': 'terminal-icon' })
-}));
+const useIsMobileMock = vi.fn(() => false)
+vi.mock('../../../hooks/useIsMobile', () => ({
+  useIsMobile: (...args) => useIsMobileMock(...args),
+}))
 
 describe('HomeSection', () => {
-  it('renders the profile image and name', () => {
-    renderWithConfig(<HomeSection />);
-    
-    // Check that the profile image is rendered
-    const profileImage = screen.getByAltText('Test User');
-    expect(profileImage).toBeInTheDocument();
-    expect(profileImage.tagName).toBe('IMG');
-    expect(profileImage).toHaveAttribute('src', '/profile.jpg');
-    
-    // Check that the name is rendered
-    expect(screen.getByText('Test User')).toBeInTheDocument();
-  });
-  
-  it('renders the Terminal icon', () => {
-    renderWithConfig(<HomeSection />);
-    
-    // Check that the Terminal icon is rendered
-    expect(screen.getByTestId('terminal-icon')).toBeInTheDocument();
-  });
-  
-  it('renders the IntroSection component', () => {
-    renderWithConfig(<HomeSection />);
-    
-    // Check that the IntroSection component is rendered
-    expect(screen.getByTestId('intro-section')).toBeInTheDocument();
-  });
-  
-  it('renders the ChatBox component', () => {
-    renderWithConfig(<HomeSection />);
-    
-    // Check that the ChatBox component is rendered
-    expect(screen.getByTestId('chat-box')).toBeInTheDocument();
-  });
-}); 
+  beforeEach(() => {
+    window.sessionStorage.clear()
+    window.sessionStorage.setItem('mac-booted', 'true')
+    useIsMobileMock.mockReturnValue(false)
+  })
+
+  it('renders the desktop widgets when not on mobile', () => {
+    renderWithConfig(<HomeSection />)
+
+    expect(screen.getByText('Roey Zalta')).toBeInTheDocument()
+    expect(screen.getByText('ML Engineer & AI Architect')).toBeInTheDocument()
+    expect(screen.getByText('42 stars')).toBeInTheDocument()
+  })
+
+  it('renders the mobile card layout and opens chat sheet', () => {
+    useIsMobileMock.mockReturnValue(true)
+
+    renderWithConfig(<HomeSection />)
+
+    expect(screen.getByText('macOS portfolio')).toBeInTheDocument()
+    expect(screen.getByText('Expertise')).toBeInTheDocument()
+    expect(screen.getAllByText('Projects').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Blog').length).toBeGreaterThan(0)
+
+    fireEvent.click(screen.getByRole('button', { name: /chat/i }))
+
+    expect(screen.getByText("Chat with Roey's AI")).toBeInTheDocument()
+    expect(screen.getByTestId('chat-box')).toBeInTheDocument()
+  })
+})
