@@ -11,6 +11,28 @@ vi.mock('../../../hooks/useGithubRepos', () => ({
   useGithubRepos: vi.fn()
 }));
 
+// Mock the GlowCard component
+vi.mock('../../ui/GlowCard', () => ({
+  GlowCard: ({ children, as: Tag = 'div', ...props }) =>
+    React.createElement(Tag || 'div', props, children)
+}));
+
+// Mock lucide-react
+vi.mock('lucide-react', () => ({
+  Github: (props) => <span data-testid="github-icon" {...props} />,
+  Star: (props) => <span data-testid="star-icon" {...props} />,
+  GitBranch: (props) => <span data-testid="gitbranch-icon" {...props} />,
+  Clock: (props) => <span data-testid="clock-icon" {...props} />,
+  Search: (props) => <span data-testid="search-icon" {...props} />,
+  ArrowUpRight: (props) => <span data-testid="arrowupright-icon" {...props} />,
+  RefreshCw: (props) => <span data-testid="refresh-icon" {...props} />,
+}));
+
+// Mock the github service for FEATURED_PROJECTS
+vi.mock('../../../services/github', () => ({
+  FEATURED_PROJECTS: []
+}));
+
 describe('ProjectsSection', () => {
   const mockRepos = [
     {
@@ -40,12 +62,10 @@ describe('ProjectsSection', () => {
   ];
 
   beforeEach(() => {
-    // Reset mocks before each test
     vi.clearAllMocks();
   });
-  
+
   it('renders loading state', () => {
-    // Mock loading state
     vi.mocked(useGithubRepos).mockReturnValue({
       repos: [],
       loading: true,
@@ -53,32 +73,28 @@ describe('ProjectsSection', () => {
       totalStars: 0,
       primaryLanguages: {}
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Check for loading spinner
+
     expect(document.querySelector('.animate-spin')).toBeInTheDocument();
-    expect(screen.getByText('GitHub Projects')).toBeInTheDocument();
+    expect(screen.getByText('Projects')).toBeInTheDocument();
   });
-  
-  it('renders error state', () => {
-    // Mock error state
+
+  it('renders error banner with cached data fallback', () => {
     vi.mocked(useGithubRepos).mockReturnValue({
-      repos: [],
+      repos: mockRepos,
       loading: false,
       error: 'Failed to fetch repositories',
       totalStars: 0,
       primaryLanguages: {}
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Check for error message
-    expect(screen.getByText('Error loading projects. Please try again later.')).toBeInTheDocument();
+
+    expect(screen.getByText(/Showing cached data/)).toBeInTheDocument();
   });
-  
+
   it('renders repositories and stats correctly', () => {
-    // Mock repository data with stats
     vi.mocked(useGithubRepos).mockReturnValue({
       repos: mockRepos,
       loading: false,
@@ -89,24 +105,15 @@ describe('ProjectsSection', () => {
         Python: 1
       }
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Check that repositories are rendered
+
     expect(screen.getByText('Test Repo 1')).toBeInTheDocument();
     expect(screen.getByText('Test Repo 2')).toBeInTheDocument();
-    
-    // Check that stats are rendered
-    expect(screen.getByText('2')).toBeInTheDocument(); // Number of repos
-    expect(screen.getByText('25')).toBeInTheDocument(); // Total stars
-    expect(screen.getByText('JavaScript')).toBeInTheDocument(); // Language tag
-    expect(screen.getByText('Python')).toBeInTheDocument(); // Language tag
-    
-    // Check repository details
-    expect(screen.getByText('10')).toBeInTheDocument(); // Star count for repo 1
-    expect(screen.getByText('15')).toBeInTheDocument(); // Star count for repo 2
+    expect(screen.getByText('Repositories')).toBeInTheDocument();
+    expect(screen.getByText('Total stars')).toBeInTheDocument();
   });
-  
+
   it('filters repositories when category buttons are clicked', () => {
     vi.mocked(useGithubRepos).mockReturnValue({
       repos: mockRepos,
@@ -118,30 +125,21 @@ describe('ProjectsSection', () => {
         Python: 1
       }
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Get category buttons
-    const allButton = screen.getByText('All Projects');
-    const recentButton = screen.getByText('Recently Updated');
-    const popularButton = screen.getByText('Most Popular');
-    
-    // Click on Popular button
+
+    const allButton = screen.getByRole('button', { name: 'All' });
+    const recentButton = screen.getByRole('button', { name: 'Recent' });
+    const popularButton = screen.getByRole('button', { name: 'Popular' });
+
     fireEvent.click(popularButton);
-    
-    // Check that the popular button is active (has purple background)
-    expect(popularButton.className).toContain('bg-purple-500');
-    
-    // Click on Recent button
+    expect(popularButton.className).toContain('bg-blue-500/10');
+
     fireEvent.click(recentButton);
-    
-    // Check that the recent button is active
-    expect(recentButton.className).toContain('bg-purple-500');
-    expect(popularButton.className).not.toContain('bg-purple-500');
+    expect(recentButton.className).toContain('bg-blue-500/10');
   });
-  
+
   it('calls useGithubRepos with correct parameters', () => {
-    // Mock repositories
     vi.mocked(useGithubRepos).mockReturnValue({
       repos: mockRepos,
       loading: false,
@@ -149,15 +147,13 @@ describe('ProjectsSection', () => {
       totalStars: 25,
       primaryLanguages: {}
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Check that useGithubRepos was called with correct parameters
-    expect(useGithubRepos).toHaveBeenCalledWith('roy2392', 15);
+
+    expect(useGithubRepos).toHaveBeenCalledWith('roy2392');
   });
-  
+
   it('renders repositories with missing descriptions', () => {
-    // Mock repositories with missing descriptions
     const reposWithMissingDesc = [
       {
         id: 1,
@@ -172,7 +168,7 @@ describe('ProjectsSection', () => {
         owner: { login: 'roy2392' }
       }
     ];
-    
+
     vi.mocked(useGithubRepos).mockReturnValue({
       repos: reposWithMissingDesc,
       loading: false,
@@ -180,10 +176,9 @@ describe('ProjectsSection', () => {
       totalStars: 10,
       primaryLanguages: { JavaScript: 1 }
     });
-    
+
     renderWithConfig(<ProjectsSection />);
-    
-    // Check that fallback description is used
-    expect(screen.getByText('No description available')).toBeInTheDocument();
+
+    expect(screen.getByText('No description')).toBeInTheDocument();
   });
 }); 

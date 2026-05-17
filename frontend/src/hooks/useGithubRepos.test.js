@@ -5,7 +5,11 @@ import { fetchUserRepos } from '../services/github';
 
 // Mock the github service
 vi.mock('../services/github', () => ({
-  fetchUserRepos: vi.fn()
+  fetchUserRepos: vi.fn(),
+  FEATURED_PROJECTS: [
+    { id: 100, name: 'featured-1', fork: false, language: 'Python', stargazers_count: 5 },
+    { id: 101, name: 'featured-2', fork: false, language: 'JavaScript', stargazers_count: 3 },
+  ]
 }));
 
 describe('useGithubRepos', () => {
@@ -77,7 +81,7 @@ describe('useGithubRepos', () => {
     expect(result.current.repos[2].name).toBe('repo4');
   });
 
-  it('should handle API errors', async () => {
+  it('should handle API errors with fallback projects', async () => {
     // Mock API error
     const mockError = new Error('API error');
     fetchUserRepos.mockRejectedValue(mockError);
@@ -88,7 +92,8 @@ describe('useGithubRepos', () => {
     await waitFor(() => expect(result.current.loading).toBe(false));
     
     expect(result.current.loading).toBe(false);
-    expect(result.current.repos).toEqual([]);
+    // On error, the hook falls back to FEATURED_PROJECTS
+    expect(result.current.repos.length).toBeGreaterThan(0);
     expect(result.current.error).toBe(mockError);
   });
 

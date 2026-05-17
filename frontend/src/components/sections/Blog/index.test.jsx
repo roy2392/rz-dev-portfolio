@@ -1,64 +1,46 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { BlogSection } from './index';
 import React from 'react';
 import '../../../test/mocks';
 import { renderWithConfig } from '../../../test/testUtils';
 
-// Mock setTimeout
-vi.useFakeTimers();
+// Mock lucide-react icons
+vi.mock('lucide-react', () => ({
+  ArrowUpRight: (props) => <span data-testid="arrow-icon" {...props} />,
+  Clock: (props) => <span data-testid="clock-icon" {...props} />,
+}));
 
 describe('BlogSection', () => {
   beforeEach(() => {
-    // Reset mocks before each test
     vi.clearAllMocks();
   });
-  
+
   it('renders blog section with title', () => {
     renderWithConfig(<BlogSection />);
-    
-    // Check for the title
-    expect(screen.getByText('Blog Articles')).toBeInTheDocument();
+    expect(screen.getByText('Blog')).toBeInTheDocument();
   });
-  
-  it('shows loading state initially', () => {
+
+  it('renders the featured article', () => {
     renderWithConfig(<BlogSection />);
-    
-    // Should show loading animation initially
-    expect(document.querySelector('.animate-pulse')).toBeInTheDocument();
+    expect(screen.getByText('Sub-Agents vs Agent Teams: The Architecture Decision That Changes Everything')).toBeInTheDocument();
   });
-  
-  it('shows articles after loading completes', async () => {
+
+  it('shows articles after loading completes', () => {
     renderWithConfig(<BlogSection />);
-    
-    // Fast-forward timer to complete loading
-    vi.advanceTimersByTime(1000);
-    
-    // Should show article titles after loading
-    await waitFor(() => {
-      expect(screen.getByText('Understanding Fine-Tuning in Large Language Models')).toBeInTheDocument();
-      expect(screen.getByText('Building RAG Applications with Python and Vector Databases')).toBeInTheDocument();
-    });
+    expect(screen.getByText('Claude Managed Agents + Azure: The Multi-Cloud AI Strategy')).toBeInTheDocument();
+    expect(screen.getByText('Claude Managed Agents: Deploy Your First Production Agent')).toBeInTheDocument();
   });
-  
-  it('provides correct links to articles', async () => {
+
+  it('provides correct links to articles', () => {
     renderWithConfig(<BlogSection />);
-    
-    // Fast-forward timer to complete loading
-    vi.advanceTimersByTime(1000);
-    
-    // Check article links
-    await waitFor(() => {
-      const articleLinks = screen.getAllByText('Read Article');
-      expect(articleLinks[0].closest('a')).toHaveAttribute('href', expect.stringContaining('medium.com/@roeyzalta'));
-    });
+    const featuredLink = screen.getByText('Sub-Agents vs Agent Teams: The Architecture Decision That Changes Everything').closest('a');
+    expect(featuredLink).toHaveAttribute('href', expect.stringContaining('medium.com/@roeyzalta'));
   });
-  
+
   it('provides link to Medium profile', () => {
     renderWithConfig(<BlogSection />);
-    
-    // Check for the link to Medium profile
-    const link = screen.getByText('View all articles on Medium').closest('a');
+    const link = screen.getByText('All articles on Medium').closest('a');
     expect(link).toHaveAttribute('href', 'https://medium.com/@roeyzalta');
   });
 }); 

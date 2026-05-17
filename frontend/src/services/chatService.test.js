@@ -77,14 +77,14 @@ describe('ChatService', () => {
         cancel: vi.fn().mockResolvedValue(undefined)
       };
       
-      // Setup the reader to return chunks and then done
+      // Each chunk must end with \n for line-based parsing, and use format 0:"content"
       mockReader.read
         .mockResolvedValueOnce({ 
-          value: new TextEncoder().encode('0:{"chunk":"Hello"}'), 
+          value: new TextEncoder().encode('0:"Hello"\n'), 
           done: false 
         })
         .mockResolvedValueOnce({ 
-          value: new TextEncoder().encode('0:{"chunk":" World"}'), 
+          value: new TextEncoder().encode('0:" World"\n'), 
           done: false 
         })
         .mockResolvedValueOnce({ done: true });
