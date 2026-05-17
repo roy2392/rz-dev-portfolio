@@ -1,27 +1,22 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  User, FolderOpen, FileText, Terminal, Bot,
-  Github, Linkedin, BookOpen, Mail, LayoutGrid
-} from 'lucide-react'
 
 const APPS = [
-  { id: 'launchpad', label: 'Launchpad', icon: LayoutGrid, color: 'from-gray-600 to-gray-800' },
-  { id: 'about', label: 'About Me', icon: User, color: 'from-blue-500 to-blue-700' },
-  { id: 'projects', label: 'Projects', icon: FolderOpen, color: 'from-amber-500 to-orange-600' },
-  { id: 'blog', label: 'Blog', icon: BookOpen, color: 'from-pink-500 to-rose-600' },
-  { id: 'terminal', label: 'Terminal', icon: Terminal, color: 'from-gray-800 to-black' },
-  { id: 'chat', label: 'AI Chat', icon: Bot, color: 'from-violet-500 to-purple-700' },
+  { id: 'launchpad', label: 'Launchpad', icon: '/icons/launchpad.svg' },
+  { id: 'about', label: 'About Me', icon: '/icons/about.svg' },
+  { id: 'projects', label: 'Projects', icon: '/icons/projects.svg' },
+  { id: 'blog', label: 'Blog', icon: '/icons/blog.svg' },
+  { id: 'terminal', label: 'Terminal', icon: '/icons/terminal.svg' },
+  { id: 'chat', label: 'AI Chat', icon: '/icons/chat.svg' },
   { id: 'divider' },
-  { id: 'github', label: 'GitHub', icon: Github, color: 'from-gray-700 to-gray-900', url: 'https://github.com/roy2392' },
-  { id: 'linkedin', label: 'LinkedIn', icon: Linkedin, color: 'from-blue-600 to-blue-800', url: 'https://linkedin.com/in/roeyzalta' },
-  { id: 'email', label: 'Email', icon: Mail, color: 'from-sky-400 to-blue-600', url: 'mailto:roey.zalta@gmail.com' },
+  { id: 'github', label: 'GitHub', icon: '/icons/github.svg', url: 'https://github.com/roy2392' },
+  { id: 'linkedin', label: 'LinkedIn', icon: '/icons/linkedin.svg', url: 'https://linkedin.com/in/roeyzalta' },
+  { id: 'email', label: 'Email', icon: '/icons/mail.svg', url: 'mailto:roey.zalta@gmail.com' },
 ]
 
 const DockIcon = ({ app, isOpen, onClick, mouseX }) => {
   const ref = useRef(null)
   const [hovered, setHovered] = useState(false)
-  const Icon = app.icon
 
   const getScale = () => {
     if (!ref.current || mouseX === null) return 1
@@ -51,10 +46,10 @@ const DockIcon = ({ app, isOpen, onClick, mouseX }) => {
       <button
         ref={ref}
         onClick={onClick}
-        className={`w-12 h-12 rounded-xl bg-gradient-to-b ${app.color} flex items-center justify-center shadow-lg transition-transform duration-75 hover:shadow-xl`}
+        className="w-12 h-12 rounded-[22%] overflow-hidden flex items-center justify-center shadow-lg transition-transform duration-75 hover:shadow-xl"
         style={{ transform: `scale(${scale})`, transformOrigin: 'bottom center' }}
       >
-        <Icon className="w-6 h-6 text-white" strokeWidth={1.5} />
+        <img src={app.icon} alt={app.label} className="w-full h-full" draggable={false} />
       </button>
       {isOpen && (
         <div className="w-1 h-1 rounded-full bg-white/80 mt-1 absolute -bottom-2" />
