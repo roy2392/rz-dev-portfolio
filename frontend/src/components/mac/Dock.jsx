@@ -52,7 +52,7 @@ const DockIcon = ({ app, isOpen, onClick, mouseX }) => {
         <img src={app.icon} alt={app.label} className="w-full h-full" draggable={false} />
       </button>
       {isOpen && (
-        <div className="w-1 h-1 rounded-full bg-white/80 mt-1 absolute -bottom-2" />
+        <div className="w-[5px] h-[5px] rounded-full bg-[#30d158] mt-1 absolute -bottom-2 shadow-[0_0_4px_rgba(48,209,88,0.6)]" />
       )}
     </div>
   )

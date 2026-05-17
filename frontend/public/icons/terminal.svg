@@ -1,10 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#232323"/>
+    <linearGradient id="tm-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a3a3c"/>
+      <stop offset="15%" stop-color="#1c1c1e"/>
       <stop offset="100%" stop-color="#0a0a0a"/>
     </linearGradient>
+    <radialGradient id="tm-shine" cx="50%" cy="10%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tm-screen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
   </defs>
-  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
-  <text x="22" y="74" font-family="Menlo, monospace" font-size="48" font-weight="bold" fill="#00ff41">$_</text>
+  <rect width="120" height="120" rx="26" fill="url(#tm-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#tm-shine)"/>
+  <!-- Screen area -->
+  <rect x="14" y="14" width="92" height="92" rx="12" fill="url(#tm-screen)" opacity="0.6"/>
+  <!-- Prompt -->
+  <text x="28" y="58" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" fill="#4af626" opacity="0.9">roey@mac ~</text>
+  <text x="28" y="78" font-family="SF Mono, Menlo, Consolas, monospace" font-size="18" fill="#4af626" opacity="0.9">▸ _</text>
+  <!-- Subtle scanline -->
+  <rect x="14" y="50" width="92" height="1" fill="white" opacity="0.03"/>
+  <rect x="14" y="65" width="92" height="1" fill="white" opacity="0.03"/>
 </svg>

@@ -1,15 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ff6482"/>
-      <stop offset="100%" stop-color="#ff2d55"/>
+    <linearGradient id="bl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2a"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
     </linearGradient>
+    <radialGradient id="bl-shine" cx="40%" cy="25%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
-  <rect x="30" y="24" width="60" height="72" rx="6" fill="white" opacity="0.95"/>
-  <rect x="40" y="38" width="40" height="3" rx="1.5" fill="#ff2d55" opacity="0.3"/>
-  <rect x="40" y="48" width="32" height="3" rx="1.5" fill="#ff2d55" opacity="0.3"/>
-  <rect x="40" y="58" width="36" height="3" rx="1.5" fill="#ff2d55" opacity="0.3"/>
-  <rect x="40" y="68" width="28" height="3" rx="1.5" fill="#ff2d55" opacity="0.3"/>
-  <rect x="40" y="78" width="34" height="3" rx="1.5" fill="#ff2d55" opacity="0.3"/>
+  <rect width="120" height="120" rx="26" fill="url(#bl-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#bl-shine)"/>
+  <!-- Colorful flower/pinwheel petals like Photos app -->
+  <g transform="translate(60,58)">
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF9500" transform="rotate(0)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF3B30" transform="rotate(45)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF2D55" transform="rotate(90)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#AF52DE" transform="rotate(135)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#5856D6" transform="rotate(180)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#007AFF" transform="rotate(225)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#5AC8FA" transform="rotate(270)"/>
+    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#4CD964" transform="rotate(315)"/>
+  </g>
+  <!-- Center highlight -->
+  <circle cx="60" cy="58" r="6" fill="white" opacity="0.5"/>
 </svg>

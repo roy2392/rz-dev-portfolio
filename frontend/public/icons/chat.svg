@@ -1,14 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#bf5af2"/>
-      <stop offset="100%" stop-color="#9336d4"/>
+    <linearGradient id="ch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7B5EA7"/>
+      <stop offset="50%" stop-color="#5B3D8F"/>
+      <stop offset="100%" stop-color="#3D1F6D"/>
     </linearGradient>
+    <radialGradient id="ch-shine" cx="35%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ch-orb" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#E0C3FC"/>
+      <stop offset="50%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </radialGradient>
   </defs>
-  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
-  <rect x="28" y="30" width="64" height="46" rx="10" fill="white" opacity="0.95"/>
-  <circle cx="48" cy="53" r="4" fill="#bf5af2" opacity="0.5"/>
-  <circle cx="60" cy="53" r="4" fill="#bf5af2" opacity="0.5"/>
-  <circle cx="72" cy="53" r="4" fill="#bf5af2" opacity="0.5"/>
-  <polygon points="40,76 52,86 40,86" fill="white" opacity="0.95"/>
+  <rect width="120" height="120" rx="26" fill="url(#ch-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#ch-shine)"/>
+  <!-- Metallic orb/sphere like the screenshot -->
+  <circle cx="60" cy="56" r="28" fill="url(#ch-orb)"/>
+  <!-- Sphere highlight -->
+  <ellipse cx="52" cy="46" rx="12" ry="10" fill="white" opacity="0.3"/>
+  <!-- Small reflection -->
+  <circle cx="70" cy="68" r="5" fill="white" opacity="0.1"/>
+  <!-- AI sparkle accents -->
+  <circle cx="36" cy="34" r="2" fill="white" opacity="0.6"/>
+  <circle cx="88" cy="40" r="1.5" fill="white" opacity="0.5"/>
+  <circle cx="82" cy="82" r="2" fill="white" opacity="0.4"/>
 </svg>

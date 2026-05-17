@@ -1,11 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffb340"/>
-      <stop offset="100%" stop-color="#ff9500"/>
+    <linearGradient id="pj-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6DC5F7"/>
+      <stop offset="100%" stop-color="#2196F3"/>
+    </linearGradient>
+    <radialGradient id="pj-shine" cx="40%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pj-folder" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B8E0F9"/>
+      <stop offset="100%" stop-color="#7CC4F0"/>
+    </linearGradient>
+    <linearGradient id="pj-tab" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#A8D8F5"/>
+      <stop offset="100%" stop-color="#6BB8EA"/>
     </linearGradient>
   </defs>
-  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
-  <path d="M24 50 L24 90 C24 94 28 98 32 98 L88 98 C92 98 96 94 96 90 L96 50 L70 42 L60 48 L50 42 Z" fill="#ffd970" opacity="0.9"/>
-  <path d="M24 48 L50 38 L60 44 L70 38 L96 48 L96 54 L70 44 L60 50 L50 44 L24 54 Z" fill="white" opacity="0.95"/>
+  <rect width="120" height="120" rx="26" fill="url(#pj-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#pj-shine)"/>
+  <!-- Folder back -->
+  <rect x="20" y="42" width="80" height="55" rx="6" fill="url(#pj-folder)"/>
+  <!-- Folder tab -->
+  <path d="M20 42 L20 36 C20 33 22 31 25 31 L48 31 C50 31 52 32 53 34 L56 40 L20 40 Z" fill="url(#pj-tab)"/>
+  <!-- Folder front face -->
+  <rect x="20" y="50" width="80" height="47" rx="6" fill="url(#pj-folder)" opacity="0.95"/>
+  <!-- Label -->
+  <text x="60" y="80" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="16" font-weight="600" fill="#1565C0" opacity="0.8">project</text>
+  <!-- Folder shine -->
+  <rect x="20" y="50" width="80" height="8" rx="6" fill="white" opacity="0.15"/>
 </svg>

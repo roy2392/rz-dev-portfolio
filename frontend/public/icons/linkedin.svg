@@ -1,10 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0a66c2"/>
+    <linearGradient id="li-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1DA1F2"/>
+      <stop offset="50%" stop-color="#0A66C2"/>
       <stop offset="100%" stop-color="#004182"/>
     </linearGradient>
+    <radialGradient id="li-shine" cx="35%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
   </defs>
-  <rect width="120" height="120" rx="26" fill="url(#bg)"/>
-  <text x="26" y="84" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="bold" fill="white" opacity="0.95">in</text>
+  <rect width="120" height="120" rx="26" fill="url(#li-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#li-shine)"/>
+  <text x="26" y="86" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-size="60" font-weight="700" fill="white" opacity="0.95">in</text>
 </svg>
