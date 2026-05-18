@@ -1,40 +1,48 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="lp-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#4a4a4e"/>
-      <stop offset="50%" stop-color="#2c2c2e"/>
-      <stop offset="100%" stop-color="#1c1c1e"/>
+      <stop offset="0%" stop-color="#58585C"/>
+      <stop offset="20%" stop-color="#3A3A3E"/>
+      <stop offset="100%" stop-color="#1C1C1E"/>
     </linearGradient>
-    <radialGradient id="lp-shine" cx="50%" cy="20%" r="70%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.12"/>
+    <radialGradient id="lp-shine" cx="30%" cy="10%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.18"/>
+      <stop offset="50%" stop-color="white" stop-opacity="0.04"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
     <filter id="lp-glow">
-      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="lp-dot-shadow">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.4"/>
     </filter>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#lp-bg)"/>
   <rect width="120" height="120" rx="26" fill="url(#lp-shine)"/>
-  <g filter="url(#lp-glow)">
-    <circle cx="37" cy="40" r="8" fill="#ff453a"/>
-    <circle cx="60" cy="40" r="8" fill="#30d158"/>
-    <circle cx="83" cy="40" r="8" fill="#0a84ff"/>
-    <circle cx="37" cy="60" r="8" fill="#ff9f0a"/>
-    <circle cx="60" cy="60" r="8" fill="#bf5af2"/>
-    <circle cx="83" cy="60" r="8" fill="#64d2ff"/>
-    <circle cx="37" cy="80" r="8" fill="#ffd60a"/>
-    <circle cx="60" cy="80" r="8" fill="#ff375f"/>
-    <circle cx="83" cy="80" r="8" fill="#30d158"/>
+  <g filter="url(#lp-dot-shadow)">
+    <g filter="url(#lp-glow)">
+      <circle cx="37" cy="38" r="10" fill="#ff453a"/>
+      <circle cx="60" cy="38" r="10" fill="#30d158"/>
+      <circle cx="83" cy="38" r="10" fill="#0a84ff"/>
+      <circle cx="37" cy="60" r="10" fill="#ff9f0a"/>
+      <circle cx="60" cy="60" r="10" fill="#bf5af2"/>
+      <circle cx="83" cy="60" r="10" fill="#64d2ff"/>
+      <circle cx="37" cy="82" r="10" fill="#ffd60a"/>
+      <circle cx="60" cy="82" r="10" fill="#ff375f"/>
+      <circle cx="83" cy="82" r="10" fill="#30d158"/>
+    </g>
   </g>
-  <!-- Subtle highlight on each dot -->
-  <circle cx="35" cy="38" r="3" fill="white" opacity="0.3"/>
-  <circle cx="58" cy="38" r="3" fill="white" opacity="0.3"/>
-  <circle cx="81" cy="38" r="3" fill="white" opacity="0.3"/>
-  <circle cx="35" cy="58" r="3" fill="white" opacity="0.3"/>
-  <circle cx="58" cy="58" r="3" fill="white" opacity="0.3"/>
-  <circle cx="81" cy="58" r="3" fill="white" opacity="0.3"/>
-  <circle cx="35" cy="78" r="3" fill="white" opacity="0.3"/>
-  <circle cx="58" cy="78" r="3" fill="white" opacity="0.3"/>
-  <circle cx="81" cy="78" r="3" fill="white" opacity="0.3"/>
+  <!-- Highlight on each dot -->
+  <circle cx="34" cy="35" r="4" fill="white" opacity="0.3"/>
+  <circle cx="57" cy="35" r="4" fill="white" opacity="0.3"/>
+  <circle cx="80" cy="35" r="4" fill="white" opacity="0.3"/>
+  <circle cx="34" cy="57" r="4" fill="white" opacity="0.3"/>
+  <circle cx="57" cy="57" r="4" fill="white" opacity="0.3"/>
+  <circle cx="80" cy="57" r="4" fill="white" opacity="0.3"/>
+  <circle cx="34" cy="79" r="4" fill="white" opacity="0.3"/>
+  <circle cx="57" cy="79" r="4" fill="white" opacity="0.3"/>
+  <circle cx="80" cy="79" r="4" fill="white" opacity="0.3"/>
+  <!-- Glass edge top -->
+  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.08"/>
 </svg>
