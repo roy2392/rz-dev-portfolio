@@ -1,9 +1,12 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Terminal } from 'lucide-react'
+import { Terminal, Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { DesktopNav } from './DesktopNav'
+import { MobileNav } from './MobileNav'
 
 export const NavBar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-[800px]">
@@ -22,7 +25,19 @@ export const NavBar = () => {
           </Link>
 
           <DesktopNav />
+
+          <button 
+            className="md:hidden p-1.5 hover:bg-white/[0.06] rounded-full transition-colors duration-300"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="w-4 h-4 text-zinc-400" /> : <Menu className="w-4 h-4 text-zinc-400" />}
+          </button>
         </div>
+
+        <MobileNav 
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+        />
       </motion.div>
     </nav>
   )

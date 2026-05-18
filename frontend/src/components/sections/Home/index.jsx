@@ -1,16 +1,25 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import {
   ArrowUpRight,
+  BookOpen,
   Bot,
   Brain,
   Cloud,
+  Code2,
   Cpu,
   Database,
   ExternalLink,
+  FolderKanban,
+  Github,
   GitBranch,
+  Linkedin,
+  Mail,
+  MessageSquare,
   Server,
+  Sparkles,
   Star,
+  X,
 } from 'lucide-react'
 import { BootSequence } from '../../mac/BootSequence'
 import { MacWindow } from '../../mac/MacWindow'
@@ -18,7 +27,7 @@ import { Dock } from '../../mac/Dock'
 import { TerminalWindow } from '../../mac/TerminalWindow'
 import { ChatBox } from './ChatBox'
 import { useGithubRepos } from '../../../hooks/useGithubRepos'
-
+import { useIsMobile } from '../../../hooks/useIsMobile'
 import { FEATURED_PROJECTS } from '../../../services/github'
 
 const LANGUAGE_COLORS = {
@@ -60,12 +69,23 @@ const WINDOW_CONFIGS = {
   skills: { title: 'Skills & Expertise', x: 100, y: 80, w: 680, h: 460 },
 }
 
+const MOBILE_NAV_ITEMS = [
+  { id: 'about', label: 'About', icon: Sparkles, type: 'section' },
+  { id: 'skills', label: 'Skills', icon: Code2, type: 'section' },
+  { id: 'projects', label: 'Projects', icon: FolderKanban, type: 'section' },
+  { id: 'blog', label: 'Blog', icon: BookOpen, type: 'section' },
+  { id: 'github', label: 'GitHub', icon: Github, href: 'https://github.com/roy2392', type: 'link' },
+  { id: 'linkedin', label: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/in/roeyzalta', type: 'link' },
+  { id: 'email', label: 'Email', icon: Mail, href: 'mailto:roey.zalta@gmail.com', type: 'link' },
+]
+
 export const HomeSection = () => {
   const [booted, setBooted] = useState(() => sessionStorage.getItem('mac-booted') === 'true')
   const [windows, setWindows] = useState({})
   const [windowOrder, setWindowOrder] = useState([])
   const [minimized, setMinimized] = useState({})
   const { repos, totalStars } = useGithubRepos('roy2392')
+  const isMobile = useIsMobile()
   const displayRepos = (repos.length > 0 ? repos : FEATURED_PROJECTS).slice(0, 8)
 
   const handleBootComplete = useCallback(() => {
@@ -121,6 +141,9 @@ export const HomeSection = () => {
       {!booted && <BootSequence onComplete={handleBootComplete} />}
 
       {booted && (
+        isMobile ? (
+          <MobileView repos={displayRepos} totalStars={totalStars} repoCount={repos.length} />
+        ) : (
           <>
             <div className="absolute top-12 left-4 z-10 flex flex-col gap-4 w-full max-w-md p-2">
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-lg">
@@ -184,12 +207,216 @@ export const HomeSection = () => {
 
             <Dock openWindows={openWindowIds} onOpenApp={openWindow} />
           </>
+        )
       )}
     </>
   )
 }
 
+const MobileView = ({ repos, totalStars, repoCount }) => {
+  const [chatOpen, setChatOpen] = useState(false)
+  const containerRef = useRef(null)
 
+  const scrollToSection = useCallback((sectionId) => {
+    const container = containerRef.current
+    const target = document.getElementById(`mobile-${sectionId}`)
+
+    if (!container || !target) return
+
+    const top = target.offsetTop - 24
+    container.scrollTo({ top, behavior: 'smooth' })
+  }, [])
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-screen overflow-y-auto px-4 pb-32 text-white"
+      style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1.5rem)' }}
+    >
+      <section id="mobile-about" className="mb-5 rounded-[28px] border border-white/10 bg-black/20 p-5 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
+        <div className="flex items-start gap-4">
+          <img src="/profile.jpg" alt="Roey Zalta" className="h-16 w-16 rounded-2xl border border-white/10 object-cover" />
+          <div className="min-w-0">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-white/40">macOS portfolio</p>
+            <h1 className="mt-1 text-2xl font-semibold text-white">Roey Zalta</h1>
+            <p className="text-sm text-blue-300">ML Engineer & AI Architect</p>
+          </div>
+        </div>
+        <p className="mt-4 text-sm leading-6 text-white/65">
+          Building production multi-agent systems, LLMOps pipelines, and AI applications. Deep expertise in RAG and agentic frameworks on AWS & Azure.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/45">
+          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">{repoCount || '115'}+ repos</span>
+          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">{totalStars} stars</span>
+          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5">10+ articles</span>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <a href="https://github.com/roy2392" target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70">GitHub</a>
+          <a href="https://linkedin.com/in/roeyzalta" target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70">LinkedIn</a>
+          <a href="https://medium.com/@roeyzalta" target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70">Medium</a>
+        </div>
+      </section>
+
+      <MobileSectionCard title="Expertise" subtitle="What I build" id="mobile-skills">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {EXPERTISE.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="rounded-2xl border border-white/8 bg-white/5 p-4">
+              <Icon className="mb-3 h-5 w-5 text-blue-400" />
+              <h3 className="text-sm font-medium text-white/90">{title}</h3>
+              <p className="mt-2 text-xs leading-5 text-white/50">{desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 space-y-4">
+          {SKILLS.map(({ category, items }) => (
+            <div key={category}>
+              <h3 className="mb-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-blue-300">{category}</h3>
+              <div className="flex flex-wrap gap-2">
+                {items.map(item => (
+                  <span key={item} className="rounded-full border border-white/8 bg-black/20 px-3 py-1.5 text-xs text-white/65">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </MobileSectionCard>
+
+      <MobileSectionCard title="Projects" subtitle="Selected work" id="mobile-projects">
+        <div className="space-y-3">
+          {repos.map((repo) => (
+            <a
+              key={repo.id || repo.name}
+              href={repo.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-white/8 bg-white/5 p-4 transition-colors hover:border-white/15 hover:bg-white/10"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="truncate text-sm font-semibold text-white/90">{repo.name}</h3>
+                  <p className="mt-2 text-xs leading-5 text-white/50">{repo.description || 'No description available.'}</p>
+                </div>
+                <ArrowUpRight className="h-4 w-4 flex-shrink-0 text-white/30" />
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-3 text-[11px] text-white/45">
+                {repo.language && (
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || '#888' }} />
+                    {repo.language}
+                  </span>
+                )}
+                <span className="flex items-center gap-1"><Star className="h-3 w-3" />{repo.stargazers_count}</span>
+                <span className="flex items-center gap-1"><GitBranch className="h-3 w-3" />{repo.forks_count}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </MobileSectionCard>
+
+      <MobileSectionCard title="Blog" subtitle="Recent writing" id="mobile-blog">
+        <div className="space-y-3">
+          {MEDIUM_ARTICLES.map((article) => (
+            <a
+              key={article.id}
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-white/8 bg-white/5 p-4 transition-colors hover:border-white/15 hover:bg-white/10"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <div className="flex flex-wrap items-center gap-2 text-[11px] text-white/40">
+                    <span>{article.date}</span>
+                    {article.tags.map(tag => (
+                      <span key={tag} className="rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] text-blue-300">{tag}</span>
+                    ))}
+                  </div>
+                  <h3 className="mt-2 text-sm font-medium leading-5 text-white/85">{article.title}</h3>
+                </div>
+                <ExternalLink className="mt-0.5 h-4 w-4 flex-shrink-0 text-white/25" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </MobileSectionCard>
+
+      <button
+        onClick={() => setChatOpen(true)}
+        className="fixed right-4 z-30 flex items-center gap-2 rounded-full border border-purple-400/20 bg-purple-500/20 px-4 py-3 text-sm font-medium text-white shadow-[0_10px_30px_rgba(139,92,246,0.25)] backdrop-blur-xl"
+        style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 5.5rem)' }}
+      >
+        <MessageSquare className="h-4 w-4" />
+        Chat
+      </button>
+
+      {chatOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-[#121826]/95 backdrop-blur-2xl">
+          <div
+            className="flex items-center justify-between border-b border-white/10 px-4 pb-4"
+            style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 1rem)' }}
+          >
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-white/35">AI Assistant</p>
+              <h2 className="mt-1 text-lg font-semibold text-white">Chat with Roey&apos;s AI</h2>
+            </div>
+            <button
+              onClick={() => setChatOpen(false)}
+              className="rounded-full border border-white/10 bg-white/5 p-2 text-white/70"
+              aria-label="Close chat"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+          <div className="flex-1 overflow-hidden px-2 pb-safe">
+            <ChatBox />
+          </div>
+        </div>
+      )}
+
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/35 px-3 pt-2 backdrop-blur-2xl pb-safe">
+        <div className="flex gap-2 overflow-x-auto">
+          {MOBILE_NAV_ITEMS.map(({ id, label, icon: Icon, type, href }) => (
+            type === 'section' ? (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className="flex min-w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </button>
+            ) : (
+              <a
+                key={id}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="flex min-w-fit items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/70"
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </a>
+            )
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const MobileSectionCard = ({ title, subtitle, id, children }) => (
+  <section id={id} className="mb-5 rounded-[28px] border border-white/10 bg-black/20 p-5 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.24)]">
+    <div className="mb-4 flex items-end justify-between gap-4">
+      <div>
+        <p className="text-[11px] uppercase tracking-[0.24em] text-white/35">{subtitle}</p>
+        <h2 className="mt-1 text-xl font-semibold text-white">{title}</h2>
+      </div>
+    </div>
+    {children}
+  </section>
+)
 
 const WindowContent = ({ id, repos, totalStars, repoCount }) => {
   switch (id) {
