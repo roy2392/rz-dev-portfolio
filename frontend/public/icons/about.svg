@@ -1,41 +1,43 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="ab-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#5AC8FA"/>
-      <stop offset="40%" stop-color="#32ADE6"/>
-      <stop offset="100%" stop-color="#007AFF"/>
+      <stop offset="0%" stop-color="#6EE7D6"/>
+      <stop offset="35%" stop-color="#34C8B0"/>
+      <stop offset="70%" stop-color="#1DA5C2"/>
+      <stop offset="100%" stop-color="#0E7AAF"/>
     </linearGradient>
-    <radialGradient id="ab-shine" cx="30%" cy="15%" r="65%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
-      <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
+    <radialGradient id="ab-shine" cx="28%" cy="12%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.38"/>
+      <stop offset="40%" stop-color="white" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ab-inner-shadow" cx="50%" cy="100%" r="70%">
-      <stop offset="0%" stop-color="black" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="black" stop-opacity="0"/>
+    <radialGradient id="ab-depth" cx="50%" cy="100%" r="65%">
+      <stop offset="0%" stop-color="#064E5E" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#064E5E" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ab-person" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#e0e8f0"/>
+      <stop offset="100%" stop-color="#d0e8e4"/>
     </linearGradient>
     <filter id="ab-shadow">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#004080" flood-opacity="0.3"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#064E5E" flood-opacity="0.35"/>
     </filter>
     <clipPath id="ab-clip">
       <rect width="120" height="120" rx="26"/>
     </clipPath>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#ab-bg)"/>
-  <rect width="120" height="120" rx="26" fill="url(#ab-inner-shadow)"/>
+  <rect width="120" height="120" rx="26" fill="url(#ab-depth)"/>
   <rect width="120" height="120" rx="26" fill="url(#ab-shine)"/>
-  <!-- Contact circle background -->
-  <circle cx="60" cy="54" r="30" fill="white" opacity="0.15" filter="url(#ab-shadow)"/>
+  <!-- Circle frame -->
+  <circle cx="60" cy="55" r="32" fill="white" opacity="0.1" filter="url(#ab-shadow)"/>
+  <circle cx="60" cy="55" r="32" fill="none" stroke="white" stroke-width="2.5" opacity="0.2"/>
   <!-- Head -->
-  <circle cx="60" cy="44" r="13" fill="url(#ab-person)" opacity="0.95"/>
+  <circle cx="60" cy="44" r="14" fill="url(#ab-person)" opacity="0.95"/>
   <!-- Shoulders -->
-  <ellipse cx="60" cy="78" rx="24" ry="16" fill="url(#ab-person)" opacity="0.95" clip-path="url(#ab-clip)"/>
-  <!-- Subtle ring around person -->
-  <circle cx="60" cy="56" r="32" fill="none" stroke="white" stroke-width="2" opacity="0.25"/>
-  <!-- Glass edge highlight top -->
-  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.15"/>
+  <ellipse cx="60" cy="80" rx="25" ry="17" fill="url(#ab-person)" opacity="0.95" clip-path="url(#ab-clip)"/>
+  <!-- Outer frame border -->
+  <rect width="120" height="120" rx="26" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.75"/>
+  <!-- Glass edge highlight -->
+  <rect x="0" y="0" width="120" height="1.5" rx="1" fill="white" opacity="0.18"/>
 </svg>

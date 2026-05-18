@@ -2,45 +2,48 @@
   <defs>
     <linearGradient id="tm-bg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#48484A"/>
-      <stop offset="10%" stop-color="#2C2C2E"/>
-      <stop offset="100%" stop-color="#0A0A0A"/>
+      <stop offset="8%" stop-color="#2C2C2E"/>
+      <stop offset="50%" stop-color="#141416"/>
+      <stop offset="100%" stop-color="#0C0C0E"/>
     </linearGradient>
-    <radialGradient id="tm-shine" cx="30%" cy="8%" r="60%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+    <radialGradient id="tm-shine" cx="28%" cy="8%" r="60%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.22"/>
       <stop offset="50%" stop-color="white" stop-opacity="0.05"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="tm-screen" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#1A1A1C"/>
-      <stop offset="100%" stop-color="#0C0C0E"/>
+      <stop offset="100%" stop-color="#08080A"/>
     </linearGradient>
     <linearGradient id="tm-border-glow" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#5A5A5E"/>
       <stop offset="100%" stop-color="#2A2A2E"/>
     </linearGradient>
     <filter id="tm-glow">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
+    <radialGradient id="tm-screen-glow" cx="35%" cy="55%" r="50%">
+      <stop offset="0%" stop-color="#4af626" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#4af626" stop-opacity="0"/>
+    </radialGradient>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#tm-bg)"/>
   <rect width="120" height="120" rx="26" fill="url(#tm-shine)"/>
-  <!-- Screen border -->
   <rect x="13" y="13" width="94" height="94" rx="14" fill="none" stroke="url(#tm-border-glow)" stroke-width="1" opacity="0.5"/>
-  <!-- Screen area -->
-  <rect x="14" y="14" width="92" height="92" rx="13" fill="url(#tm-screen)" opacity="0.7"/>
-  <!-- Prompt with glow -->
+  <rect x="14" y="14" width="92" height="92" rx="13" fill="url(#tm-screen)" opacity="0.75"/>
+  <!-- Green ambient glow on screen -->
+  <rect x="14" y="14" width="92" height="92" rx="13" fill="url(#tm-screen-glow)"/>
   <g filter="url(#tm-glow)">
-    <text x="26" y="50" font-family="SF Mono, Menlo, Consolas, monospace" font-size="13" font-weight="500" fill="#4af626" opacity="0.7">roey@mac ~</text>
-    <text x="26" y="68" font-family="SF Mono, Menlo, Consolas, monospace" font-size="28" font-weight="700" fill="#4af626" opacity="0.95">&gt;_</text>
+    <text x="26" y="48" font-family="SF Mono, Menlo, Consolas, monospace" font-size="12" font-weight="500" fill="#4af626" opacity="0.6">roey@mac ~</text>
+    <text x="26" y="70" font-family="SF Mono, Menlo, Consolas, monospace" font-size="30" font-weight="700" fill="#4af626" opacity="0.95">&gt;_</text>
   </g>
-  <!-- Subtle scanlines -->
-  <rect x="14" y="40" width="92" height="1" fill="white" opacity="0.02"/>
-  <rect x="14" y="55" width="92" height="1" fill="white" opacity="0.02"/>
-  <rect x="14" y="70" width="92" height="1" fill="white" opacity="0.02"/>
-  <rect x="14" y="85" width="92" height="1" fill="white" opacity="0.02"/>
-  <!-- Bottom edge highlight -->
-  <rect x="0" y="118" width="120" height="2" rx="1" fill="white" opacity="0.05"/>
-  <!-- Top edge highlight -->
-  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.1"/>
+  <!-- Scanlines -->
+  <rect x="14" y="30" width="92" height="1" fill="white" opacity="0.02"/>
+  <rect x="14" y="45" width="92" height="1" fill="white" opacity="0.015"/>
+  <rect x="14" y="60" width="92" height="1" fill="white" opacity="0.02"/>
+  <rect x="14" y="75" width="92" height="1" fill="white" opacity="0.015"/>
+  <rect x="14" y="90" width="92" height="1" fill="white" opacity="0.02"/>
+  <rect width="120" height="120" rx="26" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.75"/>
+  <rect x="0" y="0" width="120" height="1.5" rx="1" fill="white" opacity="0.12"/>
 </svg>

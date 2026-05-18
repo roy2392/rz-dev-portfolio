@@ -44,27 +44,32 @@ export const MacWindow = ({
         left: isFullscreen ? 0 : defaultX,
         width: isFullscreen ? '100vw' : width,
         height: isMobile ? fullscreenHeight : isMaximized ? 'calc(100vh - 28px - 76px)' : height,
+        boxShadow: '0 20px 60px -10px rgba(0,0,0,0.5), 0 8px 20px -6px rgba(0,0,0,0.3)',
       }}
       onPointerDown={onFocus}
-      className={`flex flex-col overflow-hidden shadow-2xl shadow-black/40 ${isMobile ? 'rounded-none' : 'rounded-xl'}`}
+      className={`flex flex-col overflow-hidden border border-white/[0.08] ${isMobile ? 'rounded-none' : 'rounded-xl'}`}
     >
-      <div className={`h-12 bg-[#2D2D2D]/95 backdrop-blur-sm flex items-center px-4 relative flex-shrink-0 border-b border-white/5 ${isMobile ? 'cursor-default pt-safe' : 'cursor-grab active:cursor-grabbing'}`}>
+      {/* Title bar with subtle gradient */}
+      <div
+        className={`h-12 flex items-center px-4 relative flex-shrink-0 border-b border-white/[0.06] ${isMobile ? 'cursor-default pt-safe' : 'cursor-grab active:cursor-grabbing'}`}
+        style={{ background: 'linear-gradient(180deg, #3a3a3c 0%, #2d2d2d 100%)' }}
+      >
         <div className="flex items-center gap-2 z-10">
           <button
             onClick={(e) => { e.stopPropagation(); onClose() }}
-            className="w-3 h-3 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all group flex items-center justify-center"
+            className="w-3.5 h-3.5 rounded-full bg-[#ff5f57] hover:brightness-110 transition-all group flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]"
           >
             <span className="text-[8px] text-black/0 group-hover:text-black/60 font-bold leading-none">×</span>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); onMinimize() }}
-            className="w-3 h-3 rounded-full bg-[#febc2e] hover:brightness-110 transition-all group flex items-center justify-center"
+            className="w-3.5 h-3.5 rounded-full bg-[#febc2e] hover:brightness-110 transition-all group flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]"
           >
             <span className="text-[8px] text-black/0 group-hover:text-black/60 font-bold leading-none">−</span>
           </button>
           <button
             onClick={(e) => { e.stopPropagation(); if (!isMobile) setIsMaximized(!isMaximized) }}
-            className="w-3 h-3 rounded-full bg-[#28c840] hover:brightness-110 transition-all group flex items-center justify-center"
+            className="w-3.5 h-3.5 rounded-full bg-[#28c840] hover:brightness-110 transition-all group flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(0,0,0,0.2)]"
           >
             <span className="text-[7px] text-black/0 group-hover:text-black/60 font-bold leading-none">⤢</span>
           </button>
@@ -74,7 +79,8 @@ export const MacWindow = ({
         </span>
       </div>
 
-      <div className={`flex-1 bg-[#1E1E1E] overflow-y-auto text-white/90 text-sm ${isMobile ? 'pb-6' : ''}`}>
+      {/* Window body with inner border */}
+      <div className={`flex-1 bg-[#1e1e1e] overflow-y-auto text-white/90 text-sm border-t border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] ${isMobile ? 'pb-6' : ''}`}>
         {children}
       </div>
     </motion.div>
