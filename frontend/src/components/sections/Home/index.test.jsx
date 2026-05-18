@@ -46,19 +46,13 @@ describe('HomeSection', () => {
     expect(screen.getByText('42 stars')).toBeInTheDocument()
   })
 
-  it('renders the mobile card layout and opens chat sheet', () => {
+  it('renders the mac desktop UI on mobile with adapted layout', () => {
     useIsMobileMock.mockReturnValue(true)
 
     renderWithConfig(<HomeSection />)
 
-    expect(screen.getByText('macOS portfolio')).toBeInTheDocument()
-    expect(screen.getByText('Expertise')).toBeInTheDocument()
-    expect(screen.getAllByText('Projects').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('Blog').length).toBeGreaterThan(0)
-
-    fireEvent.click(screen.getByRole('button', { name: /chat/i }))
-
-    expect(screen.getByText("Chat with Roey's AI")).toBeInTheDocument()
-    expect(screen.getByTestId('chat-box')).toBeInTheDocument()
+    expect(screen.getByText('Roey Zalta')).toBeInTheDocument()
+    expect(screen.getByText('ML Engineer & AI Architect')).toBeInTheDocument()
+    expect(screen.getByText('42 stars')).toBeInTheDocument()
   })
 })

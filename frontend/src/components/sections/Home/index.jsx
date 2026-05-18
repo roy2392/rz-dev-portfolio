@@ -141,73 +141,69 @@ export const HomeSection = () => {
       {!booted && <BootSequence onComplete={handleBootComplete} />}
 
       {booted && (
-        isMobile ? (
-          <MobileView repos={displayRepos} totalStars={totalStars} repoCount={repos.length} />
-        ) : (
-          <>
-            <div className="absolute top-12 left-4 z-10 flex flex-col gap-4 w-full max-w-md p-2">
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-lg">
-                <div className="flex flex-col items-center">
-                  <div className="text-6xl font-light mb-1 tabular-nums">
-                    {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-                  </div>
-                  <div className="text-lg font-medium opacity-80">
-                    {time.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                  </div>
+        <>
+          <div className={`absolute z-10 flex flex-col gap-3 md:gap-4 p-2 ${isMobile ? 'top-8 inset-x-2' : 'top-12 left-4 w-full max-w-md'}`}>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 text-white shadow-lg">
+              <div className="flex flex-col items-center">
+                <div className={`font-light mb-1 tabular-nums ${isMobile ? 'text-4xl' : 'text-6xl'}`}>
+                  {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                 </div>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 text-white shadow-lg">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0">
-                    <img src="/profile.jpg" alt="Roey Zalta" className="w-full h-full object-cover" />
-                  </div>
-                  <div>
-                    <h2 className="text-xl font-semibold">Roey Zalta</h2>
-                    <p className="text-sm text-white/60">ML Engineer & AI Architect</p>
-                  </div>
-                </div>
-                <p className="text-sm text-white/70 leading-relaxed mb-3">
-                  Building production multi-agent systems, LLMOps pipelines, and AI applications. Deep expertise in RAG and agentic frameworks on AWS & Azure.
-                </p>
-                <div className="flex gap-4 text-xs text-white/50">
-                  <span>{repos.length || '115'}+ repos</span>
-                  <span>{totalStars} stars</span>
-                  <span>10+ articles</span>
+                <div className={`font-medium opacity-80 ${isMobile ? 'text-sm' : 'text-lg'}`}>
+                  {time.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                 </div>
               </div>
             </div>
 
-            <AnimatePresence>
-              {Object.entries(WINDOW_CONFIGS).map(([id, cfg]) => (
-                windows[id] && !minimized[id] && (
-                  <MacWindow
-                    key={id}
-                    title={cfg.title}
-                    isOpen={true}
-                    onClose={() => closeWindow(id)}
-                    onMinimize={() => minimizeWindow(id)}
-                    onFocus={() => focusWindow(id)}
-                    zIndex={10 + windowOrder.indexOf(id)}
-                    defaultX={cfg.x}
-                    defaultY={cfg.y}
-                    width={cfg.w}
-                    height={cfg.h}
-                  >
-                    <WindowContent
-                      id={id}
-                      repos={displayRepos}
-                      totalStars={totalStars}
-                      repoCount={repos.length}
-                    />
-                  </MacWindow>
-                )
-              ))}
-            </AnimatePresence>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 text-white shadow-lg">
+              <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                <div className={`rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0 ${isMobile ? 'w-12 h-12' : 'w-16 h-16'}`}>
+                  <img src="/profile.jpg" alt="Roey Zalta" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h2 className={`font-semibold ${isMobile ? 'text-lg' : 'text-xl'}`}>Roey Zalta</h2>
+                  <p className="text-xs md:text-sm text-white/60">ML Engineer & AI Architect</p>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-white/70 leading-relaxed mb-2 md:mb-3">
+                Building production multi-agent systems, LLMOps pipelines, and AI applications. Deep expertise in RAG and agentic frameworks on AWS & Azure.
+              </p>
+              <div className="flex gap-3 md:gap-4 text-xs text-white/50">
+                <span>{repos.length || '115'}+ repos</span>
+                <span>{totalStars} stars</span>
+                <span>10+ articles</span>
+              </div>
+            </div>
+          </div>
 
-            <Dock openWindows={openWindowIds} onOpenApp={openWindow} />
-          </>
-        )
+          <AnimatePresence>
+            {Object.entries(WINDOW_CONFIGS).map(([id, cfg]) => (
+              windows[id] && !minimized[id] && (
+                <MacWindow
+                  key={id}
+                  title={cfg.title}
+                  isOpen={true}
+                  onClose={() => closeWindow(id)}
+                  onMinimize={() => minimizeWindow(id)}
+                  onFocus={() => focusWindow(id)}
+                  zIndex={10 + windowOrder.indexOf(id)}
+                  defaultX={cfg.x}
+                  defaultY={cfg.y}
+                  width={cfg.w}
+                  height={cfg.h}
+                >
+                  <WindowContent
+                    id={id}
+                    repos={displayRepos}
+                    totalStars={totalStars}
+                    repoCount={repos.length}
+                  />
+                </MacWindow>
+              )
+            ))}
+          </AnimatePresence>
+
+          <Dock openWindows={openWindowIds} onOpenApp={openWindow} />
+        </>
       )}
     </>
   )
@@ -431,14 +427,14 @@ const WindowContent = ({ id, repos, totalStars, repoCount }) => {
 }
 
 const AboutContent = () => (
-  <div className="p-6 space-y-5">
-    <div className="flex items-center gap-4 mb-6">
-      <div className="w-20 h-20 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
+  <div className="p-4 md:p-6 space-y-4 md:space-y-5">
+    <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+      <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border border-white/10 flex-shrink-0">
         <img src="/profile.jpg" alt="Roey Zalta" className="w-full h-full object-cover" />
       </div>
       <div>
-        <h1 className="text-2xl font-bold text-white">Roey Zalta</h1>
-        <p className="text-blue-400 text-sm">Machine Learning Engineer & AI Architect</p>
+        <h1 className="text-xl md:text-2xl font-bold text-white">Roey Zalta</h1>
+        <p className="text-blue-400 text-xs md:text-sm">Machine Learning Engineer & AI Architect</p>
       </div>
     </div>
     <p className="text-white/70 leading-relaxed">
@@ -447,28 +443,28 @@ const AboutContent = () => (
     <p className="text-white/60 leading-relaxed">
       Over the past years I&apos;ve built production multi-agent systems from scratch, deployed LLMOps pipelines on AWS Bedrock, designed RAG architectures over enterprise knowledge bases, and integrated LLMs into real products.
     </p>
-    <div className="grid grid-cols-2 gap-3 pt-2">
+    <div className="grid grid-cols-2 gap-2 md:gap-3 pt-2">
       {[
         ['Focus', 'Multi-Agent Systems & LLMOps'],
         ['Cloud', 'AWS Bedrock, Azure AI Foundry'],
         ['Languages', 'Python, JS, TypeScript, SQL'],
         ['Writing', '10+ articles on Medium'],
       ].map(([label, value]) => (
-        <div key={label} className="bg-white/5 rounded-xl p-3 border border-white/5">
-          <div className="text-[11px] text-white/40 uppercase tracking-wider mb-1">{label}</div>
-          <div className="text-sm text-white/80">{value}</div>
+        <div key={label} className="bg-white/5 rounded-xl p-2.5 md:p-3 border border-white/5">
+          <div className="text-[10px] md:text-[11px] text-white/40 uppercase tracking-wider mb-1">{label}</div>
+          <div className="text-xs md:text-sm text-white/80">{value}</div>
         </div>
       ))}
     </div>
     <div className="pt-2">
       <h3 className="text-xs text-white/40 uppercase tracking-wider mb-3">Expertise</h3>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         {EXPERTISE.map(({ icon: Icon, title, desc }) => (
-          <div key={title} className="flex items-start gap-3 bg-white/5 rounded-xl p-3 border border-white/5">
-            <Icon className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+          <div key={title} className="flex items-start gap-2.5 md:gap-3 bg-white/5 rounded-xl p-2.5 md:p-3 border border-white/5">
+            <Icon className="w-4 h-4 md:w-5 md:h-5 text-blue-400 mt-0.5 flex-shrink-0" />
             <div>
-              <div className="text-sm font-medium text-white/90">{title}</div>
-              <div className="text-xs text-white/50 leading-relaxed mt-0.5">{desc}</div>
+              <div className="text-xs md:text-sm font-medium text-white/90">{title}</div>
+              <div className="text-[11px] md:text-xs text-white/50 leading-relaxed mt-0.5">{desc}</div>
             </div>
           </div>
         ))}
@@ -478,18 +474,18 @@ const AboutContent = () => (
 )
 
 const ProjectsContent = ({ repos, totalStars, repoCount }) => (
-  <div className="p-6">
-    <div className="flex items-center justify-between mb-5">
+  <div className="p-4 md:p-6">
+    <div className="flex items-center justify-between mb-4 md:mb-5">
       <div>
-        <h2 className="text-xl font-bold text-white">Projects</h2>
-        <p className="text-sm text-white/50">{repoCount || '115'}+ repos · {totalStars} stars</p>
+        <h2 className="text-lg md:text-xl font-bold text-white">Projects</h2>
+        <p className="text-xs md:text-sm text-white/50">{repoCount || '115'}+ repos · {totalStars} stars</p>
       </div>
       <a href="https://github.com/roy2392" target="_blank" rel="noopener noreferrer"
         className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
         View all <ExternalLink className="w-3 h-3" />
       </a>
     </div>
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 md:gap-3">
       {repos.map((repo) => (
         <a key={repo.id || repo.name} href={repo.html_url} target="_blank" rel="noopener noreferrer"
           className="group bg-white/5 hover:bg-white/8 border border-white/5 hover:border-white/10 rounded-xl p-4 transition-all">
@@ -519,11 +515,11 @@ const ProjectsContent = ({ repos, totalStars, repoCount }) => (
 )
 
 const BlogContent = () => (
-  <div className="p-6">
-    <div className="flex items-center justify-between mb-5">
+  <div className="p-4 md:p-6">
+    <div className="flex items-center justify-between mb-4 md:mb-5">
       <div>
-        <h2 className="text-xl font-bold text-white">Blog</h2>
-        <p className="text-sm text-white/50">Writing about AI systems & engineering</p>
+        <h2 className="text-lg md:text-xl font-bold text-white">Blog</h2>
+        <p className="text-xs md:text-sm text-white/50">Writing about AI systems & engineering</p>
       </div>
       <a href="https://medium.com/@roeyzalta" target="_blank" rel="noopener noreferrer"
         className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">

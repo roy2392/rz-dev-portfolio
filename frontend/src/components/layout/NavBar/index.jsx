@@ -27,7 +27,7 @@ export const NavBar = () => {
           <DesktopNav />
 
           <button 
-            className="md:hidden p-1.5 hover:bg-white/[0.06] rounded-full transition-colors duration-300"
+            className="hidden p-1.5 hover:bg-white/[0.06] rounded-full transition-colors duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-4 h-4 text-zinc-400" /> : <Menu className="w-4 h-4 text-zinc-400" />}
