@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
-    <linearGradient id="ml-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#7DD3FC"/>
-      <stop offset="30%" stop-color="#38BDF8"/>
-      <stop offset="70%" stop-color="#0EA5E9"/>
-      <stop offset="100%" stop-color="#0369A1"/>
+    <linearGradient id="ml-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="30%" stop-color="#3B82F6"/>
+      <stop offset="65%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
     </linearGradient>
     <radialGradient id="ml-shine" cx="28%" cy="12%" r="65%">
       <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
@@ -12,43 +12,47 @@
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="ml-depth" cx="50%" cy="100%" r="60%">
-      <stop offset="0%" stop-color="#0C4A6E" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="#0C4A6E" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#1E3A5F" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1E3A5F" stop-opacity="0"/>
     </radialGradient>
     <linearGradient id="ml-env-body" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#E8EFF5"/>
+      <stop offset="50%" stop-color="#F0F4FA"/>
+      <stop offset="100%" stop-color="#E0E8F2"/>
     </linearGradient>
     <linearGradient id="ml-flap" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#F0F4F8"/>
-      <stop offset="100%" stop-color="#D8E2EC"/>
+      <stop offset="0%" stop-color="#F5F8FC"/>
+      <stop offset="100%" stop-color="#D0DCE8"/>
+    </linearGradient>
+    <linearGradient id="ml-paper" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FAFBFC"/>
+      <stop offset="100%" stop-color="#E8ECF2"/>
     </linearGradient>
     <filter id="ml-shadow">
-      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#0C4A6E" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1E3A5F" flood-opacity="0.4"/>
     </filter>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#ml-bg)"/>
   <rect width="120" height="120" rx="26" fill="url(#ml-depth)"/>
   <rect width="120" height="120" rx="26" fill="url(#ml-shine)"/>
   <g filter="url(#ml-shadow)">
+    <!-- Inner paper peeking out -->
+    <rect x="26" y="32" width="68" height="44" rx="3" fill="url(#ml-paper)" opacity="0.6"/>
+    <line x1="36" y1="42" x2="72" y2="42" stroke="#1D4ED8" stroke-width="0.7" opacity="0.1"/>
+    <line x1="36" y1="48" x2="84" y2="48" stroke="#1D4ED8" stroke-width="0.7" opacity="0.1"/>
+    <line x1="36" y1="54" x2="78" y2="54" stroke="#1D4ED8" stroke-width="0.7" opacity="0.1"/>
     <!-- Envelope body -->
-    <rect x="20" y="36" width="80" height="52" rx="6" fill="url(#ml-env-body)"/>
+    <rect x="18" y="38" width="84" height="54" rx="7" fill="url(#ml-env-body)"/>
   </g>
   <!-- Bottom fold lines -->
-  <path d="M20 88 L54 62" fill="none" stroke="#0369A1" stroke-width="1" opacity="0.1"/>
-  <path d="M100 88 L66 62" fill="none" stroke="#0369A1" stroke-width="1" opacity="0.1"/>
-  <!-- Flap (V shape on top) -->
-  <path d="M20 40 C20 38 21 36 23 36 L97 36 C99 36 100 38 100 40 L60 68 Z" fill="url(#ml-flap)" opacity="0.95"/>
-  <!-- Flap fold line -->
-  <path d="M22 38 L60 64 L98 38" fill="none" stroke="#B0C4D8" stroke-width="1" opacity="0.5"/>
-  <!-- Inner shadow at flap crease -->
-  <path d="M26 40 L60 62 L94 40" fill="none" stroke="#0369A1" stroke-width="1.5" opacity="0.08"/>
-  <!-- Envelope shine -->
-  <rect x="20" y="36" width="80" height="8" rx="6" fill="white" opacity="0.15"/>
-  <!-- Paper texture lines -->
-  <line x1="36" y1="72" x2="84" y2="72" stroke="#0369A1" stroke-width="0.5" opacity="0.06"/>
-  <line x1="36" y1="78" x2="84" y2="78" stroke="#0369A1" stroke-width="0.5" opacity="0.06"/>
-  <line x1="36" y1="84" x2="70" y2="84" stroke="#0369A1" stroke-width="0.5" opacity="0.06"/>
-  <!-- Glass edge top -->
-  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.12"/>
+  <path d="M18 92 L54 66" fill="none" stroke="#1D4ED8" stroke-width="0.8" opacity="0.08"/>
+  <path d="M102 92 L66 66" fill="none" stroke="#1D4ED8" stroke-width="0.8" opacity="0.08"/>
+  <!-- Sealed flap -->
+  <path d="M18 42 C18 40 19 38 21 38 L99 38 C101 38 102 40 102 42 L60 72 Z" fill="url(#ml-flap)" opacity="0.96"/>
+  <path d="M20 40 L60 68 L100 40" fill="none" stroke="#A8BCD4" stroke-width="1" opacity="0.5"/>
+  <path d="M24 42 L60 66 L96 42" fill="none" stroke="#1D4ED8" stroke-width="1.5" opacity="0.06"/>
+  <!-- Envelope top shine -->
+  <rect x="18" y="38" width="84" height="8" rx="7" fill="white" opacity="0.18"/>
+  <rect width="120" height="120" rx="26" fill="none" stroke="rgba(0,0,0,0.2)" stroke-width="0.75"/>
+  <rect x="0" y="0" width="120" height="1.5" rx="1" fill="white" opacity="0.15"/>
 </svg>

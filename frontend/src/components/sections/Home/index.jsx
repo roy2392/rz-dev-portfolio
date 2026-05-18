@@ -143,9 +143,9 @@ export const HomeSection = () => {
       {booted && (
         <>
           <div className={`absolute z-10 flex flex-col gap-3 md:gap-4 p-2 ${isMobile ? 'top-8 inset-x-2' : 'top-12 left-4 w-full max-w-md'}`}>
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 text-white shadow-lg">
+            <div className="bg-white/[0.12] backdrop-blur-2xl rounded-[22px] p-5 md:p-7 text-white border border-white/[0.12]" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 40px -15px rgba(0,0,0,0.3)' }}>
               <div className="flex flex-col items-center">
-                <div className={`font-light mb-1 tabular-nums ${isMobile ? 'text-4xl' : 'text-6xl'}`}>
+                <div className={`font-extralight mb-1 tabular-nums tracking-tight ${isMobile ? 'text-4xl' : 'text-7xl'}`}>
                   {time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                 </div>
                 <div className={`font-medium opacity-80 ${isMobile ? 'text-sm' : 'text-lg'}`}>
@@ -154,8 +154,10 @@ export const HomeSection = () => {
               </div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 text-white shadow-lg">
-              <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <div className="relative bg-white/[0.12] backdrop-blur-2xl rounded-[22px] p-5 md:p-7 text-white border border-white/[0.12] overflow-hidden" style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1), 0 20px 40px -15px rgba(0,0,0,0.3)' }}>
+              {/* Subtle gradient overlay at top */}
+              <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-white/[0.06] to-transparent rounded-t-[22px] pointer-events-none" />
+              <div className="relative flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
                 <div className={`rounded-full overflow-hidden border-2 border-white/20 flex-shrink-0 ${isMobile ? 'w-12 h-12' : 'w-16 h-16'}`}>
                   <img src="/profile.jpg" alt="Roey Zalta" className="w-full h-full object-cover" />
                 </div>
@@ -164,10 +166,10 @@ export const HomeSection = () => {
                   <p className="text-xs md:text-sm text-white/60">ML Engineer & AI Architect</p>
                 </div>
               </div>
-              <p className="text-xs md:text-sm text-white/70 leading-relaxed mb-2 md:mb-3">
+              <p className="relative text-xs md:text-sm text-white/70 leading-relaxed mb-2 md:mb-3">
                 Building production multi-agent systems, LLMOps pipelines, and AI applications. Deep expertise in RAG and agentic frameworks on AWS & Azure.
               </p>
-              <div className="flex gap-3 md:gap-4 text-xs text-white/50">
+              <div className="relative flex gap-3 md:gap-4 text-xs text-white/50">
                 <span>{repos.length || '115'}+ repos</span>
                 <span>{totalStars} stars</span>
                 <span>10+ articles</span>
@@ -427,46 +429,50 @@ const WindowContent = ({ id, repos, totalStars, repoCount }) => {
 }
 
 const AboutContent = () => (
-  <div className="p-4 md:p-6">
-    <div className="flex items-center gap-3 md:gap-4 pb-4 md:pb-5 border-b border-white/5">
-      <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border border-white/10 flex-shrink-0">
+  <div className="p-5 md:p-6">
+    {/* Profile header */}
+    <div className="flex items-start gap-4 pb-5 border-b border-white/[0.06]">
+      <div className="w-20 h-20 rounded-[16px] overflow-hidden flex-shrink-0 shadow-[0_4px_24px_rgba(0,0,0,0.4)] ring-1 ring-white/[0.08]">
         <img src="/profile.jpg" alt="Roey Zalta" className="w-full h-full object-cover" />
       </div>
-      <div>
-        <h1 className="text-base md:text-lg font-semibold text-white/90">Roey Zalta</h1>
-        <p className="text-xs md:text-sm text-white/50">Machine Learning Engineer & AI Architect</p>
+      <div className="pt-1">
+        <h1 className="text-lg font-bold tracking-tight text-white">Roey Zalta</h1>
+        <p className="text-sm text-[#007AFF] font-medium mt-0.5">Machine Learning Engineer & AI Architect</p>
+        <p className="text-[13px] text-white/50 leading-relaxed mt-2 max-w-[380px]">
+          I build AI systems that work in production — not just in notebooks. Multi-agent architectures, LLMOps pipelines, and RAG on AWS and Azure.
+        </p>
       </div>
     </div>
 
-    <div className="py-3 md:py-4 border-b border-white/5">
-      <p className="text-xs md:text-sm text-white/60 leading-relaxed">
-        I build AI systems that work in production — not just in notebooks. Specializing in multi-agent architectures, LLMOps pipelines, and RAG on AWS and Azure.
-      </p>
-    </div>
-
-    <div className="py-3 md:py-4 border-b border-white/5 space-y-2">
+    {/* Stats row */}
+    <div className="grid grid-cols-4 gap-2.5 py-4 border-b border-white/[0.06]">
       {[
-        ['Focus', 'Multi-Agent Systems & LLMOps'],
-        ['Cloud', 'AWS Bedrock, Azure AI Foundry'],
-        ['Languages', 'Python, JS, TypeScript, SQL'],
-        ['Writing', '10+ articles on Medium'],
+        ['Focus', 'Multi-Agent'],
+        ['Cloud', 'AWS · Azure'],
+        ['Languages', 'Py · JS · TS'],
+        ['Articles', '10+'],
       ].map(([label, value]) => (
-        <div key={label} className="flex items-baseline justify-between gap-4">
-          <span className="text-[11px] md:text-xs text-white/30 shrink-0">{label}</span>
-          <span className="text-xs md:text-sm text-white/80 text-right">{value}</span>
+        <div key={label} className="rounded-lg bg-white/[0.04] border border-white/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] px-3 py-2.5 text-center">
+          <div className="text-[10px] uppercase tracking-wider text-white/30 mb-1">{label}</div>
+          <div className="text-xs font-medium text-white/80">{value}</div>
         </div>
       ))}
     </div>
 
-    <div className="pt-3 md:pt-4">
-      <h3 className="text-[10px] md:text-[11px] text-white/30 uppercase tracking-wider mb-3">Expertise</h3>
-      <div className="space-y-0">
-        {EXPERTISE.map(({ title, desc }, i) => (
-          <div key={title} className={`flex items-baseline justify-between gap-3 py-2 ${i < EXPERTISE.length - 1 ? 'border-b border-white/5' : ''}`}>
-            <div className="min-w-0">
-              <div className="text-xs md:text-sm text-white/80">{title}</div>
-              <div className="text-[11px] md:text-xs text-white/40 leading-relaxed mt-0.5">{desc}</div>
+    {/* Expertise section */}
+    <div className="pt-4">
+      <div className="text-[10px] uppercase tracking-[0.2em] text-white/25 mb-3 px-1">Expertise</div>
+      <div className="space-y-0 rounded-lg border border-white/[0.06] overflow-hidden">
+        {EXPERTISE.map(({ icon: Icon, title, desc }, i) => (
+          <div key={title} className={`group flex items-center gap-3 px-3.5 py-3 hover:bg-white/[0.03] transition-colors ${i < EXPERTISE.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
+            <div className="w-8 h-8 rounded-lg bg-[#007AFF]/10 flex items-center justify-center flex-shrink-0">
+              <Icon className="w-4 h-4 text-[#007AFF]" />
             </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-[13px] font-medium text-white/85">{title}</div>
+              <div className="text-[11px] text-white/40 leading-relaxed mt-0.5 truncate">{desc}</div>
+            </div>
+            <svg className="w-4 h-4 text-white/15 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
           </div>
         ))}
       </div>
@@ -475,17 +481,17 @@ const AboutContent = () => (
 )
 
 const ProjectsContent = ({ repos, totalStars, repoCount }) => (
-  <div className="p-4 md:p-6">
-    <div className="flex items-center justify-between mb-3 md:mb-4">
-      <span className="text-xs text-white/40">{repoCount || '115'}+ repos · {totalStars} stars</span>
+  <div className="p-5 md:p-6">
+    <div className="flex items-center justify-between mb-3">
+      <span className="text-xs text-white/40 font-medium">{repoCount || '115'}+ repos · {totalStars} stars</span>
       <a href="https://github.com/roy2392" target="_blank" rel="noopener noreferrer"
-        className="text-[11px] text-white/30 hover:text-white/50 transition-colors">
-        View all on GitHub
+        className="text-[11px] text-[#007AFF] hover:text-[#007AFF]/80 transition-colors font-medium">
+        View all on GitHub ↗
       </a>
     </div>
 
-    <div className="border border-white/5 rounded-lg overflow-hidden">
-      <div className="hidden md:grid grid-cols-[1fr_90px_60px_60px] gap-2 px-3 py-2 text-[10px] uppercase tracking-wider text-white/30 border-b border-white/5 bg-white/[0.02]">
+    <div className="rounded-lg border border-white/[0.06] overflow-hidden">
+      <div className="hidden md:grid grid-cols-[1fr_100px_56px_56px] gap-2 px-4 py-2 text-[10px] uppercase tracking-[0.15em] text-white/30 font-medium border-b border-white/[0.06] bg-white/[0.03]">
         <span>Name</span>
         <span>Language</span>
         <span className="text-right">Stars</span>
@@ -494,21 +500,30 @@ const ProjectsContent = ({ repos, totalStars, repoCount }) => (
 
       {repos.map((repo, i) => (
         <a key={repo.id || repo.name} href={repo.html_url} target="_blank" rel="noopener noreferrer"
-          className={`group flex flex-col md:grid md:grid-cols-[1fr_90px_60px_60px] gap-1 md:gap-2 md:items-center px-3 py-2.5 md:py-2 transition-colors hover:bg-white/[0.04] ${i % 2 === 1 ? 'bg-white/[0.02]' : ''} ${i < repos.length - 1 ? 'border-b border-white/[0.03]' : ''}`}>
-          <div className="min-w-0">
-            <div className="text-xs md:text-sm text-white/80 group-hover:text-blue-400 transition-colors truncate">{repo.name}</div>
-            <div className="text-[11px] text-white/30 truncate md:hidden">{repo.description || 'No description'}</div>
+          className={`group flex flex-col md:grid md:grid-cols-[1fr_100px_56px_56px] gap-1 md:gap-2 md:items-center px-4 py-3 md:py-2.5 transition-all hover:bg-[#007AFF]/10 active:scale-[0.995] ${i % 2 === 1 ? 'bg-white/[0.015]' : ''} ${i < repos.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
+          <div className="min-w-0 flex items-center gap-2.5">
+            <svg className="w-4 h-4 text-[#007AFF]/60 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></svg>
+            <div className="min-w-0">
+              <div className="text-[13px] font-semibold text-white/85 group-hover:text-white transition-colors truncate">{repo.name}</div>
+              <div className="text-[11px] text-white/30 truncate md:hidden">{repo.description || 'No description'}</div>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-[11px] text-white/40">
+          <div className="flex items-center gap-1.5 text-[11px]">
             {repo.language && (
-              <>
+              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-white/60 font-medium" style={{ backgroundColor: `${LANGUAGE_COLORS[repo.language] || '#888'}18` }}>
                 <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || '#888' }} />
-                <span>{repo.language}</span>
-              </>
+                {repo.language}
+              </span>
             )}
           </div>
-          <span className="hidden md:block text-xs text-white/50 text-right">{repo.stargazers_count}</span>
-          <span className="hidden md:block text-xs text-white/50 text-right">{repo.forks_count}</span>
+          <span className="hidden md:flex items-center justify-end gap-1 text-xs text-white/50">
+            <svg className="w-3.5 h-3.5 text-white/30" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            {repo.stargazers_count}
+          </span>
+          <span className="hidden md:flex items-center justify-end gap-1 text-xs text-white/50">
+            <svg className="w-3.5 h-3.5 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" /></svg>
+            {repo.forks_count}
+          </span>
           <div className="flex items-center gap-3 text-[11px] text-white/30 md:hidden">
             <span>★ {repo.stargazers_count}</span>
             <span>⑂ {repo.forks_count}</span>
@@ -519,26 +534,38 @@ const ProjectsContent = ({ repos, totalStars, repoCount }) => (
   </div>
 )
 
+const TAG_COLORS = {
+  'multi-agent': 'bg-[#007AFF]/10 text-[#007AFF]/80',
+  'azure': 'bg-[#0078D4]/10 text-[#0078D4]/80',
+  'agentic-ai': 'bg-[#34C759]/10 text-[#34C759]/80',
+  'ai-agents': 'bg-[#FF9500]/10 text-[#FF9500]/80',
+  'mcp': 'bg-[#AF52DE]/10 text-[#AF52DE]/80',
+}
+
 const BlogContent = () => (
-  <div className="p-4 md:p-6">
-    <div className="flex items-center justify-between mb-3 md:mb-4">
-      <span className="text-xs text-white/40">Writing about AI systems & engineering</span>
+  <div className="p-5 md:p-6">
+    <div className="flex items-center gap-2 mb-4">
+      <svg className="w-4 h-4 text-[#007AFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>
+      <span className="text-sm font-semibold text-white/85">Reading List</span>
+      <span className="flex-1" />
       <a href="https://medium.com/@roeyzalta" target="_blank" rel="noopener noreferrer"
-        className="text-[11px] text-white/30 hover:text-white/50 transition-colors">
-        medium.com/@roeyzalta
+        className="text-[11px] text-[#007AFF] hover:text-[#007AFF]/80 transition-colors font-medium">
+        medium.com/@roeyzalta ↗
       </a>
     </div>
-    <div>
+
+    <div className="space-y-0">
       {MEDIUM_ARTICLES.map((article, i) => (
         <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer"
-          className={`group block py-3 md:py-3.5 border-l-2 border-transparent hover:border-blue-400 pl-3 md:pl-4 transition-colors ${i < MEDIUM_ARTICLES.length - 1 ? 'border-b border-b-white/5' : ''}`}>
-          <h3 className="text-xs md:text-sm text-white/80 group-hover:text-white/90 transition-colors leading-snug">
+          className={`group block py-3.5 pl-4 pr-3 rounded-lg transition-all hover:bg-white/[0.03] hover:shadow-[0_2px_12px_rgba(0,0,0,0.15)] active:scale-[0.995] relative ${i < MEDIUM_ARTICLES.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
+          <div className="absolute left-0 top-3.5 bottom-3.5 w-[2px] rounded-full bg-gradient-to-b from-[#007AFF] to-[#5AC8FA] opacity-60 group-hover:opacity-100 transition-opacity" />
+          <h3 className="text-[13px] font-semibold text-white/80 group-hover:text-white transition-colors leading-snug pr-2">
             {article.title}
           </h3>
-          <div className="flex items-center gap-2 mt-1.5">
-            <span className="text-[11px] text-white/30">{article.date}</span>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-[11px] text-white/35 font-medium">{article.date}</span>
             {article.tags.map(tag => (
-              <span key={tag} className="text-[10px] text-white/25">·  {tag}</span>
+              <span key={tag} className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${TAG_COLORS[tag] || 'bg-white/[0.06] text-white/40'}`}>{tag}</span>
             ))}
           </div>
         </a>
@@ -553,14 +580,24 @@ const ChatWindowContent = () => (
   </div>
 )
 
+const CATEGORY_ICONS = {
+  'AI / ML': '🧠',
+  'Cloud': '☁️',
+  'Languages': '⌨️',
+  'Frameworks': '⚡',
+}
+
 const SkillsContent = () => (
-  <div className="p-4 md:p-6">
-    {SKILLS.map(({ category, items }, i) => (
-      <div key={category} className={`${i > 0 ? 'pt-4 md:pt-5' : ''} ${i < SKILLS.length - 1 ? 'pb-4 md:pb-5 border-b border-white/5' : ''}`}>
-        <h3 className="text-[10px] md:text-[11px] text-white/30 uppercase tracking-wider mb-2.5">{category}</h3>
-        <div className="flex flex-wrap gap-1.5 md:gap-2">
+  <div className="p-5 md:p-6 space-y-4">
+    {SKILLS.map(({ category, items }) => (
+      <div key={category}>
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.025] border border-white/[0.04] mb-3">
+          <span className="text-sm">{CATEGORY_ICONS[category] || '●'}</span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-semibold">{category}</span>
+        </div>
+        <div className="flex flex-wrap gap-2 px-1">
           {items.map(item => (
-            <span key={item} className="px-2.5 py-1 md:px-3 md:py-1.5 rounded-full bg-white/[0.04] text-[11px] md:text-xs text-white/60">
+            <span key={item} className="px-3.5 py-2 rounded-lg bg-white/[0.06] border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] text-[12px] text-white/70 font-medium transition-all hover:bg-white/[0.09] active:scale-[0.98]">
               {item}
             </span>
           ))}

@@ -7,8 +7,7 @@ import { renderWithConfig } from '../../../test/testUtils';
 
 // Mock the Lucide React icons
 vi.mock('lucide-react', () => ({
-  User: () => React.createElement('div', { 'data-testid': 'user-icon' }),
-  Bot: () => React.createElement('div', { 'data-testid': 'bot-icon' })
+  User: (props) => React.createElement('div', { 'data-testid': 'user-icon', className: props.className }),
 }));
 
 // Mock ReactMarkdown to simplify testing
@@ -60,8 +59,8 @@ describe('ChatMessage', () => {
     // Check that the message content is displayed
     expect(screen.getByText('I am the assistant responding to your query')).toBeInTheDocument();
     
-    // Check that the assistant avatar is displayed
-    expect(screen.getByTestId('bot-icon')).toBeInTheDocument();
+    // Check that the assistant avatar is displayed (RZ initials)
+    expect(screen.getByText('RZ')).toBeInTheDocument();
   });
   
   it('renders markdown content in assistant messages', () => {

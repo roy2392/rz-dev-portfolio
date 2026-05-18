@@ -3,16 +3,16 @@ import { motion } from 'framer-motion'
 import { useIsMobile } from '../../hooks/useIsMobile'
 
 const APPS = [
-  { id: 'launchpad', label: 'Launchpad', icon: '/icons/launchpad.svg' },
-  { id: 'about', label: 'About Me', icon: '/icons/about.svg' },
-  { id: 'projects', label: 'Projects', icon: '/icons/projects.svg' },
-  { id: 'blog', label: 'Blog', icon: '/icons/blog.svg' },
-  { id: 'terminal', label: 'Terminal', icon: '/icons/terminal.svg' },
-  { id: 'chat', label: 'AI Chat', icon: '/icons/chat.svg' },
+  { id: 'launchpad', label: 'Launchpad', icon: '/icons/launchpad.png' },
+  { id: 'about', label: 'About Me', icon: '/icons/about.png' },
+  { id: 'projects', label: 'Projects', icon: '/icons/projects.png' },
+  { id: 'blog', label: 'Blog', icon: '/icons/blog.png' },
+  { id: 'terminal', label: 'Terminal', icon: '/icons/terminal.png' },
+  { id: 'chat', label: 'AI Chat', icon: '/icons/chat.png' },
   { id: 'divider' },
   { id: 'github', label: 'GitHub', icon: '/icons/github.svg', url: 'https://github.com/roy2392' },
   { id: 'linkedin', label: 'LinkedIn', icon: '/icons/linkedin.svg', url: 'https://linkedin.com/in/roeyzalta' },
-  { id: 'email', label: 'Email', icon: '/icons/mail.svg', url: 'mailto:roey.zalta@gmail.com' },
+  { id: 'email', label: 'Email', icon: '/icons/mail.png', url: 'mailto:roey.zalta@gmail.com' },
 ]
 
 const DockIcon = ({ app, isOpen, onClick, mouseX, isMobile }) => {
@@ -53,7 +53,7 @@ const DockIcon = ({ app, isOpen, onClick, mouseX, isMobile }) => {
         <img src={app.icon} alt={app.label} className="w-full h-full" draggable={false} />
       </button>
       {isOpen && (
-        <div className={`rounded-full bg-[#30d158] mt-1 absolute shadow-[0_0_4px_rgba(48,209,88,0.6)] ${isMobile ? 'w-1 h-1 -bottom-1.5' : 'w-[5px] h-[5px] -bottom-2'}`} />
+        <div className={`rounded-full bg-[#30d158] mt-1 absolute shadow-[0_0_6px_rgba(48,209,88,0.7),0_0_2px_rgba(48,209,88,0.9)] ${isMobile ? 'w-1 h-1 -bottom-1.5' : 'w-[5px] h-[5px] -bottom-2'}`} />
       )}
     </div>
   )
@@ -69,10 +69,10 @@ export const Dock = ({ openWindows = [], onOpenApp }) => {
       onMouseMove={isMobile ? undefined : (e) => setMouseX(e.clientX)}
       onMouseLeave={() => setMouseX(null)}
     >
-      <div className={`flex items-end px-3 pt-2 pb-2 md:pb-2 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-lg overflow-x-auto pb-safe ${isMobile ? 'gap-1 justify-start' : 'gap-2 justify-center'}`}>
+      <div className={`flex items-end px-3 pt-2 pb-2 md:pb-2 bg-white/[0.12] backdrop-blur-2xl border border-white/[0.15] rounded-[18px] overflow-x-auto pb-safe ${isMobile ? 'gap-1 justify-start' : 'gap-2 justify-center'}`} style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 8px 32px -4px rgba(0,0,0,0.4)' }}>
         {APPS.map((app) => {
           if (app.id === 'divider') {
-            return <div key="div" className={`bg-white/15 mx-1 flex-shrink-0 ${isMobile ? 'w-px h-8' : 'w-px h-10'}`} />
+            return <div key="div" className={`bg-white/[0.1] mx-1 flex-shrink-0 ${isMobile ? 'w-px h-8' : 'w-px h-10'}`} />
           }
           return (
             <DockIcon

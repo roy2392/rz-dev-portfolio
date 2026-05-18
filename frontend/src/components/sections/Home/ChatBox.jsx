@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useStreamingChat } from '../../../hooks/useStreamingChat';
-import { Bot, Code, Brain, Zap } from 'lucide-react';
+import { Code, Brain, Zap } from 'lucide-react';
 import { AnimatePresence } from 'framer-motion';
 import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
@@ -48,19 +48,19 @@ export const ChatBox = () => {
   return (
     <div className="w-full h-full flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-purple-500/20 flex items-center justify-center">
-            <Bot className="w-4 h-4 text-purple-400" />
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.06] flex-shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#007AFF] to-[#5856D6] flex items-center justify-center shadow-[0_2px_8px_rgba(0,122,255,0.3)]">
+            <span className="text-[11px] font-bold text-white">RZ</span>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-white/90">{firstName}&apos;s AI</h3>
-            <p className="text-[10px] text-white/40">GPT-4o mini</p>
+            <h3 className="text-sm font-semibold text-white/90">{firstName}&apos;s AI</h3>
+            <p className="text-[10px] text-white/35">GPT-4o mini</p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/5">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-          <span className="text-[10px] text-white/40">Online</span>
+        <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/[0.04]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#34C759]" />
+          <span className="text-[10px] text-white/35">Online</span>
         </div>
       </div>
 
@@ -88,7 +88,7 @@ export const ChatBox = () => {
             <button
               key={i}
               onClick={() => handleSubmit(chip.text)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-xs text-white/50 hover:text-purple-300 hover:border-purple-500/20 hover:bg-purple-500/5 transition-all"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/[0.05] border border-white/[0.06] text-xs text-white/50 hover:text-white/70 hover:border-[#007AFF]/30 hover:bg-[#007AFF]/[0.08] transition-all active:scale-[0.98]"
             >
               <chip.icon className="w-3 h-3" />
               {chip.text}
