@@ -3,12 +3,7 @@ import { AnimatePresence } from 'framer-motion'
 import {
   ArrowUpRight,
   BookOpen,
-  Bot,
-  Brain,
-  Cloud,
   Code2,
-  Cpu,
-  Database,
   ExternalLink,
   FolderKanban,
   Github,
@@ -16,7 +11,6 @@ import {
   Linkedin,
   Mail,
   MessageSquare,
-  Server,
   Sparkles,
   Star,
   X,
@@ -45,12 +39,12 @@ const MEDIUM_ARTICLES = [
 ]
 
 const EXPERTISE = [
-  { icon: Brain, title: 'Multi-Agent Systems', desc: 'Production architectures with sub-agents, orchestrators, and tool-use chains on AWS and Azure.' },
-  { icon: Server, title: 'LLMOps & MLOps', desc: 'End-to-end pipelines: model fine-tuning, evaluation, prompt management, CI/CD for ML.' },
-  { icon: Database, title: 'RAG Systems', desc: 'Retrieval-augmented generation with vector search, chunking strategies, and hybrid retrieval.' },
-  { icon: Bot, title: 'AI Agents', desc: 'Custom agents for workflow automation — MCP servers, tool orchestration, self-improving agents.' },
-  { icon: Cloud, title: 'Cloud Infrastructure', desc: 'AWS Bedrock, SageMaker, Lambda, Azure AI Foundry, Docker, serverless architectures.' },
-  { icon: Cpu, title: 'GenAI Applications', desc: 'Chatbots, content pipelines, code assistants, and enterprise integrations that ship.' },
+  { emoji: '🤖', title: 'Multi-Agent Systems', desc: 'Production architectures with sub-agents, orchestrators, and tool-use chains on AWS and Azure.' },
+  { emoji: '🔧', title: 'LLMOps & MLOps', desc: 'End-to-end pipelines: model fine-tuning, evaluation, prompt management, CI/CD for ML.' },
+  { emoji: '🔍', title: 'RAG Systems', desc: 'Retrieval-augmented generation with vector search, chunking strategies, and hybrid retrieval.' },
+  { emoji: '🧩', title: 'AI Agents', desc: 'Custom agents for workflow automation -- MCP servers, tool orchestration, self-improving agents.' },
+  { emoji: '☁️', title: 'Cloud Infrastructure', desc: 'AWS Bedrock, SageMaker, Lambda, Azure AI Foundry, Docker, serverless architectures.' },
+  { emoji: '⚡', title: 'GenAI Applications', desc: 'Chatbots, content pipelines, code assistants, and enterprise integrations that ship.' },
 ]
 
 const SKILLS = [
@@ -463,10 +457,10 @@ const AboutContent = () => (
     <div className="pt-4">
       <div className="text-[10px] uppercase tracking-[0.2em] text-white/25 mb-3 px-1">Expertise</div>
       <div className="space-y-0 rounded-lg border border-white/[0.06] overflow-hidden">
-        {EXPERTISE.map(({ icon: Icon, title, desc }, i) => (
+        {EXPERTISE.map(({ emoji, title, desc }, i) => (
           <div key={title} className={`group flex items-center gap-3 px-3.5 py-3 hover:bg-white/[0.03] transition-colors ${i < EXPERTISE.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
-            <div className="w-8 h-8 rounded-lg bg-[#007AFF]/10 flex items-center justify-center flex-shrink-0">
-              <Icon className="w-4 h-4 text-[#007AFF]" />
+            <div className="w-8 h-8 rounded-lg bg-white/[0.06] flex items-center justify-center flex-shrink-0">
+              <span className="text-base leading-none">{emoji}</span>
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-[13px] font-medium text-white/85">{title}</div>
@@ -545,8 +539,8 @@ const TAG_COLORS = {
 const BlogContent = () => (
   <div className="p-5 md:p-6">
     <div className="flex items-center gap-2 mb-4">
-      <svg className="w-4 h-4 text-[#007AFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" /></svg>
-      <span className="text-sm font-semibold text-white/85">Reading List</span>
+      <span className="text-lg leading-none">📰</span>
+      <span className="text-sm font-semibold text-white/85">Latest Articles</span>
       <span className="flex-1" />
       <a href="https://medium.com/@roeyzalta" target="_blank" rel="noopener noreferrer"
         className="text-[11px] text-[#007AFF] hover:text-[#007AFF]/80 transition-colors font-medium">
@@ -554,20 +548,22 @@ const BlogContent = () => (
       </a>
     </div>
 
-    <div className="space-y-0">
+    <div className="rounded-lg border border-white/[0.06] overflow-hidden">
       {MEDIUM_ARTICLES.map((article, i) => (
         <a key={article.id} href={article.link} target="_blank" rel="noopener noreferrer"
-          className={`group block py-3.5 pl-4 pr-3 rounded-lg transition-all hover:bg-white/[0.03] hover:shadow-[0_2px_12px_rgba(0,0,0,0.15)] active:scale-[0.995] relative ${i < MEDIUM_ARTICLES.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
-          <div className="absolute left-0 top-3.5 bottom-3.5 w-[2px] rounded-full bg-gradient-to-b from-[#007AFF] to-[#5AC8FA] opacity-60 group-hover:opacity-100 transition-opacity" />
-          <h3 className="text-[13px] font-semibold text-white/80 group-hover:text-white transition-colors leading-snug pr-2">
-            {article.title}
-          </h3>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-[11px] text-white/35 font-medium">{article.date}</span>
-            {article.tags.map(tag => (
-              <span key={tag} className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${TAG_COLORS[tag] || 'bg-white/[0.06] text-white/40'}`}>{tag}</span>
-            ))}
+          className={`group flex items-start gap-3 px-4 py-3.5 transition-all hover:bg-white/[0.03] active:scale-[0.995] ${i < MEDIUM_ARTICLES.length - 1 ? 'border-b border-white/[0.04]' : ''}`}>
+          <div className="flex-1 min-w-0">
+            <h3 className="text-[13px] font-semibold text-white/80 group-hover:text-white transition-colors leading-snug">
+              {article.title}
+            </h3>
+            <div className="flex items-center gap-2 mt-2">
+              <span className="text-[11px] text-white/35 font-medium">{article.date}</span>
+              {article.tags.map(tag => (
+                <span key={tag} className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${TAG_COLORS[tag] || 'bg-white/[0.06] text-white/40'}`}>{tag}</span>
+              ))}
+            </div>
           </div>
+          <svg className="w-4 h-4 text-white/15 flex-shrink-0 mt-0.5 group-hover:text-white/30 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
         </a>
       ))}
     </div>
