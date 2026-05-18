@@ -1,27 +1,55 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="bl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#2a2a2a"/>
-      <stop offset="100%" stop-color="#1a1a1a"/>
+      <stop offset="0%" stop-color="#FDBA74"/>
+      <stop offset="35%" stop-color="#FB923C"/>
+      <stop offset="70%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#EA580C"/>
     </linearGradient>
-    <radialGradient id="bl-shine" cx="40%" cy="25%" r="60%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.1"/>
+    <radialGradient id="bl-shine" cx="28%" cy="12%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="white" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="bl-depth" cx="50%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#9A3412" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#9A3412" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bl-page" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFBF5"/>
+      <stop offset="100%" stop-color="#F5E6D3"/>
+    </linearGradient>
+    <linearGradient id="bl-cover" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FED7AA"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+    <filter id="bl-shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#7C2D12" flood-opacity="0.35"/>
+    </filter>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#bl-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#bl-depth)"/>
   <rect width="120" height="120" rx="26" fill="url(#bl-shine)"/>
-  <!-- Colorful flower/pinwheel petals like Photos app -->
-  <g transform="translate(60,58)">
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF9500" transform="rotate(0)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF3B30" transform="rotate(45)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#FF2D55" transform="rotate(90)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#AF52DE" transform="rotate(135)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#5856D6" transform="rotate(180)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#007AFF" transform="rotate(225)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#5AC8FA" transform="rotate(270)"/>
-    <ellipse cx="0" cy="-18" rx="10" ry="18" fill="#4CD964" transform="rotate(315)"/>
+  <g filter="url(#bl-shadow)">
+    <!-- Book spine -->
+    <rect x="34" y="26" width="6" height="68" rx="2" fill="#C2410C" opacity="0.4"/>
+    <!-- Left page -->
+    <path d="M37 28 C37 28 38 30 58 32 L58 92 C38 90 37 88 37 88 Z" fill="url(#bl-page)" opacity="0.9"/>
+    <!-- Right page -->
+    <path d="M62 32 C82 30 83 28 83 28 L83 88 C83 88 82 90 62 92 Z" fill="url(#bl-page)"/>
   </g>
-  <!-- Center highlight -->
-  <circle cx="60" cy="58" r="6" fill="white" opacity="0.5"/>
+  <!-- Page lines left -->
+  <line x1="42" y1="42" x2="55" y2="43" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="42" y1="50" x2="55" y2="51" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="42" y1="58" x2="55" y2="59" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="42" y1="66" x2="55" y2="67" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <!-- Page lines right -->
+  <line x1="65" y1="43" x2="78" y2="42" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="65" y1="51" x2="78" y2="50" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="65" y1="59" x2="78" y2="58" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <line x1="65" y1="67" x2="78" y2="66" stroke="#C2410C" stroke-width="1" opacity="0.15"/>
+  <!-- Page shine -->
+  <path d="M62 32 C72 31 80 29 83 28 L83 36 C80 37 72 39 62 40 Z" fill="white" opacity="0.2"/>
+  <!-- Glass edge top -->
+  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.15"/>
 </svg>

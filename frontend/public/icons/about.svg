@@ -2,30 +2,40 @@
   <defs>
     <linearGradient id="ab-bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#5AC8FA"/>
-      <stop offset="50%" stop-color="#007AFF"/>
-      <stop offset="100%" stop-color="#0055D4"/>
+      <stop offset="40%" stop-color="#32ADE6"/>
+      <stop offset="100%" stop-color="#007AFF"/>
     </linearGradient>
-    <radialGradient id="ab-shine" cx="35%" cy="25%" r="60%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.25"/>
+    <radialGradient id="ab-shine" cx="30%" cy="15%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="ab-compass-ring" x1="0%" y1="0%" x2="0%" y2="100%">
+    <radialGradient id="ab-inner-shadow" cx="50%" cy="100%" r="70%">
+      <stop offset="0%" stop-color="black" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="black" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ab-person" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#c0c0c0"/>
+      <stop offset="100%" stop-color="#e0e8f0"/>
     </linearGradient>
+    <filter id="ab-shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#004080" flood-opacity="0.3"/>
+    </filter>
+    <clipPath id="ab-clip">
+      <rect width="120" height="120" rx="26"/>
+    </clipPath>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#ab-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#ab-inner-shadow)"/>
   <rect width="120" height="120" rx="26" fill="url(#ab-shine)"/>
-  <!-- Compass outer ring -->
-  <circle cx="60" cy="60" r="36" fill="none" stroke="url(#ab-compass-ring)" stroke-width="3" opacity="0.9"/>
-  <!-- Cardinal ticks -->
-  <line x1="60" y1="26" x2="60" y2="32" stroke="white" stroke-width="2.5" opacity="0.9"/>
-  <line x1="60" y1="88" x2="60" y2="94" stroke="white" stroke-width="2.5" opacity="0.9"/>
-  <line x1="26" y1="60" x2="32" y2="60" stroke="white" stroke-width="2.5" opacity="0.9"/>
-  <line x1="88" y1="60" x2="94" y2="60" stroke="white" stroke-width="2.5" opacity="0.9"/>
-  <!-- Compass needle - red/white -->
-  <polygon points="60,30 54,60 60,56 66,60" fill="#FF3B30"/>
-  <polygon points="60,90 54,60 60,64 66,60" fill="white" opacity="0.9"/>
-  <!-- Center dot -->
-  <circle cx="60" cy="60" r="3" fill="white"/>
+  <!-- Contact circle background -->
+  <circle cx="60" cy="54" r="30" fill="white" opacity="0.15" filter="url(#ab-shadow)"/>
+  <!-- Head -->
+  <circle cx="60" cy="44" r="13" fill="url(#ab-person)" opacity="0.95"/>
+  <!-- Shoulders -->
+  <ellipse cx="60" cy="78" rx="24" ry="16" fill="url(#ab-person)" opacity="0.95" clip-path="url(#ab-clip)"/>
+  <!-- Subtle ring around person -->
+  <circle cx="60" cy="56" r="32" fill="none" stroke="white" stroke-width="2" opacity="0.25"/>
+  <!-- Glass edge highlight top -->
+  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.15"/>
 </svg>

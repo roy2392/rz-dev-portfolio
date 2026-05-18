@@ -1,30 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="ch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7B5EA7"/>
-      <stop offset="50%" stop-color="#5B3D8F"/>
-      <stop offset="100%" stop-color="#3D1F6D"/>
+      <stop offset="0%" stop-color="#818CF8"/>
+      <stop offset="35%" stop-color="#6366F1"/>
+      <stop offset="70%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#5B21B6"/>
     </linearGradient>
-    <radialGradient id="ch-shine" cx="35%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+    <radialGradient id="ch-shine" cx="28%" cy="12%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="white" stop-opacity="0.1"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="ch-orb" cx="50%" cy="40%" r="50%">
-      <stop offset="0%" stop-color="#E0C3FC"/>
-      <stop offset="50%" stop-color="#C084FC"/>
-      <stop offset="100%" stop-color="#7C3AED"/>
+    <radialGradient id="ch-depth" cx="50%" cy="100%" r="60%">
+      <stop offset="0%" stop-color="#3B0764" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#3B0764" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="ch-bubble" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E0E7FF"/>
+    </linearGradient>
+    <filter id="ch-shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#3B0764" flood-opacity="0.4"/>
+    </filter>
+    <filter id="ch-sparkle-glow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#ch-bg)"/>
+  <rect width="120" height="120" rx="26" fill="url(#ch-depth)"/>
   <rect width="120" height="120" rx="26" fill="url(#ch-shine)"/>
-  <!-- Metallic orb/sphere like the screenshot -->
-  <circle cx="60" cy="56" r="28" fill="url(#ch-orb)"/>
-  <!-- Sphere highlight -->
-  <ellipse cx="52" cy="46" rx="12" ry="10" fill="white" opacity="0.3"/>
-  <!-- Small reflection -->
-  <circle cx="70" cy="68" r="5" fill="white" opacity="0.1"/>
-  <!-- AI sparkle accents -->
-  <circle cx="36" cy="34" r="2" fill="white" opacity="0.6"/>
-  <circle cx="88" cy="40" r="1.5" fill="white" opacity="0.5"/>
-  <circle cx="82" cy="82" r="2" fill="white" opacity="0.4"/>
+  <!-- Speech bubble -->
+  <g filter="url(#ch-shadow)">
+    <path d="M30 38 C30 30 36 24 44 24 L76 24 C84 24 90 30 90 38 L90 62 C90 70 84 76 76 76 L52 76 L40 88 L42 76 L44 76 C36 76 30 70 30 62 Z" fill="url(#ch-bubble)" opacity="0.95"/>
+  </g>
+  <!-- Bubble shine -->
+  <path d="M36 38 C36 33 40 28 46 28 L74 28 C78 28 82 30 84 33 L36 33 Z" fill="white" opacity="0.3" rx="4"/>
+  <!-- AI sparkle stars -->
+  <g filter="url(#ch-sparkle-glow)">
+    <!-- 4-point star top-right -->
+    <path d="M78 36 L79.5 39 L83 40 L79.5 41 L78 44 L76.5 41 L73 40 L76.5 39 Z" fill="#A78BFA" opacity="0.9"/>
+    <!-- 4-point star center -->
+    <path d="M56 48 L58 52 L62 54 L58 56 L56 60 L54 56 L50 54 L54 52 Z" fill="#7C3AED" opacity="0.5"/>
+    <!-- Small star left -->
+    <path d="M40 44 L41 46 L43 47 L41 48 L40 50 L39 48 L37 47 L39 46 Z" fill="#A78BFA" opacity="0.7"/>
+  </g>
+  <!-- Floating sparkle accents outside bubble -->
+  <g filter="url(#ch-sparkle-glow)">
+    <circle cx="22" cy="30" r="2" fill="white" opacity="0.5"/>
+    <circle cx="98" cy="50" r="1.5" fill="white" opacity="0.4"/>
+    <circle cx="26" cy="90" r="1.5" fill="white" opacity="0.35"/>
+    <circle cx="92" cy="85" r="2" fill="white" opacity="0.3"/>
+  </g>
+  <!-- Glass edge top -->
+  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.12"/>
 </svg>

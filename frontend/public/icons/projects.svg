@@ -1,32 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
   <defs>
     <linearGradient id="pj-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#6DC5F7"/>
-      <stop offset="100%" stop-color="#2196F3"/>
+      <stop offset="0%" stop-color="#7DD3FC"/>
+      <stop offset="40%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
     </linearGradient>
-    <radialGradient id="pj-shine" cx="40%" cy="20%" r="60%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.2"/>
+    <radialGradient id="pj-shine" cx="30%" cy="12%" r="65%">
+      <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="white" stop-opacity="0.08"/>
       <stop offset="100%" stop-color="white" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="pj-folder" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#B8E0F9"/>
-      <stop offset="100%" stop-color="#7CC4F0"/>
+    <linearGradient id="pj-folder-back" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4EDFC"/>
+      <stop offset="100%" stop-color="#8DC8EC"/>
+    </linearGradient>
+    <linearGradient id="pj-folder-front" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8F4FD"/>
+      <stop offset="100%" stop-color="#A8D8F0"/>
     </linearGradient>
     <linearGradient id="pj-tab" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#A8D8F5"/>
-      <stop offset="100%" stop-color="#6BB8EA"/>
+      <stop offset="0%" stop-color="#C4E2F8"/>
+      <stop offset="100%" stop-color="#7BBDE8"/>
     </linearGradient>
+    <filter id="pj-shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#005A99" flood-opacity="0.35"/>
+    </filter>
+    <filter id="pj-inner-glow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+      <feOffset dy="1" result="offset"/>
+      <feComposite in="SourceGraphic" in2="offset" operator="over"/>
+    </filter>
   </defs>
   <rect width="120" height="120" rx="26" fill="url(#pj-bg)"/>
   <rect width="120" height="120" rx="26" fill="url(#pj-shine)"/>
-  <!-- Folder back -->
-  <rect x="20" y="42" width="80" height="55" rx="6" fill="url(#pj-folder)"/>
-  <!-- Folder tab -->
-  <path d="M20 42 L20 36 C20 33 22 31 25 31 L48 31 C50 31 52 32 53 34 L56 40 L20 40 Z" fill="url(#pj-tab)"/>
-  <!-- Folder front face -->
-  <rect x="20" y="50" width="80" height="47" rx="6" fill="url(#pj-folder)" opacity="0.95"/>
-  <!-- Label -->
-  <text x="60" y="80" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif" font-size="16" font-weight="600" fill="#1565C0" opacity="0.8">project</text>
-  <!-- Folder shine -->
-  <rect x="20" y="50" width="80" height="8" rx="6" fill="white" opacity="0.15"/>
+  <g filter="url(#pj-shadow)">
+    <!-- Folder back -->
+    <rect x="20" y="40" width="80" height="55" rx="7" fill="url(#pj-folder-back)"/>
+    <!-- Folder tab -->
+    <path d="M20 40 L20 34 C20 31 22 29 25 29 L46 29 C48 29 50 30 51 32 L55 38 L20 38 Z" fill="url(#pj-tab)"/>
+    <!-- Folder front face -->
+    <rect x="20" y="48" width="80" height="47" rx="7" fill="url(#pj-folder-front)"/>
+  </g>
+  <!-- Folder front shine -->
+  <rect x="20" y="48" width="80" height="10" rx="7" fill="white" opacity="0.2"/>
+  <!-- Inner shadow at bottom of folder -->
+  <rect x="22" y="85" width="76" height="8" rx="5" fill="#0284C7" opacity="0.08"/>
+  <!-- Code bracket symbol -->
+  <text x="60" y="79" text-anchor="middle" font-family="SF Mono, Menlo, Consolas, monospace" font-size="22" font-weight="700" fill="#0369A1" opacity="0.6">&lt;/&gt;</text>
+  <!-- Glass edge top -->
+  <rect x="0" y="0" width="120" height="2" rx="1" fill="white" opacity="0.12"/>
 </svg>
