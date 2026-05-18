@@ -6,6 +6,8 @@ export const CursorGlow = () => {
   const raf = useRef(null)
 
   useEffect(() => {
+    // Skip on touch devices
+    if ('ontouchstart' in window) return
     // Respect reduced motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
